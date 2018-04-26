@@ -1,0 +1,510 @@
+PASSED :flower:
+
+
+AKV:
+
+nref2882---$115-$9607-75-AKV-Feb-0/17, 0/18, 193/19, 13/20- sent 12/22, passed 1/5
+
+mlp1933---$127-$7533-50-AKV-Apr-0/16, 50/17, 100/18, 50/19- sent 12/20, passed 1/5
+
+w00ter---$98-$17317-160-AKV-Apr-0/17, 160/18, 160/19- sent 1/4, passed 1/12
+
+ToInfinityAndBeyond.....---$126-$7050-50-AKV-Dec-0/17, 50/18, 50/19- sent 1/5, passed 1/16
+
+Charlee888---$98-$28904-270-AKV-Dec-0/16, 1/17, 270/18, 270/19- sent 1/9, passed 1/16
+
+Mskcl131---$104-$10812-100-AKV-Oct-0/16, 0/17, 7/18, 100/19-Seller pays MF 18- sent 1/10, passed 1/22
+
+Sarabi's Cubs---$95-$15745-160-AKV-Dec-0/16, 52/17 (banked from '16), 9/18, 160/19-seller pays MF '18- sent 1/10, passed 1/23
+
+BackThatCassUp---$92-$19283-200-AKV-Jun-0/17, 52/18, 200/19-Seller pays MF ‘18- sent 1/17, passed 1/30
+
+marionfh---$111-$11676-100-AKV-Dec-0/16, 1/17, 100/18, 100/19- sent 1/22, passed 2/6
+
+aoconnor---$100-$27395-250-AKV-Dec-380/17, 250/18, 250/19- sent 1/19, passed 2/6
+
+pkrieger2287---$98-$15680-160-AKV-Feb-0/17, 66/18, 160/19- sent 1/25, passed 2/7
+
+TonyaG83---$105-$13927-120-AKV-Apr-0/16, 0/17, 148/18, 120/19- sent 1/13, passed 1/30
+
+MadAdd---$95-$15200-160-AKV-Dec-0/16, 0/17, 0/18, 160/19-Seller Pays Closing- sent 1/24, passed 2/16
+
+brett6646---$108-$11600-100-AKV-Aug-158/17, 100/18, 100/19- sent 1/31, passed 2/16
+
+MadAdd---$95-$15200-160-AKV-Dec-0/16, 0/17, 0/18, 160/19-Seller Pays Closing- sent 1/24, passed 2/16
+
+wolfersfam---$97-$15649-160-AKV-Feb-0/17, 19/18, 160/19, 160/20-seller paying CC- sent 2/13, passed 2/24
+
+M_T---$90-$10297-100-AKV-Jun-0/16, 0/17, 150/18, 100/19- sent 2/14, passed 2/23
+
+Disney071010---$107-$16481-140-AKV-Mar-0/17, 140/18, 140/19, 140/20- sent 2/10, passed 2/27
+
+igrsod---$107-$12590-100-AKV-Dec-100/17, 100/18, 100/19- sent 2/8, passed 2/23
+
+Jennifer Bowers---$95-$15755-160-AKV-Dec-114/17, 19/18, 160/19-seller pays MF '18- sent 2/12, passed 2/27
+
+TheMick424---$101-$22850-220-AKV-Feb-0/17, 0/18, 220/19, 220/20 – sent 2/20, passed 3/5
+
+DPiedade---$92-24840-270-AKV-Feb-0/17, 301/18, 270/19-sent 3/1, passed 3/14
+
+Mosescan---$110-$38189-320-AKV-Mar-0/17, 640/18, 320/19, 320/20- sent 3/06, passed 3/22
+
+MB_01---$96-$17040-160-AKV-Jun-0/16, 0/17, 160/18, 160/19- sent 3/9, passed 3/28
+
+Evolady73---$104-$21,586-200-AKL-Mar-0/17, 400/18, 200/19-sent 3/12, passed 3/28
+
+
+AUL:
+
+uncleoswald---$93-$16986-160-AUL-Apr-4/16, 160/17, 160/18, 160/19- sent 1/12, passed 1/22
+
+crazyventures---$94-$5976-50-AUL-Feb-0/17, 50/18, 50/19, 50/20- sent 1/24, passed 2/7
+
+Bruin_mouse---$125-$13931-100-AUL-Jun-0/17, 100/18, 100/19-Subsidized MF- sent 3/13, passed 3/28
+
+
+BCV:
+
+Bellecruiser---$145-$9708-60-BCV-Aug-0/16, 12/17, 60/18, 60/19- sent 12/14, passed 12/26
+
+Pachelbel9---$132-$21518-150-BCV-Aug-0/16, 0/17, 150/18, 150/19- sent 1/6, passed 1/16
+
+Bellecruiser---$132-$21496-150-BCV-Aug-0/16, 0/17, 150/18, 150/19- sent 1/6, passed 1/17
+
+disneylovinfamilyof6---$125-$39652-300-BCV-Feb-0/17, 309/18, 300/19-Seller pays CC- sent 2/2, passed 2/16
+
+Amanda Sam---$130-$10783-75-BCV-Aug-0/17, 150/18, 75/19- sent 2/2, passed 2/19
+
+Pat McDuck(Seller)---$130-$26675-200-BCV-Jun-0/17, 41/18, 200/19- sent 2/8, passed 2/23
+
+Renée H---$110-$38873-350-BCV-Aug-0/16, 0/17, 57/18, 350/19-Seller paying cc- sent 3/3, passed 3/20
+
+DrPhysics---$134-$26082-180-BCV-Dec-0/16, 0/17, 185/18, 180/19- sent 3/5, passed 3/22
+
+Kdp2---$132-$21145-150-BCV-Apr-0/17, 118/18, 150/19, 150/20- sent 3/7, passed 3/23
+
+BLT:
+
+tachyonbb---$127-$19773-150-BLT-Jun-0/16, 0/17, 150/18, 150/19- sent 12/28, passed 1/5
+
+jlreimer---$130-$23785-170-BLT-Sep-0/16, 170/17, 170/18, 170/19- sent 1/10, passed 1/23
+
+Bellecruiser---$130-$28013-200-BLT-Aug-0/16, 0/17, 200/18, 200/19- sent 1/15, passed 1/22
+
+CaliforniaGirl09---$139-$29838-200-BLT-Jun-88/16, 200/17, 200/18, 200/19- sent 1/18, passed 1/30
+
+disneywv---$139-$14851-100-BLT-Feb-0/17, 72/18, 100/19- sent 1/23, passed 2/26
+
+XOXOTigger---$127-$21555-160-BLT-Dec-0/17, 160/18, 160/19- sent 1/25, passed 2/6
+
+Bruin_mouse---$135-$13500-100-BLT-Sep-0/16, 23/17, 12/18, 100/19-Seller Pays 18 MF/CC- sent 2/19, passed 2/27
+
+WillowRain---$139-$22368-150-BLT-Dec-150/17, 150/18, 150/19- sent 3/2, passed 3/23
+
+Vigile---$132-$40595-300-BLT-Jun-262/17, 300/18, 300/19- sent 3/2, passed 3/26
+
+
+BWV:
+
+kelly25---$109-$23110-200-BWV-Aug-0/17, 200/18, 200/19- sent 1/2, passed 1/12
+
+Mbwhitti---$120-$19705-150-BWV-Dec-0/16, 148/17, 150/18, 150/19- sent 1/17, passed 1/30
+
+Emerick---$120-$16499-125-BWV-Sep-0/16, 15/17, 125/18, 125/19- sent 2/27, passed 3/14
+
+Domique---$132-$9735-70-BWV-Feb-0/17, 0/18, 1/19, 70/20- sent 3/7, passed 3/21
+
+3JDisney---$115-$37397-300-BWV-Feb-218/17, 300/18, 300/19- sent 3/9, passed 3/22
+
+DaveNan---$108-$12115-100-BWV-Oct-100/17, 100/18, 100/19- sent 3/13, passed 3/29
+
+Wanna be Ariel---$106-$16629-150-BWV-Mar-22/17, 150/18, 150/19- sent 3/15, passed 4/3
+
+HH:
+
+
+
+OKW:
+
+reddog---$79-$36044-414-OKW-Aug-0/16, 0/17, 385/18, 414/19- sent 12/30, passed 1/12
+
+Roguez---$89-$14878-150-OKW-Sep-0/17, 150/18, 150/19- sent 1/23, passed 2/7
+
+DianeW---$91-$28156-300-OKW-Apr-300/17, 300/18, 300/19- sent 1/25, passed 2/6
+
+desithedevil---$87-$15651-160-OKW-Dec-320/17, 160/18, 160/19- sent 1/26, passed 2/16
+
+Aseddon---$100-$7800-70-OKW-Aug-0/17, 70/18, 70/19- sent 2/8, passed 2/23
+
+cyiland---$79-$18714-210-OKW-Dec-0/16, 214/17, 210/18, 210/19- sent 2/8, passed 2/26
+
+Meggybear17---$75-$21320-250-OKW-Jun-250/17, 250/18, 250/19- sent 2/15, passed 2/27
+
+bmlors---$84.5-$19711-210-OKW-Apr-17/17, 210/18, 210/19- sent 2/22, passed 3/5
+
+motherof5---$72-$27520-370-OKW-Feb-0/17, 92/18, 270/19- sent 3/1, passed 3/9
+
+JV63---$80-$17345-210-OKW-Feb-0/17, 0/18, 210/19, 210/20- sent 2/21, passed 3/2
+
+
+OKW EXTENDED:
+
+Jimousley---$115-$13910-110-OKW(E)-Sep-110/17, 110/18, 110/19- sent 1/20, passed 2/5
+
+Thelionqueen---$80-$19600-240-OKW(E)-Mar-0/17, 72/18, 240/19, 240/20- sent 3/2, passed 3/21
+
+jnsma---$80-$6695-70-OKW(E)-Sep-70/17, 70/18, 70/19- sent 2/27, passed 3/23
+
+PVB:
+
+Drbrjb01---$141-$22832-150-PVB-Aug-0/17, 276/18, 150/19- sent 1/8, passed 1/16
+
+Irishtripletsmomma---$138-$14481-100-PVB-Sep-0/16, 0/17, 37/18, 100/19- sent 1/6, passed 1/16
+
+Disneylovinfamilyof6---$135-$14295-100-PVB-Apr-0/16, 0/17, 171/18, 100/19-Seller pays MF ‘17- sent 12/22, passed 1/15
+
+GoUgaDawgs---$131-$23555-175-PVB-Apr-0/17, 15/18, 175/19- sent 12/18, passed 1/5
+
+Jaylovesdisney---$135-$14615-100-PVB-Dec-13/17, 100/18, 100/19- sent 2/6, passed 2/27
+
+Rob Huff---$134-$21640-150-PVB-Dec-82/17, 150/18, 150/19- sent 2/28, passed 3/14
+
+beercity---$148-$19104-120-PVB-Aug-11/16, 120/17, 120/18, 120/19- sent 2/23, passed 3/16
+
+PSW16---$140-$15148-100-PVB-Dec-0/17, 99/18, 100/19- sent 3/2, passed 3/23
+
+Maxwell42---$133-$35745-250-PVB-Dec-155/17, 250/18, 250/19- sent 3/8, passed 3/23
+
+behapy2day---$135-$16739-120-PVB-Aug-0/16, 0/17, 240/18, 120/19- sent 3/13, passed 3/29
+
+
+SSR:
+
+JWHITTY5---$86-$17795-200-SSR-Apr-0/17, 200/18, 200/19- sent 12/21, passed 1/5
+
+bookem---$90-$14156-150-SSR-Aug-0/16, 0/17, 150/18, 150/19- sent 12/26, passed 1/5
+
+dcibrando---$101-$17644-160-SSR-Feb-0/16, 160/17, 160/18- sent 12/26, passed 1/5
+
+Nurse4kids---$87-$9264-100-SSR-Aug-0/16, 0/17, 11/18, 100/19- sent 12/27, passed 1/8
+
+hlhlaw07---$107-$28905-250-SSR-APR-0/16, 170/17, 500/18, 250/19- sent 1/2, passed 1/12
+
+diggity---$93-$15332-150-SSR-Dec-0/16, 0/17, 148/18, 150/19- sent 1/2, passed 1/12
+
+Goosey515---$95-$16818-160-SSR-Oct-102/16, 160/17, 160/18, 160/19- sent 1/5, passed 1/12
+
+aoconnor---$85-$19064-202-SSR-Feb-0/17, 202/18, 202/19- sent 1/25, passed 2/6
+
+skittles67---$93-$20342-200-SSR-Oct-0/17, 200/18, 200/19- sent 1/26, passed 2/16
+
+Spartan86---$96-$26268-250-SSR-Feb-0/17, 500/18, 250/19, 250/20- sent 2/5, passed 2/16
+
+renzmari---$114-$18534-150-SSR-Aug-150/17, 300/18, 150/19- sent 1/26, passed 2/16
+
+TreBruno---$93-$16343-160-SSR-Sep-0/17, 160/18, 160/19- sent 2/19, passed 2/27
+
+jimonb---$87-$13734-150-SSR-Feb-0/17, 6/18, 150/19- sent 2/6, passed 2/28
+
+kwkiwi---$96-$15983-150-SSR-Dec-150/17, 150/18, 150/19- sent 2/14, passed 2/27
+
+a742246---$92-$12403-120-SSR-Sept-38/17, 120/18, 120/19- sent 2/26, passed 3/9
+
+rehsu---$96-$14257-135-SSR-Dec-86/17, 135/18, 135/19- sent 2/28, passed 3/9
+
+Merlin Jones---$86-$25800-300-SSR-Jun-25/17, 300/18, 300/19-Seller paid closing- sent 2/26, passed 3/9
+
+jmbarnes101---$98-$6662-60-SSR-Apr-0/17, 120/18, 60/19- sent 2/26, passed 3/11
+
+
+
+
+VGC:
+
+SherylLC---$151-$16212-100-VGC-Feb-0/17, 70/18, 100/19, 100/20- sent 12/28, passed 1/17
+
+italiananglo69---$115-$27168-225-VGC-Jun-0/16, 105/17, 225/18, 225/19- sent 12/15, passed 12/28
+
+noelle---$160-$13510-80-VGC-Feb-0/16, 0/17, 89/18, 80/19- sent 12/28, passed 1/10
+
+Bruin_mouse---$150-$24941-160-VGC-Sep-0/17, 160/18, 160/19-Seller pays closing- sent 1/26, passed 2/13
+
+noelle(Seller)---$200-$17183-80-VGC-Feb-0/17, 89/18, 80/19, 80/20- sent 2/16, passed 2/27
+
+Supplanter---$154-$41569-260-VGC-Aug-0/17, 260/18, 260/19-seller pays closing- sent 2/9, passed 2/27
+
+VGF:
+
+mrsap---$140-$26713-185-VGF-Oct-0/16, 178/17, 20/18, 185/19- sent 12/22, passed 1/5
+
+Fantasia79---$140-$14681-100-VGF-Jun-0/16, 0/17, 100/18, 100/19- sent 12/23, passed 1/5
+
+ahen---$148-$17575-115-VGF-Jun-0/16, 2/17, 2/18, 115/19-seller pays MF 18- sent 12/27, passed 1/5
+
+Networth---$140-$25,300-175-VGF-Dec-24/16, 94/17, 175/18, 175/19- sent 1/8, passed 1/16
+
+AtomicFrog---$137.5-$21580-150-VGF-Apr-0/16, 0/17, 300/18, 150/19- sent 12/21, passed 12/27
+
+Mia Kylie and Co---$134-$27436-200-VGF-Aug-0/17, 63/18, 200/19- sent 2/1, passed 2/21
+
+Rylie Grite---$158-$12122-70-VGF-Jun-0/17, 75/18, 70/19- sent 3/1, passed 3/14
+
+
+WL/ BRV:
+
+UNIT3875---$91-$17800-175-BRV@WL-Oct-175/17, 175/18, 175/19- sent 12/21, passed 1/5
+
+DMOMof3---$99-$10736-100-BRV@WL-Oct-0/17, 52/18, 100/19- sent 1/14, passed 1/30
+
+Jennifer Bowers---$95-$15970-150-BRV@WL-Dec-164/17(42 banked from '16), 150/18, 150/19- sent 2/1, passed 2/16
+
+PatMcDuck---$95-$19723-200-BRV@WL-Aug-200/17, 200/18, 200/19- sent 2/21, passed 3/2
+
+dena808---$90-$16539-175-BRV@WL-Sep-0/16, 0/17, 11/18, 175/19- sent 3/14, passed 3/28
+
+WL/ CCV:
+
+
+VB:
+
+abbysmama---$57-$5087-70-VB-Aug-0/17, 75/18, 70/19- sent 2/13, passed 2/27
+
+CarAnn---$58-$3477-50-VB-Sep-0/16, 0/17, 0/18, 50/19- sent 2/27, passed 3/9
+
+
+
+WAITING :cool:
+
+
+AKV:
+
+
+mlp1933---$127-$7533-50-AKV-Apr-0/16, 50/17, 100/18, 50/19- sent 12/20
+
+w00ter---$98-$17317-160-AKV-Apr-0/17, 160/18, 160/19- sent 1/4
+
+vegas2797---$105-$18595-160-AKV-Dec-106/17, 160/18, 160/19- sent 1/29
+
+motherof5---$100-$29586-270-AKV-Apr-264/17, 270/18, 270/19- sent 3/8
+
+OneLittleSpark2014---$95-$10921-100-AKV-Mar-0/17, 100/18, 100/19- sent 3/16
+
+icesk8abc---$97-$17321-160-AKV-Jun-160/17, 304/18, 160/19- sent 3/19
+
+Calculator---$93-$20425-200-AKV-Jun-0/17, 156/18, 200/19- sent 3/12
+
+nates---$97-$31800-320-AKV-Apr-0/17, 0/18, 320/19, 320/20- sent 3/27
+
+Enapai---$100-$24183-220-AKV-Sep-0/16, 69/17, 220/18, 220/19- sent 3/28
+
+
+
+AUL:
+
+Moore144---$96-$5000-50-AUL-Feb-0/16, 0/17, 50/18, 50/19- sent 11/28
+
+
+
+BCV:
+
+
+Madame---$132-$38204-270-BCV-Aug-0/17, 270/18, 270/19- sent 3/27
+
+
+BLT:
+
+
+
+landry---$120-$25824-200-BLT-Feb-0/16, 0/17, 200/18, 200/19- sent 12/15
+
+tbfkc---$135-$28600-200-BLT-Oct-0/16, 200/17, 200/18, 200/19- sent 12/11
+
+Rylie Grite---$165-$9011-50-BLT-Jun-0/17, 100/18, 50/19- sent 3/22
+
+
+
+BWV:
+
+
+
+
+
+BW18---$121-$26338-200-BWV-Dec-200/16, 200/17, 200/18, 200/19- sent 3/26
+
+Nancy---$143-$9603-60-BWV-Jun-60/17, 60/18, 60/19- sent 3/19
+
+wl250---$107-$34971-300-BWV-Oct-0/17, 600/18, 300/19- sent 3/28
+
+HH:
+
+
+
+
+
+OKW:
+
+
+
+stfxkid---$86-$14865-160-OKW-Feb-0/17, 32/18, 160/19-Seller Pays '18 Dues- sent 1/28
+
+
+jnsma---$80-$6695-70-OKW-Sep-0/16, 70/17, 70/18, 70/19- sent 2/27
+
+JV63---$80-$22215-270-OKW-Mar-0/17, 100/18, 49/19, 270/20-Seller pays 18/19 MF- sent 3/12
+
+
+
+
+OKW EXTENDED:
+
+
+PVB:
+
+Kelso6290---$145-$22527-150-PVB-Aug-0/16, 300/17, 150/18, 150/19- sent 10/13
+
+Misspiggy1978---$169-$9200-50-PVB-Dec-2/17, 50/18, 50/19- sent 3/6
+
+LYSE---$135-$29083-200-PVB-Oct-200/17, 400/18, 200/19- sent 3/20
+
+PKen82---$135-$21040-150-PVB-Mar-0/17, 0/18, 150/19- sent 3/26
+
+
+SSR:
+
+suzgm84---$84-$14392-163-SSR-Dec-0/16, 174/17, 163/18, 163/19- sent 12/13
+
+bookem---$90-$14156-150-SSR-Aug-0/16, 0/17, 150/18, 150/19- sent 12/26
+
+SSV_Disney---$95-$16818-160-SSR-Oct- 100/17, 160/18, 160/19- sent 2/4
+
+ajjonesehc---$89-$24854-270-SSR-Mar-72/17, 270/18, 270/19- sent 3/9
+
+DaveNan---$90-$15085-150-SSR-Dec-0/16, 50/17, 150/18, 150/19- sent 3/12
+
+rwatson626---$86-$18630-210-SSR-Feb-0/17, 0/18, 210/19, 210/20- sent 3/20
+
+Mtob88---$92-$13274-130-SSR-Dec-35/17, 130/18, 130/19- sent 3/22
+
+TexasChick123---$85-$14297-150-SSR-Mar-38/17, 150/18, 150/19, 150/20-Seller banked 2017 pts- sent 3/26
+
+NLW814---$92.5-$17321-170-SSR-Mar-0/17, 153/18, 170/19- sent 3/27
+
+rwatson626---$86-$18630-210-SSR-Feb-0/17, 0/18, 210/19, 210/20- sent 3/20
+
+Gamomof2---$94-$18800-200-SSR-Feb-0/17, 10/18, 200/19, 200/20-seller pays MF '18- sent 3/28
+
+
+VGC:
+
+
+
+VGF:
+
+adjohnson33---$160-$9635-58-VGF-Mar-0/16, 0/17, 58/18, 58/19- sent 1/19
+
+
+pgajustin---$133-$47540-350-VGF Fixed Week-Feb-0/17, 0/18, 350/19, 350/20- sent 2/27
+
+
+WL/ BRV:
+
+
+
+Antasiac---$100-$7130-65-BRV@WL-Aug-0/17, 0/18, 65/19- sent 1/31
+
+
+
+WL/ CCV:
+
+
+VB:
+
+
+
+TAKEN :crazy2:
+
+
+
+AKV:
+
+Disney071010---$96-$11520-120-AKV-Jun-0/17, 93/18, 120/19- sent 1/22, taken 2/6
+
+Evolady73---$92-$18200-200-AKL-Dec-0/17, 214/18, 200/19- sent 2/16, taken 3/1
+
+Unicorn Dreams---$95-$20900-200-AKV-Dec-0/16, 0/17, 200/18, 200/19- sent 3/2, taken 3/30
+
+DisneynBison---$97-$21452-200-AKV-Dec-0/16, 300/17, 200/18, 200/19- sent 3/12, taken 4/3
+
+AUL:
+
+
+BCV:
+
+
+
+
+BLT:
+
+
+Madame---$120-$30891-250-BLT-Aug-0/17, 0/18, 250/19- sent 3/4, taken 3/23
+
+BWV:
+
+
+
+
+
+HH:
+
+
+
+OKW:
+
+bmlors---$87-$14573-150-OKW-Mar-0/17, 150/18, 150/19- sent 2/2, taken 2/19
+
+
+OKW EXTENDED:
+
+
+PVB:
+
+Rob Huff---$125-$19159-140-PVB-Dec-0/16, 280/17, 140/18, 140/19- sent 1/29, taken 2/21
+
+disneylovinfamilyof6---$134-$22592-160-PVB-Apr-0/17, 169/18, 160/19-Seller pays all CC- sent 2/1, taken 2/28
+
+iheartglaciers---$130-$21215-150-PVB-Oct-150/17, 150/18, 150/19- sent 2/6, taken 2/23
+
+
+SSR:
+
+skittles67---$89-$18812-200-SSR-Mar-0/17, 78/18, 200/19- sent 1/4, taken 1/19
+
+Spartan86---$85-$23844-270-SSR-Feb-0/17, 26/18, 270/19, 270/20- sent 1/11, taken 1/22
+
+Bing Showei---$85-$17725-200-SSR-Aug-200/17, 200/18, 200/19- sent 1/16, taken 1/31
+
+behapy2day---$89-$14943-160-SSR-Oct-137/17, 160/18, 160/19- sent 2/18, taken 2/28
+
+mtob88---$90-$12163-120-SSR-Sep-120/17, 120/18, 120/19- sent 2/26, taken 3/14
+
+NLW814---$89-$14954-150-SSR-Mar-0/17, 201/18, 150/19- sent 02/15, taken 3/26
+
+VGC:
+
+
+
+VGF:
+
+disneylovinfamilyof6---$137-$27644-200-VGF-Jun-0/17, 8/18, 200/19-Seller pay CC & 18MF- sent 3/2, taken 3/30
+
+WL/ BRV:
+
+
+
+WL/ CCV:
+
+
+
+VB:
+
+edited: 4/3 1:47 PM
