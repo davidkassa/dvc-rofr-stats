@@ -1,6 +1,8 @@
 ## https://www.netlify.com/docs/headers-and-basic-auth/
+## Report URI Wizard details - https://scotthelme.co.uk/report-uri-csp-wizard/
 /*
-  Content-Security-Policy-Report-Only: script-src 'self'; report-uri https://davidkassa.report-uri.com/r/d/csp/enforce;
+  Content-Security-Policy-Report-Only: Content-Security-Policy-Report-Only: default-src 'none'; form-action 'none'; frame-ancestors 'none'; report-uri https://davidkassa.report-uri.com/r/d/csp/wizard;
   Referrer-Policy: no-referrer-when-downgrade
+  X-Content-Type-Options: nosniff
   X-Frame-Options: DENY
   X-XSS-Protection: 1; mode=block
