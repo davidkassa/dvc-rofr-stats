@@ -1,0 +1,7 @@
+{
+  "projects": {
+    "default": "dvc-rofr-stats-dev",
+    "prod": "dvc-rofr-stats",
+    "dev": "dvc-rofr-stats-dev"
+  }
+}

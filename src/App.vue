@@ -1,11 +1,14 @@
 <template>
   <div id="app">
+    <div class="content">
     <div id="nav">
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link> |
       <router-link to="/data">Data</router-link>
     </div>
     <router-view/>
+    </div>
+    <footer class="footer">footer</footer>
   </div>
 </template>
 
@@ -26,5 +29,25 @@
       color: #42b983;
     }
   }
+}
+.footer {
+  margin-top: 50px;
+}
+
+// for sticky footer - https://css-tricks.com/couple-takes-sticky-footer/
+html,
+body,
+#app {
+  height: 100%;
+}
+#app {
+  display: flex;
+  flex-direction: column;
+}
+.content {
+  flex: 1 0 auto;
+}
+.footer {
+  flex-shrink: 0;
 }
 </style>

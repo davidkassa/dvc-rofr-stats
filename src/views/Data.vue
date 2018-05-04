@@ -1,34 +1,85 @@
 <template>
   <div class="data">
     <h1>This is the data page</h1>
-    <purchase-status-pie-chart :waiting=waiting :passed=passed :taken=taken class="chart" />
+    <div class="columns">
+      <div class="column">
+        <purchase-status-pie-chart :waiting=waitingContracts.length :passed=passedContracts.length :taken=takenContracts.length class="chart" />
+      </div>
+      <div class="column">
+        <div class="v-center">
+          <div class="average-price">Average Price {{averagePrice}} Passed {{averagePassedPrice}} Taken {{averageTakenPrice}} Waiting {{averageWaitingPrice}}</div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <rofr-dropdown />
+      <!-- <rofr-dropdown :data=resortData /> -->
+      <rofr-data-table :data=contractData />
+    </div>
   </div>
 </template>
 
 <script>
 import PurchaseStatusPieChart from "@/components/PurchaseStatusPieChart.vue"; // @ is an alias to /src
-import jsonData from "@/../data/4.2018.json";
+import RofrDataTable from "@/components/RofrDataTable.vue";
+import RofrDropdown from "@/components/RofrDropdown.vue";
+//import jsonData from "@/../data/4.2018.json";
+import { db } from "../main";
 
 export default {
   components: {
-    PurchaseStatusPieChart
+    PurchaseStatusPieChart,
+    RofrDataTable,
+    RofrDropdown
   },
   data() {
     return {
-      waiting: this.waiting,
-      passed: this.passed,
-      taken: this.taken
+      contracts: []
     };
   },
-  mounted() {
-    this.loadJson();
+  firestore() {
+    return {
+      contracts: db.collection("contracts")
+    };
+  },
+  computed: {
+    contractData: function() {
+      return this.contracts;
+      //return jsonData.filter(a => a.Resort == "AKV");
+    },
+    averagePrice: function() {
+      return this.getAverage(this.contractData);
+    },
+    passedContracts: function() {
+      //return this.contractData.where("Status", "==", "Passed");
+      return this.contractData.filter(a => a.Status == "Passed");
+    },
+    averagePassedPrice: function() {
+      return this.getAverage(this.passedContracts);
+    },
+    waitingContracts: function() {
+      //return this.contractData.where("Status", "==", "Waiting");
+      return this.contractData.filter(a => a.Status == "Waiting");
+    },
+    averageWaitingPrice: function() {
+      return this.getAverage(this.waitingContracts);
+    },
+    takenContracts: function() {
+      //return this.contractData.where("Status", "==", "Taken");
+      return this.contractData.filter(a => a.Status == "Taken");
+    },
+    averageTakenPrice: function() {
+      return this.getAverage(this.takenContracts);
+    }
   },
   methods: {
-    loadJson() {
-      // console.log(jsonData);
-      this.waiting = jsonData.find(a => a.name == "Waiting").count;
-      this.passed = jsonData.find(a => a.name == "Passed").count;
-      this.taken = jsonData.find(a => a.name == "Taken").count;
+    getAverage: function(contracts) {
+      // console.log(contracts);
+      var sum = contracts.reduce(function(prevVal, elem) {
+        return prevVal + elem.PricePerPoint;
+      }, 0);
+      var avg = sum / contracts.length;
+      return "$" + avg.toFixed(2);
     }
   }
 };
@@ -37,17 +88,19 @@ export default {
 <style scoped lang="scss">
 .chart {
   max-width: 400px;
+  display: inline-block;
+}
+.v-center {
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  height: 100%;
+}
+.average-price {
+  border: 1px solid black;
+  border-radius: 25px;
+  width: 200px;
+  height: 200px;
+  padding: 5px;
 }
 </style>
-
-
-// {
-//   labels: ['January', 'February'],
-//   datasets: [
-//     {
-//       label: 'GitHub Commits',
-//       backgroundColor: '#f87979',
-//       data: [40, 20]
-//     }
-//   ]
-// }
