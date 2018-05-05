@@ -8,10 +8,10 @@ cache:
 
 before_install:
   - npm i -g npm@5.7.1 # this should be deleted once 5.7.X is out of "pre-release"
-    
+
 install:
   - npm ci
-  - cd ./functions && npm ci
+  - cd ./functions && npm ci && cd ..
 
 script:
   - test $TRAVIS_BRANCH = "master" && npm run build
