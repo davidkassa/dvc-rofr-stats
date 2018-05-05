@@ -30,7 +30,8 @@ build_dev:
   script:
     - npm run dev-build
   artifacts:
-    - dist/
+    paths:
+      - dist/
 
 build_prod:
   stage: build
@@ -39,7 +40,8 @@ build_prod:
   script:
     - npm run build
   artifacts:
-    - dist/
+    paths:
+      - dist/
 
 # Deploy    
 deploy_dev:
