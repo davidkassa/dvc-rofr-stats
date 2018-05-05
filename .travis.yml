@@ -1,0 +1,27 @@
+language: node_js
+cache:
+  directories:
+  - node_modules/
+  - functions/node_modules/
+
+install:
+  - npm ci
+  - cd ./functions && npm ci
+
+script:
+  - test $TRAVIS_BRANCH = "master" && npm run build
+  - test $TRAVIS_BRANCH != "master" && npm run dev-build
+
+deploy:
+  - provider: firebase
+    token: $FIREBASE_DEPLOY_KEY
+    project: "prod"
+    skip_cleanup: true
+    on:
+      branch: master
+  - provider: firebase
+    token: $FIREBASE_DEPLOY_KEY
+    project: "dev"
+    skip_cleanup: true
+    on:
+      branch: develop
