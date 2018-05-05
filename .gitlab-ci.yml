@@ -1,0 +1,65 @@
+image: davidkassa/firebase-tools:latest
+
+cache:
+  key: "$CI_COMMIT_REF_NAME"
+  paths:
+  - node_modules/
+  - functions/node_modules/
+
+stages:
+  - install
+  - build
+  - deploy
+
+# Install  
+install_functions:
+  stage: install
+  script:
+    - cd ./functions && npm install
+
+install:
+  stage: install
+  script:
+    - npm install
+
+# Build    
+build_dev:
+  stage: build
+  only:
+    - development
+  script:
+    - npm run dev-build
+  artifacts:
+    - dist/
+
+build_prod:
+  stage: build
+  only:
+    - production
+  script:
+    - npm run build
+  artifacts:
+    - dist/
+
+# Deploy    
+deploy_dev:
+  stage: deploy
+  only:
+    - development
+  environment:
+    name: development
+  dependencies:
+    - build_dev
+  script:
+    - firebase deploy --token $FIREBASE_DEPLOY_KEY --project dev --debug
+
+deploy_prod:
+  stage: deploy
+  only:
+    - production
+  environment:
+    name: production
+  dependencies:
+    - build_prod
+  script:
+    - firebase deploy --token $FIREBASE_DEPLOY_KEY --project prod
