@@ -13,17 +13,9 @@ install:
   - npm ci
   - cd ./functions && npm ci && cd ..
 
-branches:
-  only:
-    - master
-    script:
-      - npm run build
-
-branches:
-  except:
-    - master
-    script:
-      - npm run dev-build
+script:
+  - if [ "$TRAVIS_BRANCH" = "master" ]; then npm run build; fi
+  - if [ "$TRAVIS_BRANCH" != "master" ]; then npm run dev-build; fi
 
 deploy:
   - provider: firebase
