@@ -6,6 +6,9 @@ cache:
   - node_modules/
   - functions/node_modules/
 
+before_install:
+  - npm i -g npm@5.7.1 # this should be deleted once 5.7.X is out of "pre-release"
+    
 install:
   - npm ci
   - cd ./functions && npm ci
