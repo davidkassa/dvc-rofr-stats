@@ -26,7 +26,7 @@ install:
 build_dev:
   stage: build
   only:
-    - development
+    - develop
   script:
     - npm run dev-build
   artifacts:
@@ -35,7 +35,7 @@ build_dev:
 build_prod:
   stage: build
   only:
-    - production
+    - master
   script:
     - npm run build
   artifacts:
@@ -45,7 +45,7 @@ build_prod:
 deploy_dev:
   stage: deploy
   only:
-    - development
+    - develop
   environment:
     name: development
   dependencies:
@@ -56,7 +56,7 @@ deploy_dev:
 deploy_prod:
   stage: deploy
   only:
-    - production
+    - master
   environment:
     name: production
   dependencies:
