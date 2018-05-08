@@ -1,18 +1,34 @@
 <template>
   <div class="home">
-    <img src="../assets/logo.png">
-    <hello-world msg="Welcome to Your Vue.js App"/>
+    <img class="logo" src="../assets/logo.png">
+    <h1>Welcome to DVC Stats</h1>
+    <p>
+      A simple application to visualize trends of Disney Vacation Club Right-of-First-Refusal data provided by members of <a href="https://www.disboards.com/forums/purchasing-dvc.28/" target="_blank">disboards.com</a>.
+    </p>
+    <h3>How to Use</h3>
+    <p>
+      Click on the <router-link to="/data">data</router-link> link to slice and dice ROFR wait times.<br/>
+      More features are planned including resale costs and contract comparison.<br/>
+      Feel free to provide any feedback.
+    </p>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from "@/components/HelloWorld.vue";
-
 export default {
   name: "home",
-  components: {
-    HelloWorld
-  }
+  components: {}
 };
 </script>
+
+<style lang="scss" scoped>
+.logo {
+  max-height: 300px;
+}
+
+p {
+  max-width: 45%;
+  text-align: center;
+  margin: 0 auto;
+}
+</style>

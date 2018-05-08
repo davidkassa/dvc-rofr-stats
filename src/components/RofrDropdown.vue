@@ -2,8 +2,7 @@
 <b-dropdown>
     <button class="button" aria-haspopup="true" aria-controls="dropdown-menu2" slot="trigger">
         <span>Resorts</span>
-        <b-icon icon="menu-down"></b-icon>
-        <!-- <menu-down-icon /> -->
+        <b-icon icon="angle-down" size="is-small"></b-icon>
     </button>
       <b-dropdown-item custom>
         <p>You can insert <strong>any type of content</strong> within the dropdown menu.</p>

@@ -1,6 +1,6 @@
 {
-  "name": "dvc-rofr-stats",
-  "short_name": "dvc-rofr-stats",
+  "name": "DVC Stats",
+  "short_name": "DVC Stats",
   "icons": [
     {
       "src": "/img/icons/android-chrome-192x192.png",
