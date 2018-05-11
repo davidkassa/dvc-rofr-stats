@@ -9,7 +9,7 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
-    "@fortawesome/fontawesome-free-webfonts": "^1.0.8",
+    "@fortawesome/fontawesome-free-webfonts": "^1.0.9",
     "buefy": "^0.6.5",
     "chart.js": "^2.7.2",
     "chartjs-plugin-datalabels": "^0.3.0",
