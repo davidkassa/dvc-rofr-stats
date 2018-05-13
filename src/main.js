@@ -40,7 +40,10 @@ var config = {
 /* eslint-enable no-undef */
 
 firebase.initializeApp(config);
-export const db = firebase.firestore();
+const firestore = firebase.firestore();
+const settings = { /* your settings... */ timestampsInSnapshots: true };
+firestore.settings(settings);
+export const db = firestore;
 
 new Vue({
   router,

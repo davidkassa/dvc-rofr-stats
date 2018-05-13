@@ -9,15 +9,17 @@
     <p>
       Click on the <router-link to="/data">data</router-link> link to slice and dice ROFR wait times.<br/>
       More features are planned including resale costs and contract comparison.<br/>
-      Feel free to provide any feedback.
+      <feedback-dialog>Feel free to provide any feedback.</feedback-dialog>
     </p>
   </div>
 </template>
 
 <script>
+import FeedbackDialog from "@/components/FeedbackDialog.vue";
+
 export default {
   name: "home",
-  components: {}
+  components: { FeedbackDialog }
 };
 </script>
 
