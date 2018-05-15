@@ -9,76 +9,241 @@
 </template>
 
 <script>
-  import vueMultiSelect from 'vue-multi-select';
-import 'vue-multi-select/dist/lib/vue-multi-select.min.css'
+import vueMultiSelect from "vue-multi-select";
+import "vue-multi-select/dist/lib/vue-multi-select.min.css";
 export default {
   data() {
     return {
-      name: 'first group',
+      name: "",
       values: [],
-      data: [{
-        name: 'first group',
-        list: [
-          { name: '0' },
-          { name: '2' },
-          { name: '3' },
-          { name: '8' },
-          { name: '9' },
-          { name: '11' },
-          { name: '13' },
-          { name: '14' },
-          { name: '15' },
-          { name: '18' },
-        ],
-      }, {
-        name: 'second group',
-        list: [
-          { name: '21' },
-          { name: '22' },
-          { name: '24' },
-          { name: '27' },
-          { name: '28' },
-          { name: '29' },
-          { name: '31' },
-          { name: '33' },
-          { name: '35' },
-          { name: '39' },
-        ],
-      }],
-      filters: [{
-        nameAll: 'select <= 10',
-        nameNotAll: 'Deselect <= 10',
-        func: (elem) => {
-          if (elem.name <= 10) {
-            return true;
-          }
-          return false;
+      data: [
+        {
+          name: "Status",
+          list: [
+            {
+              name: "Passed",
+              value: "Passed",
+              category: "Status",
+              selected: true
+            },
+            {
+              name: "Waiting",
+              value: "Waiting",
+              category: "Status",
+              selected: true
+            },
+            {
+              name: "Taken",
+              value: "Taken",
+              category: "Status",
+              selected: true
+            }
+          ]
         },
-      }, {
-        nameAll: 'Select contains 2',
-        nameNotAll: 'Deselect contains 2',
-        func: (elem) => {
-          if (elem.name.indexOf('2') !== -1) {
-            return true;
-          }
-          return false;
+        {
+          name: "Resort",
+          list: [
+            {
+              name: "Animal Kingdom (AKV)",
+              value: "AKV",
+              category: "Resort",
+              selected: true
+            },
+            {
+              name: "Aulani (AUL)",
+              value: "AUL",
+              category: "Resort",
+              selected: true
+            },
+            {
+              name: "Bay Lake Tower (BLT)",
+              value: "BLT",
+              category: "Resort",
+              selected: true
+            },
+            {
+              name: "Beach Club (BCV)",
+              value: "BCV",
+              category: "Resort",
+              selected: true
+            },
+            {
+              name: "Boardwalk (BWV)",
+              value: "BWV",
+              category: "Resort",
+              selected: true
+            },
+            {
+              name: "Grand Californian (VGC)",
+              value: "VGC",
+              category: "Resort",
+              selected: true
+            },
+            {
+              name: "Grand Floridian (VGF)",
+              value: "VGF",
+              category: "Resort",
+              selected: true
+            },
+            {
+              name: "Hilton Head (HH)",
+              value: "HH",
+              category: "Resort",
+              selected: true
+            },
+            {
+              name: "Old Key West (exp. 2042) (OKW)",
+              value: "OKW",
+              category: "Resort",
+              selected: true
+            },
+            {
+              name: "Old Key West Extended (exp 2057) (OKW(E))",
+              value: "OKW(E)",
+              category: "Resort",
+              selected: true
+            },
+            {
+              name: "Polynesian (PVB)",
+              value: "PVB",
+              category: "Resort",
+              selected: true
+            },
+            {
+              name: "Saratoga Springs (SSR)",
+              value: "SSR",
+              category: "Resort",
+              selected: true
+            },
+            {
+              name: "Vero Beach (VB)",
+              value: "VB",
+              category: "Resort",
+              selected: true
+            },
+            {
+              name: "Wilderness Lodge: Boulder Ridge (BRV@WL)",
+              value: "BRV@WL",
+              category: "Resort",
+              selected: true
+            },
+            {
+              name: "Wilderness Lodge: Copper Creek (CCV@WL)",
+              value: "CCV@WL",
+              category: "Resort",
+              selected: true
+            }
+          ]
         },
-      }],
+        {
+          name: "Use Year",
+          list: [
+            {
+              name: "January",
+              value: "Jan",
+              category: "UseYear",
+              selected: true
+            },
+            {
+              name: "February",
+              value: "Feb",
+              category: "UseYear",
+              selected: true
+            },
+            {
+              name: "March",
+              value: "Mar",
+              category: "UseYear",
+              selected: true
+            },
+            {
+              name: "April",
+              value: "Apr",
+              category: "UseYear",
+              selected: true
+            },
+            { name: "May", value: "May", category: "UseYear", selected: true },
+            { name: "June", value: "Jun", category: "UseYear", selected: true },
+            { name: "July", value: "Jul", category: "UseYear", selected: true },
+            {
+              name: "August",
+              value: "Aug",
+              category: "UseYear",
+              selected: true
+            },
+            {
+              name: "September",
+              value: "Sep",
+              category: "UseYear",
+              selected: true
+            },
+            {
+              name: "October",
+              value: "Oct",
+              category: "UseYear",
+              selected: true
+            },
+            {
+              name: "November",
+              value: "Nov",
+              category: "UseYear",
+              selected: true
+            },
+            {
+              name: "December",
+              value: "Dec",
+              category: "UseYear",
+              selected: true
+            }
+          ]
+        }
+      ],
+      filters: [
+        // TODO - filter Resort on WDW, MK, Epcot, AK, D. Springs
+        // {
+        //   nameAll: "select <= 10",
+        //   nameNotAll: "Deselect <= 10",
+        //   func: elem => {
+        //     if (elem.name <= 10) {
+        //       return true;
+        //     }
+        //     return false;
+        //   }
+        // },
+        // {
+        //   nameAll: "Select contains 2",
+        //   nameNotAll: "Deselect contains 2",
+        //   func: elem => {
+        //     if (elem.name.indexOf("2") !== -1) {
+        //       return true;
+        //     }
+        //     return false;
+        //   }
+        // }
+      ],
       options: {
         multi: true,
         groups: true,
-        btnLabel: 'Filter by Status, Resort, and UY',
-      },
+        btnLabel: "Filter by Status, Resort, and UY",
+        cssSelected: option =>
+          option["selected"] ? { "font-weight": "bold" } : ""
+      }
     };
   },
   methods: {
     updateValues(values) {
       this.values = values;
-    },
-  },  components: {vueMultiSelect}
+    }
+  },
+  components: { vueMultiSelect }
 };
 </script>
 
-<style scoped lang="scss">
-.select:not(.is-multiple)::after{content: none;}
+<style lang="scss">
+.select:not(.is-multiple)::after {
+  content: none;
+}
+.select .checkBoxContainer {
+  overflow-y: auto !important;
+}
 </style>

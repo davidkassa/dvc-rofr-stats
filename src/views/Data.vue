@@ -1,6 +1,5 @@
 <template>
   <div class="data">
-    <h1>This is the data page</h1>
     <div class="columns">
       <div class="column">
         <purchase-status-pie-chart :waiting=waitingContracts.length :passed=passedContracts.length :taken=takenContracts.length class="chart" />
@@ -11,9 +10,11 @@
         </div>
       </div>
     </div>
-    <div>
-      <rofr-dropdown />
-      <!-- <rofr-dropdown :data=resortData /> -->
+    <div class="data-details">
+      <div class="left-container">
+        <rofr-dropdown class="left" />
+        <!-- <rofr-dropdown :data=contractData /> -->
+      </div>
       <rofr-data-table :data=contractData />
     </div>
   </div>
@@ -44,7 +45,7 @@ export default {
   },
   computed: {
     contractData: function() {
-      return this.contracts;
+      return this.contracts.filter(a => a.Resort == "AKV");
       //return jsonData.filter(a => a.Resort == "AKV");
     },
     averagePrice: function() {
@@ -102,5 +103,15 @@ export default {
   width: 200px;
   height: 200px;
   padding: 5px;
+}
+.data-details {
+  margin: 1%;
+}
+.left-container {
+  width: 100%;
+  display: inline-block;
+  .left {
+    float: left;
+  }
 }
 </style>
