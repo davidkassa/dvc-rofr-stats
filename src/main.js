@@ -1,6 +1,8 @@
 import Vue from "vue";
 import Buefy from "buefy";
 
+import VueAnalytics from "vue-analytics";
+
 import VueFire from "vuefire";
 import firebase from "firebase/app";
 import "firebase/firestore";
@@ -8,17 +10,23 @@ import "firebase/firestore";
 import App from "./App.vue";
 import router from "./router";
 import store from "./store";
-import "./registerServiceWorker";
+//import "./registerServiceWorker";
 
 import "buefy/lib/buefy.css";
-import "@mdi/font/scss/materialdesignicons.scss";
+import "@fortawesome/fontawesome-free-webfonts/scss/fontawesome.scss";
+import "@fortawesome/fontawesome-free-webfonts/scss/fa-solid.scss";
+import "@fortawesome/fontawesome-free-webfonts/scss/fa-brands.scss";
 
 Vue.config.productionTip = false;
 
-Vue.use(Buefy);
-Vue.use(VueFire);
-
 /* eslint-disable no-undef */
+
+Vue.use(Buefy, { defaultIconPack: "fas" });
+Vue.use(VueAnalytics, {
+  id: process.env.VUE_APP_GOOGLE_ANALYTICS_ID,
+  router
+});
+Vue.use(VueFire);
 
 // Initialize Firebase
 var config = {
@@ -32,7 +40,10 @@ var config = {
 /* eslint-enable no-undef */
 
 firebase.initializeApp(config);
-export const db = firebase.firestore();
+const firestore = firebase.firestore();
+const settings = { /* your settings... */ timestampsInSnapshots: true };
+firestore.settings(settings);
+export const db = firestore;
 
 new Vue({
   router,
