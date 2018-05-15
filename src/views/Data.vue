@@ -12,7 +12,11 @@
     </div>
     <div class="data-details">
       <div class="left-container">
-        <rofr-dropdown class="left" />
+        <rofr-dropdown class="left" 
+            @statusFilterChanged="updateStatusFilter"
+            @resortFilterChanged="updateResortFilter"
+            @useYearFilterChanged="updateUseYearFilter" />
+        <!-- pass data to child to disable values -->
         <!-- <rofr-dropdown :data=contractData /> -->
       </div>
       <rofr-data-table :data=contractData />
@@ -24,7 +28,6 @@
 import PurchaseStatusPieChart from "@/components/PurchaseStatusPieChart.vue"; // @ is an alias to /src
 import RofrDataTable from "@/components/RofrDataTable.vue";
 import RofrDropdown from "@/components/RofrDropdown.vue";
-//import jsonData from "@/../data/4.2018.json";
 import { db } from "../main";
 
 export default {
@@ -35,7 +38,10 @@ export default {
   },
   data() {
     return {
-      contracts: []
+      contracts: [],
+      statusFilter: [],
+      resortFilter: [],
+      useYearFilter: []
     };
   },
   firestore() {
@@ -45,8 +51,10 @@ export default {
   },
   computed: {
     contractData: function() {
-      return this.contracts.filter(a => a.Resort == "AKV");
-      //return jsonData.filter(a => a.Resort == "AKV");
+      return this.contracts
+        .filter(a => this.statusFilter.length != 0 && this.statusFilter.indexOf(a.Status) !== -1)
+        .filter(a => this.resortFilter.length != 0 && this.resortFilter.indexOf(a.Resort) !== -1)
+        .filter(a => this.useYearFilter.length != 0 && this.useYearFilter.indexOf(a.UseYear) !== -1);
     },
     averagePrice: function() {
       return this.getAverage(this.contractData);
@@ -81,6 +89,18 @@ export default {
       }, 0);
       var avg = sum / contracts.length;
       return "$" + avg.toFixed(2);
+    },
+    updateStatusFilter: function(statusFilter) {
+      console.log("Status Filter Changed:\n" + JSON.stringify(statusFilter) + "\n");
+      this.statusFilter = statusFilter;
+    },
+    updateResortFilter: function(resortFilter) {
+      console.log("Resort Filter Changed:\n" + JSON.stringify(resortFilter) + "\n");
+      this.resortFilter = resortFilter;
+    },
+    updateUseYearFilter: function(useYearFilter) {
+      console.log("Use Year Filter Changed:\n" + JSON.stringify(useYearFilter) + "\n");
+      this.useYearFilter = useYearFilter;
     }
   }
 };

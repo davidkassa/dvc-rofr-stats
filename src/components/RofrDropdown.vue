@@ -12,6 +12,11 @@
 import vueMultiSelect from "vue-multi-select";
 import "vue-multi-select/dist/lib/vue-multi-select.min.css";
 export default {
+  props: {
+    statusEventName: { type: String, default: "statusFilterChanged"},
+    resortEventName: { type: String, default: "resortFilterChanged"},
+    useYearEventName: { type: String, default: "useYearFilterChanged"}
+  },
   data() {
     return {
       name: "",
@@ -227,22 +232,58 @@ export default {
         btnLabel: "Filter by Status, Resort, and UY",
         cssSelected: option =>
           option["selected"] ? { "font-weight": "bold" } : ""
-      }
+      },
+      selectedStatuses: [],
+      selectedResorts: [],
+      selectedUseYears: []
     };
+  },
+  computed: {
+    // selectedStatuses: {
+    //   get: function() {
+    //     return this.values.filter(s => s.category == "Status" && s.selected);
+    //   },
+    //   set: function(statuses) {
+
+    //   }
+    // }
   },
   methods: {
     updateValues(values) {
       this.values = values;
+      this.updateSelectedStatuses(this.values.filter(s => s.category == "Status"));
+      this.updateSelectedResorts(this.values.filter(s => s.category == "Resort"));
+      this.updateSelectedUseYears(this.values.filter(s => s.category == "UseYear"));
+    },
+    updateSelectedStatuses(statuses) {
+        if(this.selectedStatuses.length != statuses.length) {
+          this.selectedStatuses = statuses;
+          this.$emit(this.statusEventName,this.selectedStatuses.map(s => s.value));
+        }
+    },
+    updateSelectedResorts(resorts) {
+        if(this.selectedResorts.length != resorts.length) {
+          this.selectedResorts = resorts;
+          this.$emit(this.resortEventName,this.selectedResorts.map(s => s.value));
+        }
+    },
+    updateSelectedUseYears(useYears) {
+        if(this.selectedUseYears.length != useYears.length) {
+          this.selectedUseYears = useYears;
+          this.$emit(this.useYearEventName,this.selectedUseYears.map(s => s.value));
+        }
     }
   },
   components: { vueMultiSelect }
 };
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
 .select:not(.is-multiple)::after {
   content: none;
 }
+</style>
+<style lang="scss">
 .select .checkBoxContainer {
   overflow-y: auto !important;
 }
