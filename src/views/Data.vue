@@ -11,13 +11,14 @@
       </div>
     </div>
     <div class="data-details">
-      <div class="left-container">
+      <div class="float-container">
         <rofr-dropdown class="left" 
             @statusFilterChanged="updateStatusFilter"
             @resortFilterChanged="updateResortFilter"
             @useYearFilterChanged="updateUseYearFilter" />
         <!-- pass data to child to disable values -->
         <!-- <rofr-dropdown :data=contractData /> -->
+        <a v-show="Object.keys(meta).length !== 0" class="right" :href="meta.url" target="_blank">Last Updated: {{ meta.lastUpdated }}</a>
       </div>
       <rofr-data-table :data=contractData />
     </div>
@@ -39,6 +40,7 @@ export default {
   data() {
     return {
       contracts: [],
+      metaStore: [],
       statusFilter: [],
       resortFilter: [],
       useYearFilter: []
@@ -46,15 +48,32 @@ export default {
   },
   firestore() {
     return {
-      contracts: db.collection("contracts")
+      contracts: db.collection("contracts"),
+      metaStore: db.collection("meta")
     };
   },
   computed: {
+    meta: function() {
+      console.log(this.metaStore.find(m => m));
+      return this.metaStore.length == 0 ? {} : this.metaStore.find(m => m);
+    },
     contractData: function() {
       return this.contracts
-        .filter(a => this.statusFilter.length != 0 && this.statusFilter.indexOf(a.Status) !== -1)
-        .filter(a => this.resortFilter.length != 0 && this.resortFilter.indexOf(a.Resort) !== -1)
-        .filter(a => this.useYearFilter.length != 0 && this.useYearFilter.indexOf(a.UseYear) !== -1);
+        .filter(
+          a =>
+            this.statusFilter.length != 0 &&
+            this.statusFilter.indexOf(a.Status) !== -1
+        )
+        .filter(
+          a =>
+            this.resortFilter.length != 0 &&
+            this.resortFilter.indexOf(a.Resort) !== -1
+        )
+        .filter(
+          a =>
+            this.useYearFilter.length != 0 &&
+            this.useYearFilter.indexOf(a.UseYear) !== -1
+        );
     },
     averagePrice: function() {
       return this.getAverage(this.contractData);
@@ -91,15 +110,15 @@ export default {
       return "$" + avg.toFixed(2);
     },
     updateStatusFilter: function(statusFilter) {
-      console.log("Status Filter Changed:\n" + JSON.stringify(statusFilter) + "\n");
+      //console.log("Status Filter Changed:\n" + JSON.stringify(statusFilter) + "\n");
       this.statusFilter = statusFilter;
     },
     updateResortFilter: function(resortFilter) {
-      console.log("Resort Filter Changed:\n" + JSON.stringify(resortFilter) + "\n");
+      //console.log("Resort Filter Changed:\n" + JSON.stringify(resortFilter) + "\n");
       this.resortFilter = resortFilter;
     },
     updateUseYearFilter: function(useYearFilter) {
-      console.log("Use Year Filter Changed:\n" + JSON.stringify(useYearFilter) + "\n");
+      //console.log("Use Year Filter Changed:\n" + JSON.stringify(useYearFilter) + "\n");
       this.useYearFilter = useYearFilter;
     }
   }
@@ -127,11 +146,14 @@ export default {
 .data-details {
   margin: 1%;
 }
-.left-container {
+.float-container {
   width: 100%;
   display: inline-block;
   .left {
     float: left;
+  }
+  .right {
+    float: right;
   }
 }
 </style>

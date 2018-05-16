@@ -284,7 +284,4 @@ export default {
 }
 </style>
 <style lang="scss">
-.select .checkBoxContainer {
-  overflow-y: auto !important;
-}
 </style>
