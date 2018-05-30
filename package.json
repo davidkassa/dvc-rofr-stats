@@ -4,8 +4,8 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
-    "dev-build": "vue-cli-service build --mode development",
     "build": "vue-cli-service build",
+    "build-staging": "vue-cli-service build --mode staging",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
@@ -13,29 +13,26 @@
     "buefy": "^0.6.5",
     "chart.js": "^2.7.2",
     "chartjs-plugin-datalabels": "^0.3.0",
-    "firebase": "^5.0.2",
-    "register-service-worker": "^1.0.0",
+    "firebase": "^5.0.4",
+    "register-service-worker": "^1.3.0",
     "vue": "^2.5.16",
-    "vue-analytics": "^5.10.6",
+    "vue-analytics": "^5.12.2",
     "vue-chartjs": "^3.3.1",
-    "vue-multi-select": "^3.3.1",
+    "vue-echarts": "^3.0.7",
+    "vue-multi-select": "^3.3.2",
     "vue-router": "^3.0.1",
     "vuefire": "^2.0.0-alpha.11",
     "vuex": "^3.0.1"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "^3.0.0-beta.10",
-    "@vue/cli-plugin-eslint": "^3.0.0-beta.10",
-    "@vue/cli-plugin-pwa": "^3.0.0-beta.10",
-    "@vue/cli-service": "^3.0.0-beta.10",
-    "@vue/eslint-config-prettier": "^3.0.0-beta.10",
-    "node-sass": "^4.7.2",
+    "@vue/cli-plugin-babel": "^3.0.0-beta.14",
+    "@vue/cli-plugin-eslint": "^3.0.0-beta.14",
+    "@vue/cli-plugin-pwa": "^3.0.0-beta.14",
+    "@vue/cli-service": "^3.0.0-beta.14",
+    "@vue/eslint-config-prettier": "^3.0.0-beta.14",
+    "node-sass": "^4.9.0",
     "sass-loader": "^7.0.1",
-    "vue-template-compiler": "^2.5.13"
+    "vue-template-compiler": "^2.5.16"
   },
-  "browserslist": [
-    "> 1%",
-    "last 2 versions",
-    "not ie <= 8"
-  ]
+  "browserslist": ["> 1%", "last 2 versions", "not ie <= 8"]
 }

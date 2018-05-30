@@ -15,7 +15,7 @@ install:
 
 script:
   - if [ "$TRAVIS_BRANCH" = "master" ]; then npm run build; fi
-  - if [ "$TRAVIS_BRANCH" != "master" ]; then npm run dev-build; fi
+  - if [ "$TRAVIS_BRANCH" != "master" ]; then npm run build-staging; fi
 
 deploy:
   - provider: firebase
@@ -26,7 +26,7 @@ deploy:
       branch: master
   - provider: firebase
     token: $FIREBASE_DEPLOY_KEY
-    project: "dev"
+    project: "staging"
     skip_cleanup: true
     on:
       branch: develop
