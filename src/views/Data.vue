@@ -67,17 +67,17 @@ export default {
         .filter(
           a =>
             this.statusFilter.length != 0 &&
-            this.statusFilter.indexOf(a.Status) !== -1
+            this.statusFilter.indexOf(a.status) !== -1
         )
         .filter(
           a =>
             this.resortFilter.length != 0 &&
-            this.resortFilter.indexOf(a.Resort) !== -1
+            this.resortFilter.indexOf(a.resort) !== -1
         )
         .filter(
           a =>
             this.useYearFilter.length != 0 &&
-            this.useYearFilter.indexOf(a.UseYear) !== -1
+            this.useYearFilter.indexOf(a.useYear) !== -1
         );
     },
     averagePrice: function() {
@@ -85,21 +85,21 @@ export default {
     },
     passedContracts: function() {
       //return this.contractData.where("Status", "==", "Passed");
-      return this.contractData.filter(a => a.Status == "Passed");
+      return this.contractData.filter(a => a.status == "Passed");
     },
     averagePassedPrice: function() {
       return this.getAverage(this.passedContracts);
     },
     waitingContracts: function() {
       //return this.contractData.where("Status", "==", "Waiting");
-      return this.contractData.filter(a => a.Status == "Waiting");
+      return this.contractData.filter(a => a.status == "Waiting");
     },
     averageWaitingPrice: function() {
       return this.getAverage(this.waitingContracts);
     },
     takenContracts: function() {
       //return this.contractData.where("Status", "==", "Taken");
-      return this.contractData.filter(a => a.Status == "Taken");
+      return this.contractData.filter(a => a.status == "Taken");
     },
     averageTakenPrice: function() {
       return this.getAverage(this.takenContracts);
@@ -109,7 +109,7 @@ export default {
     getAverage: function(contracts) {
       // console.log(contracts);
       var sum = contracts.reduce(function(prevVal, elem) {
-        return prevVal + elem.PricePerPoint;
+        return prevVal + elem.pricePerPoint;
       }, 0);
       var avg = sum / contracts.length;
       return "$" + avg.toFixed(2);
