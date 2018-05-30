@@ -10,47 +10,47 @@ export default {
       columns: [
         {
           label: "Status",
-          field: "Status"
+          field: "status"
         },
         {
           label: "User",
-          field: "User"
+          field: "user"
         },
         {
           label: "Price per Point",
-          field: "PricePerPoint"
+          field: "pricePerPoint"
         },
         {
           label: "Total Cost",
-          field: "TotalCost"
+          field: "totalCost"
         },
         {
           label: "Points",
-          field: "Points"
+          field: "points"
         },
         {
           label: "Resort",
-          field: "Resort"
+          field: "resort"
         },
         {
           label: "Use Year (UY)",
-          field: "UseYear"
+          field: "useYear"
         },
         {
           label: "Available Points",
-          field: "AvailablePoints"
+          field: "availablePoints"
         },
         {
           label: "Notes",
-          field: "Notes"
+          field: "notes"
         },
         {
           label: "Date Sent",
-          field: "DateSent"
+          field: "dateSent"
         },
         {
           label: "Date Resolved",
-          field: "DateResolved"
+          field: "dateResolved"
         }
       ]
     };
