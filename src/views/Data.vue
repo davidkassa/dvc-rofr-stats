@@ -5,6 +5,9 @@
         <purchase-status-pie-chart :waiting=waitingContracts.length :passed=passedContracts.length :taken=takenContracts.length class="chart" />
       </div>
       <div class="column">
+        <resale-cost-candlestick class="chart" />
+      </div>
+      <div class="column">
         <div class="v-center">
           <div class="average-price">Average Price {{averagePrice}} Passed {{averagePassedPrice}} Taken {{averageTakenPrice}} Waiting {{averageWaitingPrice}}</div>
         </div>
@@ -27,6 +30,7 @@
 
 <script>
 import PurchaseStatusPieChart from "@/components/PurchaseStatusPieChart.vue"; // @ is an alias to /src
+import ResaleCostCandlestick from "@/components/ResaleCostCandlestick.vue"; // @ is an alias to /src
 import RofrDataTable from "@/components/RofrDataTable.vue";
 import RofrDropdown from "@/components/RofrDropdown.vue";
 import { db } from "../main";
@@ -34,6 +38,7 @@ import { db } from "../main";
 export default {
   components: {
     PurchaseStatusPieChart,
+    ResaleCostCandlestick,
     RofrDataTable,
     RofrDropdown
   },
@@ -54,7 +59,7 @@ export default {
   },
   computed: {
     meta: function() {
-      console.log(this.metaStore.find(m => m));
+      // console.log(this.metaStore.find(m => m));
       return this.metaStore.length == 0 ? {} : this.metaStore.find(m => m);
     },
     contractData: function() {

@@ -7,8 +7,8 @@
     </p>
     <h3>How to Use</h3>
     <p>
-      Click on the <router-link to="/data">data</router-link> link to slice and dice ROFR wait times.<br/>
-      More features are planned including resale costs and contract comparison.<br/>
+      Click on the <router-link to="/data">data</router-link> link to slice and dice ROFR resale costs.<br/>
+      More features are planned including wait times and contract comparison.<br/>
       <feedback-dialog>Feel free to provide any feedback.</feedback-dialog>
     </p>
   </div>
