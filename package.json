@@ -14,6 +14,8 @@
     "chart.js": "^2.7.2",
     "chartjs-plugin-datalabels": "^0.3.0",
     "firebase": "^5.0.4",
+    "moment": "^2.22.1",
+    "moving-average": "^1.0.0",
     "register-service-worker": "^1.3.0",
     "vue": "^2.5.16",
     "vue-analytics": "^5.12.2",
@@ -34,5 +36,9 @@
     "sass-loader": "^7.0.1",
     "vue-template-compiler": "^2.5.16"
   },
-  "browserslist": ["> 1%", "last 2 versions", "not ie <= 8"]
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not ie <= 8"
+  ]
 }
