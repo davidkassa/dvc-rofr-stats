@@ -4,7 +4,7 @@
     <div id="nav">
       <router-link to="/">Home</router-link> |
       <!-- <router-link to="/about">About</router-link> | -->
-      <router-link to="/data">Data</router-link>
+      <router-link to="/resale-costs">Resale Costs</router-link>
     </div>
     <router-view/>
     </div>
@@ -31,9 +31,13 @@ a {
   padding: 30px;
   a {
     font-weight: bold;
-    color: #2c3e50;
+    color: #61c661;
+    &:hover {
+      text-decoration: underline;
+    }
     &.router-link-exact-active {
-      color: #61c661;
+      color: #2c3e50;
+      text-decoration: none;
     }
   }
 }

@@ -5,7 +5,7 @@
         <purchase-status-pie-chart :waiting=waitingContracts.length :passed=passedContracts.length :taken=takenContracts.length class="chart" />
       </div>
       <div class="column">
-        <resale-cost-candlestick class="chart" />
+        <resale-cost-boxplot :waiting=waitingContracts :passed=passedContracts :taken=takenContracts class="chart" />
       </div>
       <div class="column">
         <div class="v-center">
@@ -30,7 +30,7 @@
 
 <script>
 import PurchaseStatusPieChart from "@/components/PurchaseStatusPieChart.vue"; // @ is an alias to /src
-import ResaleCostCandlestick from "@/components/ResaleCostCandlestick.vue"; // @ is an alias to /src
+import ResaleCostBoxplot from "@/components/ResaleCostBoxplot.vue"; // @ is an alias to /src
 import RofrDataTable from "@/components/RofrDataTable.vue";
 import RofrDropdown from "@/components/RofrDropdown.vue";
 import { db } from "../main";
@@ -38,7 +38,7 @@ import { db } from "../main";
 export default {
   components: {
     PurchaseStatusPieChart,
-    ResaleCostCandlestick,
+    ResaleCostBoxplot,
     RofrDataTable,
     RofrDropdown
   },

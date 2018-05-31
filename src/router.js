@@ -2,7 +2,7 @@ import Vue from "vue";
 import Router from "vue-router";
 import Home from "./views/Home.vue";
 import About from "./views/About.vue";
-import Data from "./views/Data.vue";
+import ResaleCosts from "./views/ResaleCosts.vue";
 
 Vue.use(Router);
 
@@ -19,9 +19,9 @@ export default new Router({
       component: About
     },
     {
-      path: "/data",
-      name: "data",
-      component: Data
+      path: "/resale-costs",
+      name: "resale-costs",
+      component: ResaleCosts
     }
   ]
 });

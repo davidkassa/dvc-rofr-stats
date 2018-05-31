@@ -7,7 +7,7 @@
     </p>
     <h3>How to Use</h3>
     <p>
-      Click on the <router-link to="/data">data</router-link> link to slice and dice ROFR resale costs.<br/>
+      Click on the ROFR <router-link to="/resale-costs">resale costs</router-link> link to slice and dice.<br/>
       More features are planned including wait times and contract comparison.<br/>
       <feedback-dialog>Feel free to provide any feedback.</feedback-dialog>
     </p>
