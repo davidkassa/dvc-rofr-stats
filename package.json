@@ -14,7 +14,7 @@
     "chart.js": "^2.7.2",
     "chartjs-plugin-datalabels": "^0.3.0",
     "firebase": "^5.0.4",
-    "moment": "^2.22.1",
+    "moment": "^2.22.2",
     "moving-average": "^1.0.0",
     "register-service-worker": "^1.3.0",
     "vue": "^2.5.16",
