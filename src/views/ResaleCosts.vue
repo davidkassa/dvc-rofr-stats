@@ -10,7 +10,7 @@
       <div class="column">
         <div class="v-center">
           <div class="average-price">
-            <div class="box-title">Average Price<br/>{{averagePrice}}</div>
+            <div class="box-title">Average Price<br/><span v-show="averagePrice !== '$NaN'">{{averagePrice}}</span></div>
               <div class="columns">
                 <div class="column">
                   <div class="box-record"><b-icon pack="fas" icon="circle" size="is-small" type="is-passed" /> Passed:</div>
@@ -18,9 +18,9 @@
                   <div class="box-record"><b-icon pack="fas" icon="circle" size="is-small" type="is-taken" /> Taken:</div>
                 </div>
                 <div class="column">
-                  <div class="box-record">{{averagePassedPrice}}</div>
-                  <div class="box-record">{{averageWaitingPrice}}</div>
-                  <div class="box-record">{{averageTakenPrice}}</div>
+                  <div v-show="averagePassedPrice !== '$NaN'"  class="box-record">{{averagePassedPrice}}</div>
+                  <div v-show="averageWaitingPrice !== '$NaN'" class="box-record">{{averageWaitingPrice}}</div>
+                  <div v-show="averageTakenPrice !== '$NaN'" class="box-record">{{averageTakenPrice}}</div>
                 </div>
               </div>
             </div>
