@@ -1,10 +1,11 @@
 language: node_js
 node_js:
   - "node"
-cache:
-  directories:
-  - node_modules/
-  - functions/node_modules/
+# Not needed with `npm ci`
+# cache:
+#   directories:
+#   - node_modules/
+#   - functions/node_modules/
 
 install:
   - npm ci
