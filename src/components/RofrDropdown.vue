@@ -293,7 +293,9 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.select:not(.is-multiple)::after {
+.select:not(.is-multiple)::after,
+.select:not(.is-multiple):not(.is-loading)::after,
+.navbar-link::after {
   content: none;
 }
 </style>
