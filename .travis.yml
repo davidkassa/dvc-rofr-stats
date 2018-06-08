@@ -12,6 +12,7 @@ install:
   - cd ./functions && npm ci && cd ..
 
 script:
+  - npm run test:unit
   - if [ "$TRAVIS_BRANCH" = "master" ]; then npm run build; fi
   - if [ "$TRAVIS_BRANCH" != "master" ]; then npm run build-staging; fi
 
