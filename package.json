@@ -7,7 +7,8 @@
     "build": "vue-cli-service build",
     "build-staging": "vue-cli-service build --mode staging",
     "lint": "vue-cli-service lint",
-    "test:unit": "vue-cli-service test:unit"
+    "test:unit": "vue-cli-service test:unit",
+    "test:unit:watch": "vue-cli-service test:unit --watchAll"
   },
   "dependencies": {
     "@fortawesome/fontawesome-free-webfonts": "^1.0.9",
@@ -37,9 +38,7 @@
     "@vue/test-utils": "^1.0.0-beta.16",
     "babel-core": "7.0.0-bridge.0",
     "babel-jest": "^22.4.3",
-    "firebase-admin": "~5.12.1",
-    "firebase-functions": "^1.0.4",
-    "firebase-functions-test": "^0.1.2",
+    "cheerio": "^1.0.0-rc.2",
     "node-sass": "^4.9.0",
     "sass-loader": "^7.0.3",
     "vue-template-compiler": "^2.5.16"
