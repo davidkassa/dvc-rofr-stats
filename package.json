@@ -7,6 +7,7 @@
     "build": "vue-cli-service build",
     "build-staging": "vue-cli-service build --mode staging",
     "lint": "vue-cli-service lint",
+    "test:firebase": "set GOOGLE_APPLICATION_CREDENTIALS=../service-key-dev.json.local& firebase functions:shell",
     "test:unit": "vue-cli-service test:unit",
     "test:unit:watch": "vue-cli-service test:unit --watchAll"
   },
@@ -40,6 +41,8 @@
     "babel-jest": "^22.4.3",
     "cheerio": "^1.0.0-rc.2",
     "node-sass": "^4.9.0",
+    "request": "^2.87.0",
+    "request-promise-native": "^1.0.5",
     "sass-loader": "^7.0.3",
     "vue-template-compiler": "^2.5.16"
   },

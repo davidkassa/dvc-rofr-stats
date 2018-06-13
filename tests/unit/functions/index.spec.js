@@ -22,8 +22,8 @@ const cheerio = require("cheerio");
 // });
 
 // describe("processDisBoardsData", () => {
-//   it("works", () => {
-//     expect(functions.processDisBoardsData()).toBe(true);
+//   it("works", async () => {
+//     await expect(functions.processDisBoardsData()).resolves.toBe(true);
 //   });
 // });
 
@@ -32,7 +32,10 @@ describe("parseEditDateFromHtml", () => {
     var htmlData = fs.readFileSync("tests/unit/functions/raw.html", {
       encoding: "utf8"
     });
-    var result = functions.parseEditDateFromHtml(cheerio.load(htmlData));
+    var result = functions.parseEditDateFromHtml(
+      "#post-59034110",
+      cheerio.load(htmlData)
+    );
     expect(result).toBe("1528564129");
   });
 });
@@ -42,7 +45,10 @@ describe("parseContractsFromHtml", () => {
     var htmlData = fs.readFileSync("tests/unit/functions/raw.html", {
       encoding: "utf8"
     });
-    var result = functions.parseContractsFromHtml(cheerio.load(htmlData));
+    var result = functions.parseContractsFromHtml(
+      "#post-59034110",
+      cheerio.load(htmlData)
+    );
     expect(result.length).toBe(164);
   });
 });
