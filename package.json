@@ -7,7 +7,7 @@
     "build": "vue-cli-service build",
     "build-staging": "vue-cli-service build --mode staging",
     "lint": "vue-cli-service lint",
-    "test:firebase": "set GOOGLE_APPLICATION_CREDENTIALS=../service-key-dev.json.local& firebase functions:shell",
+    "test:firebase": "set GOOGLE_APPLICATION_CREDENTIALS=../service-key-dev.json.local& npm run shell --prefix functions",
     "test:unit": "vue-cli-service test:unit",
     "test:unit:watch": "vue-cli-service test:unit --watchAll"
   },

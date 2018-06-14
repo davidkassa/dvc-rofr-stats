@@ -1,0 +1,3 @@
+## ignore generated JavaScript files
+lib/**/*.js
+lib/**/*.js.map

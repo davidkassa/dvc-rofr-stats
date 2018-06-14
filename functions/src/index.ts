@@ -1,9 +1,11 @@
-const { URL } = require("url");
-const functions = require("firebase-functions");
-const admin = require("firebase-admin");
-const request = require("request-promise-native");
-const cheerio = require("cheerio");
-const moment = require("moment");
+import { URL } from "url";
+import * as functions from "firebase-functions";
+import * as admin from "firebase-admin";
+import * as request from "request-promise-native";
+import * as cheerio from "cheerio";
+import * as moment from "moment";
+
+import { Contract } from "./contract";
 
 // https://github.com/firebase/functions-samples/blob/master/presence-firestore/functions/index.js
 admin.initializeApp();
@@ -87,7 +89,12 @@ function parseContractsFromHtml(hash, $) {
   // div class=messageContent
 
   let html = $(hash + " div.messageContent").html();
-  let lines = html.split("<br>").map(l => cheerio.load(l).text());
+  let lines = html.split("<br>").map(l =>
+    cheerio
+      .load(l)
+      .root()
+      .text()
+  );
   let contracts = lines
     .filter(l => l.indexOf("---") >= 0)
     .map(parseLine)
@@ -101,7 +108,7 @@ function parseLine(line) {
   // David K.---$102-$22356-200-AKV-Sep-0/17, 200/18, 200/19- sent 4/12, taken 5/8
   // David K.---$104-$24537-220-AKV-Mar-0/17, 152/18, 220/19-International seller- sent 5/14, passed 5/31
 
-  let contract = {};
+  let contract = new Contract();
   let a = line.split("---");
   if (a.length !== 2) {
     //error state
