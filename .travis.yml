@@ -17,15 +17,17 @@ script:
   - if [ "$TRAVIS_BRANCH" != "master" ]; then npm run build-staging; fi
 
 deploy:
-  - provider: firebase
-    token: $FIREBASE_DEPLOY_KEY
-    project: "prod"
+  - provider: script
+    script: 
+     - npm i -g firebase-tools
+     - firebase deploy --token $FIREBASE_DEPLOY_KEY --project prod
     skip_cleanup: true
     on:
       branch: master
-  - provider: firebase
-    token: $FIREBASE_DEPLOY_KEY
-    project: "staging"
+  - provider: script
+    script: 
+     - npm i -g firebase-tools
+     - firebase deploy --token $FIREBASE_DEPLOY_KEY --project staging
     skip_cleanup: true
     on:
       branch: develop
