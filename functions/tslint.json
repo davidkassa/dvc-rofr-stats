@@ -112,8 +112,7 @@
     // Prefer const for values that will not change. This better documents code.
     "prefer-const": { "severity": "warning" },
 
-    // Multi-line object liiterals and function calls should have a trailing comma. This helps avoid merge conflicts.
-    "trailing-comma": { "severity": "warning" }
+    "no-console": { "severity": "off" }
   },
   "extends": ["tslint:latest", "tslint-config-prettier"],
   "defaultSeverity": "error"

@@ -1,9 +1,9 @@
-import { URL } from "url";
-import * as functions from "firebase-functions";
-import * as admin from "firebase-admin";
-import * as request from "request-promise-native";
 import * as cheerio from "cheerio";
+import * as admin from "firebase-admin";
+import * as functions from "firebase-functions";
 import * as moment from "moment";
+import * as request from "request-promise-native";
+import { URL } from "url";
 
 import { Contract } from "./contract";
 
@@ -27,14 +27,14 @@ async function processDisBoardsData() {
   console.log("Processing DisBoard Data!");
 
   try {
-    let meta = await getMetadata();
+    const meta = await getMetadata();
     console.log(`meta: ` + JSON.stringify(meta));
-    let hash = new URL(meta.url).hash;
-    let $ = await getRawHtml(meta.url);
-    let epoch = parseEditDateFromHtml(hash, $);
+    const hash = new URL(meta.url).hash;
+    const $ = await getRawHtml(meta.url);
+    const epoch = parseEditDateFromHtml(hash, $);
 
     if (meta.epoch !== epoch) {
-      let contracts = parseContractsFromHtml(hash, $);
+      const contracts = parseContractsFromHtml(hash, $);
       return saveContractsToFirebase(epoch, contracts);
     }
 
@@ -51,7 +51,7 @@ async function getMetadata() {
   //     "https://www.disboards.com/threads/rofr-thread-april-to-june-2018-please-see-first-post-for-instructions-formatting-tool.3674375/#post-59034110",
   //   epoch: "1527551590"
   // };
-  let snapshot = await firestore.collection("meta").get();
+  const snapshot = await firestore.collection("meta").get();
   return snapshot.docs[0].data(); // only 1 record
 }
 
@@ -60,7 +60,7 @@ async function getRawHtml(url) {
   const util = require("util");
   // Convert fs.readFile into Promise version of same
   const readFile = util.promisify(fs.readFile);
-  let file = await readFile("../data/4.2018-raw.html", {
+  const file = await readFile("../data/4.2018-raw.html", {
     encoding: "utf8"
   });
   return cheerio.load(file);
@@ -80,7 +80,7 @@ function parseEditDateFromHtml(hash, $) {
   // id=post-59034110
   // div class=editDate class=DateTime data-time data-diff, epoch
 
-  return $(hash + " .editDate .DateTime").attr("data-time"); //"epoch";
+  return $(hash + " .editDate .DateTime").attr("data-time"); // "epoch";
 }
 
 function parseContractsFromHtml(hash, $) {
@@ -88,14 +88,14 @@ function parseContractsFromHtml(hash, $) {
   // id=post-59034110
   // div class=messageContent
 
-  let html = $(hash + " div.messageContent").html();
-  let lines = html.split("<br>").map(l =>
+  const html = $(hash + " div.messageContent").html();
+  const lines = html.split("<br>").map(l =>
     cheerio
       .load(l)
       .root()
       .text()
   );
-  let contracts = lines
+  const contracts = lines
     .filter(l => l.indexOf("---") >= 0)
     .map(parseLine)
     .filter(l => l !== null);
@@ -108,36 +108,36 @@ function parseLine(line) {
   // David K.---$102-$22356-200-AKV-Sep-0/17, 200/18, 200/19- sent 4/12, taken 5/8
   // David K.---$104-$24537-220-AKV-Mar-0/17, 152/18, 220/19-International seller- sent 5/14, passed 5/31
 
-  let contract = new Contract();
-  let a = line.split("---");
+  const contract = new Contract();
+  const a = line.split("---");
   if (a.length !== 2) {
-    //error state
+    // error state
     console.error("Error: " + line);
     return null;
   }
   contract.user = a[0];
-  let props = a[1].split("-");
+  const props = a[1].split("-");
   if (props.length < 7 || props.length > 8) {
-    //error state
+    // error state
     console.error("Error: " + line);
     return null;
   }
-  contract.pricePerPoint = Number(props[0].substr(1)); //strip $
-  contract.totalCost = Number(props[1].substr(1)); //strip $
+  contract.pricePerPoint = Number(props[0].substr(1)); // strip $
+  contract.totalCost = Number(props[1].substr(1)); // strip $
   contract.points = Number(props[2]);
   contract.resort = props[3];
   contract.useYear = props[4];
   contract.availablePoints = props[5];
   contract.notes = props.length === 8 ? props[6] : null;
-  let dateStr = props.length === 8 ? props[7] : props[6];
-  let dates = dateStr.split(",");
-  let dateSentStr = dates[0].replace("sent").trim();
+  const dateStr = props.length === 8 ? props[7] : props[6];
+  const dates = dateStr.split(",");
+  const dateSentStr = dates[0].replace("sent").trim();
   contract.dateSent = moment(dateSentStr, "MM/DD").format("YYYY-MM-DD");
   let status = "Waiting";
   let dateResolved = null;
   if (dates.length === 2) {
     status = dates[1].indexOf("taken") >= 0 ? "Taken" : "Passed";
-    let dateResolvedStr = dates[1]
+    const dateResolvedStr = dates[1]
       .replace("taken")
       .replace("passed")
       .trim();
@@ -174,8 +174,8 @@ async function saveContractsToFirebase(epoch, contracts) {
     .set({ id: "9999999", test: true }, { merge: true });
 
   // could stash ID from initial lookup
-  let metaSnapshot = await firestore.collection("meta").get();
-  let metaId = metaSnapshot.docs[0].id;
+  const metaSnapshot = await firestore.collection("meta").get();
+  const metaId = metaSnapshot.docs[0].id;
   await firestore
     .collection("meta")
     .doc(metaId)
