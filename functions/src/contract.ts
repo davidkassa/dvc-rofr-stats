@@ -11,5 +11,7 @@ export class Contract {
   public useYear: string;
   public user: string;
 
-  public hash: string;
+  public get checksum(): string {
+    return "checksum";
+  }
 }

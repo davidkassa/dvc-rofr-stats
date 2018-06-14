@@ -145,25 +145,8 @@ function parseLine(line) {
   }
   contract.status = status;
   contract.dateResolved = dateResolved;
-  contract.hash = getContractHash(contract);
 
   return contract;
-}
-
-function getContractHash(contract) {
-  // // hash based on properties that shouldn't be changed
-  // contract.availablePoints
-  // // contract.dateResolved
-  // contract.dateSent
-  // // contract.notes
-  // contract.points
-  // contract.pricePerPoint
-  // contract.resort
-  // contract.status
-  // // contract.totalCost
-  // contract.useYear
-  // contract.user
-  return "hash";
 }
 
 async function saveContractsToFirebase(epoch, contracts) {
