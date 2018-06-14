@@ -1,4 +1,4 @@
-import functions from "../../../functions/lib/index";
+import * as functions from "../../../functions/lib/index";
 
 const fs = require("fs");
 const cheerio = require("cheerio");
