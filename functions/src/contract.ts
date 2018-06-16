@@ -13,10 +13,10 @@ export class Contract {
   public useYear: string;
   public user: string;
 
-  private _checksum: string;
+  private pchecksum: string;
   public get checksum(): string {
     // exclude dynamic fields: dateResolved, notes, totalCost
-    if (!this._checksum) {
+    if (!this.pchecksum) {
       const data =
         "" +
         this.availablePoints +
@@ -28,12 +28,12 @@ export class Contract {
         this.useYear +
         this.user;
 
-      this._checksum = crypto
+      this.pchecksum = crypto
         .createHash("md5")
         .update(data)
         .digest("hex");
     }
 
-    return this._checksum;
+    return this.pchecksum;
   }
 }
