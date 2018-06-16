@@ -35,7 +35,7 @@
             @useYearFilterChanged="updateUseYearFilter" />
         <!-- pass data to child to disable values -->
         <!-- <rofr-dropdown :data=contractData /> -->
-        <a v-show="Object.keys(meta).length !== 0" class="right" :href="meta.url" target="_blank">{{meta.text}} Last Updated: {{ meta.epoch | moment }}</a>
+        <a v-show="Object.keys(meta).length !== 0" class="right" :href="meta.url" target="_blank">{{meta.text}} Last Updated: {{ meta.epoch }}</a>
       </div>
       <rofr-data-table :data=contractData />
     </div>

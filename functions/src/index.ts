@@ -79,7 +79,7 @@ function parseEditDateFromHtml(hash, $) {
   // id=post-59034110
   // div class=editDate class=DateTime data-time data-diff, epoch
 
-  return $(hash + " .editDate .DateTime").attr("data-time"); // "epoch";
+  return $(hash + " .editDate .DateTime").attr("title"); // .attr("data-time"); // "epoch";
 }
 
 function parseContractsFromHtml(hash, $) {
