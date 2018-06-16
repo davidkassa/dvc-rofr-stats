@@ -4,6 +4,7 @@
   "scripts": {
     "lint": "./node_modules/.bin/tslint -p tsconfig.json",
     "build": "./node_modules/.bin/tsc",
+    "watch": "./node_modules/.bin/tsc --watch",
     "serve": "npm run build && firebase serve --only functions",
     "shell": "npm run build && firebase functions:shell",
     "start": "npm run shell",

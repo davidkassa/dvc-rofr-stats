@@ -28,7 +28,6 @@ async function processDisBoardsData() {
 
   try {
     const meta = await getMetadata();
-    console.log(`meta: ` + JSON.stringify(meta));
     const hash = new URL(meta.url).hash;
     const $ = await getRawHtml(meta.url);
     const epoch = parseEditDateFromHtml(hash, $);
@@ -56,23 +55,23 @@ async function getMetadata() {
 }
 
 async function getRawHtml(url) {
-  const fs = require("fs");
-  const util = require("util");
-  // Convert fs.readFile into Promise version of same
-  const readFile = util.promisify(fs.readFile);
-  const file = await readFile("../data/4.2018-raw.html", {
-    encoding: "utf8"
-  });
-  return cheerio.load(file);
+  // const fs = require("fs");
+  // const util = require("util");
+  // // Convert fs.readFile into Promise version of same
+  // const readFile = util.promisify(fs.readFile);
+  // const file = await readFile("../data/4.2018-raw.html", {
+  //   encoding: "utf8"
+  // });
+  // return cheerio.load(file);
 
-  // let options = {
-  //   uri: url,
-  //   transform: function(body) {
-  //     return cheerio.load(body);
-  //   }
-  // };
+  const options = {
+    uri: url,
+    transform(body) {
+      return cheerio.load(body);
+    }
+  };
 
-  // return await request(options);
+  return request(options);
 }
 
 function parseEditDateFromHtml(hash, $) {
@@ -149,22 +148,44 @@ function parseLine(line) {
   return contract;
 }
 
-async function saveContractsToFirebase(epoch, contracts) {
-  console.log("epoch: " + epoch + "\ncontracts: " + contracts.length);
-  await firestore
-    .collection("contracts")
-    .doc("8888888")
-    .set({ id: "9999999", test: true }, { merge: true });
+async function saveContractsToFirebase(epoch: string, contracts: Contract[]) {
+  console.log("saving epoch: " + epoch + " contracts: " + contracts.length);
 
+  // get contracts from DB, wrap with found bool
+  const contractSnapshot = await firestore.collection("contracts").get();
+  const dbContracts = contractSnapshot.docs.map(d => ({
+    found: false,
+    id: d.id,
+    ...d.data()
+  }));
+  // iterate through new contracts: add/update
+  for (const c of contracts) {
+    const dbContract = dbContracts.find(d => d.id === c.checksum);
+    if (dbContract) {
+      dbContract.found = true;
+    }
+
+    await firestore
+      .collection("contracts")
+      .doc(c.checksum)
+      .set({ ...c }, { merge: true });
+  }
+  // delete any originals with found=false bool
+  for (const d of dbContracts.filter(f => f.found === false)) {
+    await firestore
+      .collection("contracts")
+      .doc(d.id)
+      .delete();
+  }
+
+  // get snapshot, update ref
   // could stash ID from initial lookup
   const metaSnapshot = await firestore.collection("meta").get();
   const metaId = metaSnapshot.docs[0].id;
   await firestore
     .collection("meta")
     .doc(metaId)
-    .update({
-      epoch: epoch + "xxx"
-    });
+    .set({ epoch }, { merge: true });
   return true;
 }
 

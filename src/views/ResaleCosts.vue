@@ -35,7 +35,7 @@
             @useYearFilterChanged="updateUseYearFilter" />
         <!-- pass data to child to disable values -->
         <!-- <rofr-dropdown :data=contractData /> -->
-        <a v-show="Object.keys(meta).length !== 0" class="right" :href="meta.url" target="_blank">Data handcrafted from the April to June DISBoard thread. Last Updated: {{ meta.lastUpdated }}</a>
+        <a v-show="Object.keys(meta).length !== 0" class="right" :href="meta.url" target="_blank">{{meta.text}} Last Updated: {{ meta.epoch | moment }}</a>
       </div>
       <rofr-data-table :data=contractData />
     </div>
@@ -48,6 +48,7 @@ import ResaleCostLineChart from "@/components/ResaleCostLineChart.vue";
 import RofrDataTable from "@/components/RofrDataTable.vue";
 import RofrDropdown from "@/components/RofrDropdown.vue";
 import { db } from "../main";
+import * as moment from "moment";
 
 export default {
   components: {
@@ -139,6 +140,11 @@ export default {
     updateUseYearFilter: function(useYearFilter) {
       //console.log("Use Year Filter Changed:\n" + JSON.stringify(useYearFilter) + "\n");
       this.useYearFilter = useYearFilter;
+    }
+  },
+  filters: {
+    moment: function(date) {
+      return moment.unix(Number(date)).format("ddd, MMM D LT"); //.format('MMMM Do YYYY, h:mm:ss a');
     }
   }
 };
