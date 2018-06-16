@@ -12,19 +12,17 @@ install:
   - cd ./functions && npm ci && cd ..
 
 script:
+  - npm run test:unit
   - if [ "$TRAVIS_BRANCH" = "master" ]; then npm run build; fi
   - if [ "$TRAVIS_BRANCH" != "master" ]; then npm run build-staging; fi
 
-deploy:
-  - provider: firebase
-    token: $FIREBASE_DEPLOY_KEY
-    project: "prod"
-    skip_cleanup: true
-    on:
-      branch: master
-  - provider: firebase
-    token: $FIREBASE_DEPLOY_KEY
-    project: "staging"
-    skip_cleanup: true
-    on:
-      branch: develop
+# using instead of deploy as non-0 deploy still succeeds
+after_success:
+   - if [ "$TRAVIS_BRANCH" = "develop" ] && [ $TRAVIS_PULL_REQUEST == "false" ]; then
+       npm i -g firebase-tools;
+       firebase deploy --token $FIREBASE_DEPLOY_KEY --project staging;
+     fi
+   - if [ "$TRAVIS_BRANCH" = "master" ] && [ $TRAVIS_PULL_REQUEST == "false" ]; then
+       npm i -g firebase-tools;
+       firebase deploy --token $FIREBASE_DEPLOY_KEY --project prod;
+     fi    

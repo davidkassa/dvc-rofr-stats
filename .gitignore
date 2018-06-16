@@ -6,8 +6,10 @@ node_modules
 # local env files
 .env.local
 .env.*.local
+*.local
 
 # Log files
+firebase-debug.log*
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
