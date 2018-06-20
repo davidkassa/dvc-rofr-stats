@@ -79,7 +79,14 @@ function parseEditDateFromHtml(hash, $) {
   // id=post-59034110
   // div class=editDate class=DateTime data-time data-diff, epoch
 
-  return $(hash + " .editDate .DateTime").attr("title"); // .attr("data-time"); // "epoch";
+  let epoch = $(hash + " .editDate .DateTime").attr("data-time"); // "epoch";
+  if (!epoch) {
+    const dateStr = $(hash + " .messageMeta .DateTime").attr("title"); // format: Apr 3, 2018 at 1:51 PM
+    epoch = moment(dateStr, "MMM D, YYYY at h:mm A")
+      .unix()
+      .toString();
+  }
+  return epoch;
 }
 
 function parseContractsFromHtml(hash, $) {

@@ -27,18 +27,18 @@ const cheerio = require("cheerio");
 //   });
 // });
 
-// describe("parseEditDateFromHtml", () => {
-//   it("finds the correct epoch", () => {
-//     var htmlData = fs.readFileSync("tests/unit/functions/raw.html", {
-//       encoding: "utf8"
-//     });
-//     var result = functions.parseEditDateFromHtml(
-//       "#post-59034110",
-//       cheerio.load(htmlData)
-//     );
-//     expect(result).toBe("1528564129");
-//   });
-// });
+describe("parseEditDateFromHtml", () => {
+  it("finds the correct epoch", () => {
+    var htmlData = fs.readFileSync("tests/unit/functions/raw.html", {
+      encoding: "utf8"
+    });
+    var result = functions.parseEditDateFromHtml(
+      "#post-59034110",
+      cheerio.load(htmlData)
+    );
+    expect(result).toBe("1528564129");
+  });
+});
 
 describe("parseEditDateFromHtml", () => {
   it("finds the correct date string", () => {
@@ -49,7 +49,7 @@ describe("parseEditDateFromHtml", () => {
       "#post-59034110",
       cheerio.load(htmlData)
     );
-    expect(result).toBe("Jun 9, 2018 at 12:08 PM");
+    expect(result).toBe("1522777860");
   });
 });
 
