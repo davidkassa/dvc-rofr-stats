@@ -1,5 +1,7 @@
 import * as functions from "../../../functions/lib/index";
 
+import moment from "moment";
+
 const fs = require("fs");
 const cheerio = require("cheerio");
 
@@ -49,7 +51,12 @@ describe("parseEditDateFromHtml", () => {
       "#post-59034110",
       cheerio.load(htmlData)
     );
-    expect(result).toBe("1522777860");
+    //Apr 3, 2018 at 12:51 PM
+    expect(result).toBe(
+      moment([2018, 3, 3, 12, 51, 0, 0])
+        .unix()
+        .toString()
+    );
   });
 });
 
