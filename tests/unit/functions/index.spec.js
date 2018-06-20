@@ -1,5 +1,7 @@
 import * as functions from "../../../functions/lib/index";
 
+import moment from "moment";
+
 const fs = require("fs");
 const cheerio = require("cheerio");
 
@@ -27,18 +29,18 @@ const cheerio = require("cheerio");
 //   });
 // });
 
-// describe("parseEditDateFromHtml", () => {
-//   it("finds the correct epoch", () => {
-//     var htmlData = fs.readFileSync("tests/unit/functions/raw.html", {
-//       encoding: "utf8"
-//     });
-//     var result = functions.parseEditDateFromHtml(
-//       "#post-59034110",
-//       cheerio.load(htmlData)
-//     );
-//     expect(result).toBe("1528564129");
-//   });
-// });
+describe("parseEditDateFromHtml", () => {
+  it("finds the correct epoch", () => {
+    var htmlData = fs.readFileSync("tests/unit/functions/raw.html", {
+      encoding: "utf8"
+    });
+    var result = functions.parseEditDateFromHtml(
+      "#post-59034110",
+      cheerio.load(htmlData)
+    );
+    expect(result).toBe("1528564129");
+  });
+});
 
 describe("parseEditDateFromHtml", () => {
   it("finds the correct date string", () => {
@@ -49,7 +51,12 @@ describe("parseEditDateFromHtml", () => {
       "#post-59034110",
       cheerio.load(htmlData)
     );
-    expect(result).toBe("Jun 9, 2018 at 12:08 PM");
+    //Apr 3, 2018 at 12:51 PM
+    expect(result).toBe(
+      moment([2018, 3, 3, 12, 51, 0, 0])
+        .unix()
+        .toString()
+    );
   });
 });
 
