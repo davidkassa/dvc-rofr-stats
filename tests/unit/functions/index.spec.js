@@ -43,6 +43,27 @@ describe("parseEditDateFromHtml", () => {
 });
 
 describe("parseEditDateFromHtml", () => {
+  it("finds the correct edit date string", () => {
+    var htmlData = fs.readFileSync(
+      "tests/unit/functions/raw.editdatestring.html",
+      {
+        encoding: "utf8"
+      }
+    );
+    var result = functions.parseEditDateFromHtml(
+      "#post-59034110",
+      cheerio.load(htmlData)
+    );
+    //Jun 5, 2018 at 2:51 PM
+    expect(result).toBe(
+      moment([2018, 5, 5, 14, 51, 0, 0]) // zero-based month
+        .unix()
+        .toString()
+    );
+  });
+});
+
+describe("parseEditDateFromHtml", () => {
   it("finds the correct date string", () => {
     var htmlData = fs.readFileSync("tests/unit/functions/raw.datestring.html", {
       encoding: "utf8"
