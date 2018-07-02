@@ -105,23 +105,27 @@ function parseEditDateFromHtml(hash, $) {
   // id=post-59034110
   // div class=editDate class=DateTime data-time data-diff, epoch
 
-  const timeNode = $(hash + " .editDate .DateTime");
+  let timeNode = $(hash + " .editDate .DateTime");
   let epoch = timeNode.attr("data-time"); // "epoch";
   if (!epoch) {
-    const dateStr = timeNode.attr("title"); // format: Apr 3, 2018 at 1:51 PM
-    if (dateStr) {
-      epoch = moment(dateStr, "MMM D, YYYY at h:mm A")
+    const editStr = timeNode.attr("title"); // format: Apr 3, 2018 at 1:51 PM
+    if (editStr) {
+      epoch = moment(editStr, "MMM D, YYYY at h:mm A")
         .unix()
         .toString();
-      console.log(`edit date str ${epoch}`);
     }
   }
   if (!epoch) {
-    const dateStr = $(hash + " .messageMeta .DateTime").attr("title"); // format: Apr 3, 2018 at 1:51 PM
-    epoch = moment(dateStr, "MMM D, YYYY at h:mm A")
-      .unix()
-      .toString();
-    console.log(`date str ${epoch}`);
+    timeNode = $(hash + " .messageMeta .DateTime");
+    epoch = timeNode.attr("data-time"); // "epoch";
+    if (!epoch) {
+      const dateStr = timeNode.attr("title"); // format: Apr 3, 2018 at 1:51 PM
+      if (dateStr) {
+        epoch = moment(dateStr, "MMM D, YYYY at h:mm A")
+          .unix()
+          .toString();
+      }
+    }
   }
   return epoch;
 }

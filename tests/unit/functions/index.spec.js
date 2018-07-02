@@ -74,7 +74,7 @@ describe("parseEditDateFromHtml", () => {
     );
     //Apr 3, 2018 at 12:51 PM
     expect(result).toBe(
-      moment([2018, 3, 3, 12, 51, 0, 0])
+      moment([2018, 3, 23, 12, 51, 0, 0])
         .unix()
         .toString()
     );
