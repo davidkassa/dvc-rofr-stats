@@ -6,6 +6,7 @@ import * as request from "request-promise-native";
 import { URL } from "url";
 
 import { Contract } from "./contract";
+import { Meta } from "./meta";
 
 // https://github.com/firebase/functions-samples/blob/master/presence-firestore/functions/index.js
 admin.initializeApp();
@@ -27,14 +28,27 @@ async function processDisBoardsData() {
   console.log("Processing DisBoard Data!");
 
   try {
+    const allContracts: Contract[] = [];
     const meta = await getMetadata();
-    const hash = new URL(meta.url).hash;
-    const $ = await getRawHtml(meta.url);
-    const epoch = parseEditDateFromHtml(hash, $);
+    for (const data of meta) {
+      const hash = new URL(data.url).hash;
+      const $ = await getRawHtml(data.url);
+      const epoch = parseEditDateFromHtml(hash, $);
 
-    if (meta.epoch !== epoch) {
-      const contracts = parseContractsFromHtml(hash, $);
-      return saveContractsToFirebase(epoch, contracts);
+      if (data.epoch !== epoch) {
+        data.epoch = epoch;
+        const contracts = parseContractsFromHtml(hash, $);
+        console.log(
+          "parsed epoch: " + epoch + " contracts: " + contracts.length
+        );
+        allContracts.concat(contracts);
+      }
+    }
+    if (allContracts.length > 0) {
+      if (saveContractsToFirebase(allContracts)) {
+        return saveMetaToFirebase(meta);
+      }
+      return false;
     }
 
     return true;
@@ -44,14 +58,26 @@ async function processDisBoardsData() {
   }
 }
 
-async function getMetadata() {
+async function getMetadata(): Promise<Meta[]> {
   // return {
   //   url:
   //     "https://www.disboards.com/threads/rofr-thread-april-to-june-2018-please-see-first-post-for-instructions-formatting-tool.3674375/#post-59034110",
   //   epoch: "1527551590"
   // };
   const snapshot = await firestore.collection("meta").get();
-  return snapshot.docs[0].data(); // only 1 record
+  // Object.keys(s.val() || {}) .map(k => s.val()[k]);
+  const meta: Meta[] = [];
+  for (const doc of snapshot.docs) {
+    const data = doc.data();
+    const m = new Meta();
+    m.id = doc.id;
+    m.active = data.active;
+    m.epoch = data.epoch;
+    m.text = data.text;
+    m.url = data.url;
+    meta.push(m);
+  }
+  return meta; // snapshot.docs[0].data(); // only 1 record
 }
 
 async function getRawHtml(url) {
@@ -100,7 +126,7 @@ function parseEditDateFromHtml(hash, $) {
   return epoch;
 }
 
-function parseContractsFromHtml(hash, $) {
+function parseContractsFromHtml(hash, $): Contract[] {
   // https://www.disboa......#post-59034110
   // id=post-59034110
   // div class=messageContent
@@ -120,7 +146,7 @@ function parseContractsFromHtml(hash, $) {
   return contracts;
 }
 
-function parseLine(line) {
+function parseLine(line): Contract {
   // NewbieMom---$88-$14839-150-AKV-Apr-0/17, 150/18, 150/19, 150/20- sent 5/7
   // David K.---$102-$22356-200-AKV-Sep-0/17, 200/18, 200/19- sent 4/12, taken 5/8
   // David K.---$104-$24537-220-AKV-Mar-0/17, 152/18, 220/19-International seller- sent 5/14, passed 5/31
@@ -166,9 +192,8 @@ function parseLine(line) {
   return contract;
 }
 
-async function saveContractsToFirebase(epoch: string, contracts: Contract[]) {
-  console.log("saving epoch: " + epoch + " contracts: " + contracts.length);
-
+async function saveContractsToFirebase(contracts: Contract[]) {
+  console.log("saving contracts: " + contracts.length);
   // get contracts from DB, wrap with found bool
   const contractSnapshot = await firestore.collection("contracts").get();
   const dbContracts = contractSnapshot.docs.map(d => ({
@@ -195,15 +220,17 @@ async function saveContractsToFirebase(epoch: string, contracts: Contract[]) {
       .doc(d.id)
       .delete();
   }
+  return true;
+}
+async function saveMetaToFirebase(meta: Meta[]) {
+  console.log("saving meta: " + meta.length);
 
-  // get snapshot, update ref
-  // could stash ID from initial lookup
-  const metaSnapshot = await firestore.collection("meta").get();
-  const metaId = metaSnapshot.docs[0].id;
-  await firestore
-    .collection("meta")
-    .doc(metaId)
-    .set({ epoch }, { merge: true });
+  for (const data of meta) {
+    await firestore
+      .collection("meta")
+      .doc(data.id)
+      .set({ epoch: data.epoch }, { merge: true });
+  }
   return true;
 }
 
