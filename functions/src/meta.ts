@@ -1,4 +1,3 @@
-
 export class Meta {
   public id: string;
   public epoch: string;

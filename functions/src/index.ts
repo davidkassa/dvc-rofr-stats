@@ -30,7 +30,7 @@ async function processDisBoardsData() {
   try {
     const allContracts: Contract[] = [];
     const meta = await getMetadata();
-    for ( const data of meta) {
+    for (const data of meta) {
       const hash = new URL(data.url).hash;
       const $ = await getRawHtml(data.url);
       const epoch = parseEditDateFromHtml(hash, $);
@@ -38,12 +38,14 @@ async function processDisBoardsData() {
       if (data.epoch !== epoch) {
         data.epoch = epoch;
         const contracts = parseContractsFromHtml(hash, $);
-        console.log("parsed epoch: " + epoch + " contracts: " + contracts.length);
+        console.log(
+          "parsed epoch: " + epoch + " contracts: " + contracts.length
+        );
         allContracts.concat(contracts);
-        }
+      }
     }
-    if(allContracts.length > 0) {
-      if(saveContractsToFirebase(allContracts)) {
+    if (allContracts.length > 0) {
+      if (saveContractsToFirebase(allContracts)) {
         return saveMetaToFirebase(meta);
       }
       return false;
@@ -56,7 +58,7 @@ async function processDisBoardsData() {
   }
 }
 
-async function getMetadata() : Promise<Meta[]> {
+async function getMetadata(): Promise<Meta[]> {
   // return {
   //   url:
   //     "https://www.disboards.com/threads/rofr-thread-april-to-june-2018-please-see-first-post-for-instructions-formatting-tool.3674375/#post-59034110",
@@ -64,7 +66,7 @@ async function getMetadata() : Promise<Meta[]> {
   // };
   const snapshot = await firestore.collection("meta").get();
   // Object.keys(s.val() || {}) .map(k => s.val()[k]);
-  const meta:Meta[] = [];
+  const meta: Meta[] = [];
   for (const doc of snapshot.docs) {
     const data = doc.data();
     const m = new Meta();
@@ -124,7 +126,7 @@ function parseEditDateFromHtml(hash, $) {
   return epoch;
 }
 
-function parseContractsFromHtml(hash, $):Contract[] {
+function parseContractsFromHtml(hash, $): Contract[] {
   // https://www.disboa......#post-59034110
   // id=post-59034110
   // div class=messageContent
@@ -144,7 +146,7 @@ function parseContractsFromHtml(hash, $):Contract[] {
   return contracts;
 }
 
-function parseLine(line):Contract {
+function parseLine(line): Contract {
   // NewbieMom---$88-$14839-150-AKV-Apr-0/17, 150/18, 150/19, 150/20- sent 5/7
   // David K.---$102-$22356-200-AKV-Sep-0/17, 200/18, 200/19- sent 4/12, taken 5/8
   // David K.---$104-$24537-220-AKV-Mar-0/17, 152/18, 220/19-International seller- sent 5/14, passed 5/31
@@ -223,11 +225,11 @@ async function saveContractsToFirebase(contracts: Contract[]) {
 async function saveMetaToFirebase(meta: Meta[]) {
   console.log("saving meta: " + meta.length);
 
-  for(const data of meta) {
+  for (const data of meta) {
     await firestore
-    .collection("meta")
-    .doc(data.id)
-    .set({ epoch: data.epoch }, { merge: true });
+      .collection("meta")
+      .doc(data.id)
+      .set({ epoch: data.epoch }, { merge: true });
   }
   return true;
 }
