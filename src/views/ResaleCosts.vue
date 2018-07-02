@@ -74,8 +74,8 @@ export default {
   },
   computed: {
     meta: function() {
-      // console.log(this.metaStore.find(m => m));
-      return this.metaStore.length == 0 ? {} : this.metaStore.find(m => m);
+      // console.log(this.metaStore.find(d => d.active === true));
+      return this.metaStore.length == 0 ? {} : this.metaStore.find(d => d.active === true);
     },
     contractData: function() {
       return this.contracts
