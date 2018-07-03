@@ -74,10 +74,24 @@ describe("parseEditDateFromHtml", () => {
     );
     //Apr 3, 2018 at 12:51 PM
     expect(result).toBe(
-      moment([2018, 3, 3, 12, 51, 0, 0])
+      moment([2018, 3, 23, 12, 51, 0, 0])
         .unix()
         .toString()
     );
+  });
+});
+
+describe("parseEditDateFromHtml", () => {
+  it("finds the correct date string from no-edit", () => {
+    var htmlData = fs.readFileSync("tests/unit/functions/raw.noedit.html", {
+      encoding: "utf8"
+    });
+    var result = functions.parseEditDateFromHtml(
+      "#post-59418202",
+      cheerio.load(htmlData)
+    );
+    //Apr 3, 2018 at 12:51 PM
+    expect(result).toBe("1530386657");
   });
 });
 

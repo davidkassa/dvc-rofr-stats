@@ -12,6 +12,7 @@ export class Contract {
   public totalCost: number;
   public useYear: string;
   public user: string;
+  public metaId: string;
 
   private pchecksum: string;
   public get checksum(): string {
