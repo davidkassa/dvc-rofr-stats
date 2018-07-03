@@ -91,11 +91,7 @@ describe("parseEditDateFromHtml", () => {
       cheerio.load(htmlData)
     );
     //Apr 3, 2018 at 12:51 PM
-    expect(result).toBe(
-      moment([2018, 5, 30, 14, 24, 17, 0])
-        .unix()
-        .toString()
-    );
+    expect(result).toBe("1530386657");
   });
 });
 
