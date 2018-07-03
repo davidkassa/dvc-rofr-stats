@@ -28,7 +28,7 @@ async function processDisBoardsData() {
   console.log("Processing DisBoard Data!");
 
   try {
-    const allContracts: Contract[] = [];
+    let allContracts: Contract[] = [];
     const meta = await getMetadata();
     for (const data of meta) {
       const hash = new URL(data.url).hash;
@@ -41,7 +41,7 @@ async function processDisBoardsData() {
         console.log(
           "parsed epoch: " + epoch + " contracts: " + contracts.length
         );
-        allContracts.concat(contracts);
+        allContracts = allContracts.concat(contracts);
       }
     }
     if (allContracts.length > 0) {
