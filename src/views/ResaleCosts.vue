@@ -81,6 +81,11 @@ export default {
     },
     contractData: function() {
       return this.contracts
+        .filter(a =>
+          moment()
+            .subtract(3, "months")
+            .isSameOrBefore(moment(a.dateSent, moment.HTML5_FMT.DATE))
+        )
         .filter(
           a =>
             this.statusFilter.length != 0 &&
