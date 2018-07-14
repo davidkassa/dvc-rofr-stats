@@ -1,10 +1,10 @@
 <template>
-  <b-table :data=data :columns=columns default-sort="status" />
+  <b-table :data=data :columns=columns :selected.sync=selected default-sort="status" focusable />
 </template>
 
 <script>
 export default {
-  props: ["data"],
+  props: ["data", "selected"],
   data() {
     return {
       columns: [

@@ -9,6 +9,7 @@ import { Pie, mixins } from "vue-chartjs";
 const { reactiveProp } = mixins;
 import { dataLabels } from "chartjs-plugin-datalabels";
 
+let setupComplete = false;
 var internalPie = {
   extends: Pie,
   mixins: [reactiveProp],
@@ -19,10 +20,41 @@ var internalPie = {
       //   ....
       // }
     });
+    this.addPlugin({
+      id: "hiddenSlices",
+      afterDatasetsUpdate: function(chartInstance) {
+        // If `hiddenSlices` has been set.
+        if (
+          chartInstance.config.data.hiddenSlices !== undefined &&
+          !setupComplete
+        ) {
+          // Iterate all datasets.
+          console.log(chartInstance.config.data.hiddenSlices);
+          // for (var i = 0; i < chartInstance.data.datasets.length; ++i) {
+          // Iterate all indices of slices to be hidden.
+          chartInstance.config.data.hiddenSlices.forEach(function(index) {
+            // Hide this slice for this dataset.
+            chartInstance.getDatasetMeta(0).data[index].hidden = true;
+            setupComplete = true;
+          });
+          // }
+          chartInstance.update();
+        }
+      }
+    });
     this.renderChart(this.chartData, {
       responsive: true,
       maintainAspectRatio: false,
+      layout: {
+        padding: {
+          left: 10,
+          right: 10,
+          top: 10,
+          bottom: 10
+        }
+      },
       plugins: {
+        hiddenSlices: {},
         datalabels: {
           backgroundColor: function(context) {
             return context.dataset.backgroundColor;
@@ -55,6 +87,7 @@ export default {
   computed: {
     datacollection: function() {
       return {
+        hiddenSlices: [0],
         labels: ["Waiting", "Passed", "Taken"],
         datasets: [
           {
