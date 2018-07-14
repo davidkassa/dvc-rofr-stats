@@ -1,6 +1,6 @@
 <template>
   <div class="data">
-    <router-view :contracts=contractData :waitingContracts=waitingContracts :passedContracts=passedContracts :takenContracts=takenContracts />
+    <router-view :selected.sync=selected :contracts=contractData :waitingContracts=waitingContracts :passedContracts=passedContracts :takenContracts=takenContracts />
     <div class="data-details">
       <div class="float-container">
         <rofr-dropdown class="left" 
@@ -29,6 +29,7 @@ export default {
   },
   data() {
     return {
+      selected: {},
       contracts: [],
       metaStore: [],
       statusFilter: [],
