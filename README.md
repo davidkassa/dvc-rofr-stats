@@ -8,6 +8,8 @@ Can be found hosted at <https://www.dvcstats.com>
 
 ## Development
 
+[![Dependabot Status](https://api.dependabot.com/badges/status?host=github&identifier=132281623)](https://dependabot.com)
+
 | Service       | [Master](https://www.dvcstats.com)                                                                                              | [Develop](https://dev.dvcstats.com)                                                                                               |
 | ------------- | ------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- |
 | CI Status     | [![Master](https://travis-ci.org/davidkassa/dvc-rofr-stats.svg?branch=master)](https://travis-ci.org/davidkassa/dvc-rofr-stats) | [![Develop](https://travis-ci.org/davidkassa/dvc-rofr-stats.svg?branch=develop)](https://travis-ci.org/davidkassa/dvc-rofr-stats) |

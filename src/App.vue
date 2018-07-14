@@ -4,7 +4,8 @@
     <div id="nav">
       <router-link to="/">Home</router-link> |
       <!-- <router-link to="/about">About</router-link> | -->
-      <router-link to="/resale-costs">Resale Costs</router-link>
+      <router-link to="/resale-costs">Resale Costs</router-link> |
+      <router-link to="/wait-times">Wait Times</router-link>
     </div>
     <router-view/>
     </div>
