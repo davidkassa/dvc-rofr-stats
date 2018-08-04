@@ -20,7 +20,7 @@
     "moment": "^2.22.2",
     "moving-average": "^1.0.0",
     "register-service-worker": "^1.4.1",
-    "vue": "^2.5.16",
+    "vue": "^2.5.17",
     "vue-analytics": "^5.12.3",
     "vue-chartjs": "^3.3.2",
     "vue-echarts": "^3.0.9",
@@ -44,7 +44,7 @@
     "request": "^2.87.0",
     "request-promise-native": "^1.0.5",
     "sass-loader": "^7.1.0",
-    "vue-template-compiler": "^2.5.16"
+    "vue-template-compiler": "^2.5.17"
   },
   "browserslist": [
     "> 1%",
