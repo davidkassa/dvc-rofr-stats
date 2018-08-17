@@ -21,7 +21,7 @@
     "moving-average": "^1.0.0",
     "register-service-worker": "^1.5.2",
     "vue": "^2.5.17",
-    "vue-analytics": "^5.12.3",
+    "vue-analytics": "^5.13.0",
     "vue-chartjs": "^3.4.0",
     "vue-echarts": "^3.0.9",
     "vue-multi-select": "3.3.2",
