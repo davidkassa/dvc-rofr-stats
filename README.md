@@ -8,7 +8,7 @@ Can be found hosted at <https://www.dvcstats.com>
 
 ## Development
 
-[![Dependabot Status](https://api.dependabot.com/badges/status?host=github&identifier=132281623)](https://dependabot.com)
+[![Dependabot Status](https://api.dependabot.com/badges/status?host=github&repo=davidkassa/dvc-rofr-stats)](https://dependabot.com)
 
 | Service       | [Master](https://www.dvcstats.com)                                                                                              | [Develop](https://dev.dvcstats.com)                                                                                               |
 | ------------- | ------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- |
