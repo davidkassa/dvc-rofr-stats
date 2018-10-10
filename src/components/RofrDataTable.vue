@@ -1,12 +1,18 @@
 <template>
-  <b-table :data=data :columns=columns :selected.sync=selected default-sort="status" focusable />
+  <b-table :data=data :columns=columns :selected.sync=selectedRecord @update:selected=changeSelected default-sort="status" focusable />
 </template>
 
 <script>
 export default {
   props: ["data", "selected"],
+  methods: {
+    changeSelected(record) {
+      this.$emit("update:selected", record);
+    }
+  },
   data() {
     return {
+      selectedRecord: {},
       columns: [
         {
           sortable: true,

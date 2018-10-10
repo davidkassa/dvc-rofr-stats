@@ -1,11 +1,10 @@
 import Vue from "vue";
 import Buefy from "buefy";
+// const Buefy = () => import(/* webpackChunkName: "buefy" */ "buefy");
 
 import VueAnalytics from "vue-analytics";
 
 import VueFire from "vuefire";
-import firebase from "firebase/app";
-import "firebase/firestore";
 
 import App from "./App.vue";
 import router from "./router";
@@ -28,23 +27,6 @@ Vue.use(VueAnalytics, {
   router
 });
 Vue.use(VueFire);
-
-// Initialize Firebase
-var config = {
-  apiKey: process.env.VUE_APP_FIREBASE_API_KEY,
-  authDomain: process.env.VUE_APP_FIREBASE_AUTH_DOMAIN,
-  databaseURL: process.env.VUE_APP_FIREBASE_DATABASE_URL,
-  projectId: process.env.VUE_APP_FIREBASE_PROJECT_ID,
-  storageBucket: process.env.VUE_APP_FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: process.env.VUE_APP_FIREBASE_MESSAGING_SENDER_ID
-};
-/* eslint-enable no-undef */
-
-firebase.initializeApp(config);
-const firestore = firebase.firestore();
-const settings = { /* your settings... */ timestampsInSnapshots: true };
-firestore.settings(settings);
-export const db = firestore;
 
 new Vue({
   router,

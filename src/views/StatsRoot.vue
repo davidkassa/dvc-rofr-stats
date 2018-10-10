@@ -1,6 +1,6 @@
 <template>
   <div class="data">
-    <router-view :selected.sync=selected :contracts=contractData :waitingContracts=waitingContracts :passedContracts=passedContracts :takenContracts=takenContracts />
+    <router-view :meta=meta :selected=selected :contracts=contractData :waitingContracts=waitingContracts :passedContracts=passedContracts :takenContracts=takenContracts />
     <div class="data-details">
       <div class="float-container">
         <rofr-dropdown class="left" 
@@ -11,7 +11,7 @@
         <!-- <rofr-dropdown :data=contractData /> -->
         <a v-show="Object.keys(meta).length !== 0" class="right" :href="meta.url" target="_blank">{{meta.text}} Last Updated: {{ meta.epoch | moment }}</a>
       </div>
-      <rofr-data-table :data=contractData />
+      <rofr-data-table :selected.sync=selected :data=contractData />
     </div>
   </div>
 </template>
@@ -19,7 +19,7 @@
 <script>
 import RofrDataTable from "@/components/RofrDataTable.vue";
 import RofrDropdown from "@/components/RofrDropdown.vue";
-import { db } from "../main";
+import { db } from "../firebase";
 import * as moment from "moment";
 
 export default {
