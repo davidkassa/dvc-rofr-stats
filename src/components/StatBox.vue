@@ -1,7 +1,7 @@
 <template>
     <div class="v-center">
       <div class="statbox">
-        <div class="box-title">{{title}}<br/><span v-show="!total.startsWith('NaN')">{{total}}</span></div>
+        <div class="box-title">{{title}}<br/><span v-show="!total.includes('NaN')">{{total}}</span></div>
         <div class="columns is-mobile">
           <div class="column">
             <div class="box-record"><b-icon pack="fas" icon="circle" size="is-small" type="is-passed" /> Passed:</div>
@@ -9,9 +9,9 @@
             <div class="box-record"><b-icon pack="fas" icon="circle" size="is-small" type="is-taken" /> Taken:</div>
           </div>
           <div class="column">
-            <div v-show="passed !== 'NaN days'"  class="box-record">{{passed}}</div>
-            <div v-show="waiting !== 'NaN days'" class="box-record">{{waiting}}</div>
-            <div v-show="taken !== 'NaN days'" class="box-record">{{taken}}</div>
+            <div :style="{visibility: passed.includes('NaN') ? 'hidden' : 'visible'}" class="box-record">{{passed}}</div>
+            <div :style="{visibility: waiting.includes('NaN') ? 'hidden' : 'visible'}" class="box-record">{{waiting}}</div>
+            <div :style="{visibility: taken.includes('NaN') ? 'hidden' : 'visible'}" class="box-record">{{taken}}</div>
           </div>
         </div>
       </div>
