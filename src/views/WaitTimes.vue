@@ -18,7 +18,7 @@ import PurchaseStatusPieChart from "@/components/PurchaseStatusPieChart.vue"; //
 // import ResaleCostBoxplot from "@/components/ResaleCostBoxplot.vue"; // @ is an alias to /src
 import WaitTimeLineChart from "@/components/WaitTimeLineChart.vue"; // @ is an alias to /src
 import StatBox from "@/components/StatBox.vue";
-import * as moment from "moment";
+import aggregate from "@/util/aggregate";
 
 export default {
   components: {
@@ -26,6 +26,7 @@ export default {
     WaitTimeLineChart,
     StatBox
   },
+  mixins: [aggregate],
   props: ["contracts", "passedContracts", "waitingContracts", "takenContracts"],
   computed: {
     averageWaitTime: function() {
@@ -39,24 +40,6 @@ export default {
     },
     averageTakenWaitTime: function() {
       return this.getAverageWaitTime(this.takenContracts);
-    }
-  },
-  methods: {
-    getAverageWaitTime: function(contracts) {
-      // console.log(contracts);
-      var sum = contracts.reduce(function(prevVal, elem) {
-        let resolved = moment(elem.dateResolved, moment.HTML5_FMT.DATE);
-        if (!resolved.isValid()) {
-          resolved = moment();
-        }
-        let sent = moment(elem.dateSent, moment.HTML5_FMT.DATE);
-        let waiting = resolved.diff(sent, "days");
-        // console.log(`resolved: ${resolved} sent: ${sent} waiting: ${waiting} `);
-
-        return prevVal + waiting;
-      }, 0);
-      var avg = sum / contracts.length;
-      return avg.toFixed(2) + " days";
     }
   }
 };

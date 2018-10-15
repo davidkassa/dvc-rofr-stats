@@ -1,6 +1,6 @@
 <template>
   <div class="data">
-    <router-view :meta=meta :selected=selected :contracts=contractData :waitingContracts=waitingContracts :passedContracts=passedContracts :takenContracts=takenContracts />
+    <router-view :meta=meta :selected=selected :unfilteredContracts=contracts :contracts=contractData :waitingContracts=waitingContracts :passedContracts=passedContracts :takenContracts=takenContracts />
     <div class="data-details">
       <div class="columns">
         <div class="column has-text-centered-mobile has-text-left-tablet">

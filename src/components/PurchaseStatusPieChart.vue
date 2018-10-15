@@ -29,7 +29,7 @@ var internalPie = {
           !setupComplete
         ) {
           // Iterate all datasets.
-          console.log(chartInstance.config.data.hiddenSlices);
+          // console.log(chartInstance.config.data.hiddenSlices);
           // for (var i = 0; i < chartInstance.data.datasets.length; ++i) {
           // Iterate all indices of slices to be hidden.
           chartInstance.config.data.hiddenSlices.forEach(function(index) {
@@ -40,6 +40,10 @@ var internalPie = {
           // }
           chartInstance.update();
         }
+      },
+      destroy: function() {
+        // console.log("destroy");
+        setupComplete = false;
       }
     });
     this.renderChart(this.chartData, {
