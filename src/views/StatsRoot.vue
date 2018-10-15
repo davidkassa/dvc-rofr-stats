@@ -117,14 +117,4 @@ export default {
 .data-details {
   margin: 1%;
 }
-.float-container {
-  width: 100%;
-  display: inline-block;
-  .left {
-    float: left;
-  }
-  .right {
-    float: right;
-  }
-}
 </style>
