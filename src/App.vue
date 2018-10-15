@@ -12,7 +12,7 @@
     </div>
     <footer class="footer">
       &copy; 2018 David Kassa. Made with <b-icon pack="fab" icon="fort-awesome" size="is-small" /> in Madison, WI<br/>
-      <!-- <a href="https://github.com/davidkassa/dvc-rofr-stats" target="_blnk"><b-icon pack="fab" icon="github" size="is-small" /> View on GitHub</a>    -->
+      <a href="https://github.com/davidkassa/dvc-rofr-stats" target="_blnk"><b-icon pack="fab" icon="github" size="is-small" /> View on GitHub</a>   
     </footer>
   </div>
 </template>
