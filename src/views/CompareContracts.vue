@@ -1,88 +1,132 @@
 <template>
   <div class="data-details">
-    <p v-show="Object.keys(selected).length === 0">
-      Select your contract from the table below to see how it compares to others.<br />
-      Don't see your contract? Add it to the current <a :href="Object.keys(meta).length === 0 ? 'https://www.disboards.com/forums/purchasing-dvc.28/' : meta.url" target="_blank">DISBoard thread</a>.
-    </p>
-    <b-table v-show="Object.keys(selected).length !== 0">
-    </b-table>
-    <b-table
-        :data="isEmpty ? [] : data"
-        :bordered="isBordered"
-        :striped="isStriped"
-        :narrowed="isNarrowed"
-        :hoverable="isHoverable"
-        :loading="isLoading"
-        :focusable="isFocusable"
-        :mobile-cards="hasMobileCards">
+    <b-table :data="data" :mobile-cards="true">
 
         <template slot-scope="props">
-            <b-table-column field="id" label="ID" width="40" numeric>
-                {{ props.row.id }}
+            <b-table-column label="">
+                <b>{{ props.row.name }}</b>
             </b-table-column>
 
-            <b-table-column field="first_name" label="First Name">
-                {{ props.row.first_name }}
+            <b-table-column label="Selected Contract">
+                {{ props.row.selected }}
             </b-table-column>
 
-            <b-table-column field="last_name" label="Last Name">
-                {{ props.row.last_name }}
+            <b-table-column label="All Contracts">
+                {{ props.row.all }}
             </b-table-column>
 
-            <b-table-column field="date" label="Date" centered>
-                <span class="tag is-success">
-                    {{ new Date(props.row.date).toLocaleDateString() }}
-                </span>
+            <b-table-column label="Same Resort">
+                {{ props.row.resort }}
             </b-table-column>
 
-            <b-table-column label="Gender">
-                <b-icon pack="fas"
-                    :icon="props.row.gender === 'Male' ? 'mars' : 'venus'">
-                </b-icon>
-                {{ props.row.gender }}
+            <b-table-column label="Same UY">
+                {{ props.row.uy }}
             </b-table-column>
         </template>
 
         <template slot="empty">
             <section class="section">
-                <div class="content has-text-grey has-text-centered">
-                    <p>
-                        <b-icon
-                            icon="emoticon-sad"
-                            size="is-large">
-                        </b-icon>
-                    </p>
-                    <p>Nothing here.</p>
-                </div>
+            <div class="has-text-centered">
+                <p>
+                    Select your contract from the table below to see how it compares to others.<br />
+                    Don't see your contract? Add it to the current <a :href="Object.keys(meta).length === 0 ? 'https://www.disboards.com/forums/purchasing-dvc.28/' : meta.url" target="_blank">DISBoard thread</a>.
+                </p>
+            </div>
             </section>
         </template>
     </b-table>
-
-
-
-    {{ selected }}
+    <!-- {{ selected }} -->
   </div>
 </template>
 
 <script>
-// import RofrDataTable from "@/components/RofrDataTable.vue";
-// import RofrDropdown from "@/components/RofrDropdown.vue";
-// import { db } from "../main";
-// import * as moment from "moment";
+import aggregate from "@/util/aggregate";
 
 export default {
   // components: {
   //   RofrDataTable,
   //   RofrDropdown
   // },
-  props: ["meta", "selected", "contracts"],
+  props: ["meta", "selected", "unfilteredContracts"],
+  mixins: [aggregate],
   data() {
     return {
       // metaStore: []
     };
   },
-  computed: {},
+  computed: {
+    all: function() {
+      return this.unfilteredContracts;
+    },
+    resort: function() {
+      if (Object.keys(this.selected).length === 0) return [];
+      return this.all.filter(a => a.resort === this.selected.resort);
+    },
+    uy: function() {
+      if (Object.keys(this.selected).length === 0) return [];
+      return this.resort.filter(a => a.useYear === this.selected.useYear);
+    },
+    data: function() {
+      if (Object.keys(this.selected).length === 0) return [];
+      return [
+        {
+          name: "# of Contracts",
+          selected: "- " + [this.selected].length + " -",
+          all: this.all.length,
+          resort: this.resort.length,
+          uy: this.uy.length
+        },
+        {
+          name: "Average Points per Contract",
+          selected: this.getAveragePoints([this.selected]),
+          all: this.getAveragePoints(this.all),
+          resort: this.getAveragePoints(this.resort),
+          uy: this.getAveragePoints(this.uy)
+        },
+        {
+          name: "Average Price per Point",
+          selected: this.getAveragePricePerPoint([this.selected]),
+          all: this.getAveragePricePerPoint(this.all),
+          resort: this.getAveragePricePerPoint(this.resort),
+          uy: this.getAveragePricePerPoint(this.uy)
+        },
+        {
+          name: "Average Total Cost",
+          selected: this.getAverageTotalCost([this.selected]),
+          all: this.getAverageTotalCost(this.all),
+          resort: this.getAverageTotalCost(this.resort),
+          uy: this.getAverageTotalCost(this.uy)
+        },
+        {
+          name: "# of Days Waiting",
+          selected: this.getWaitTimeForStatus([this.selected], "Waiting"),
+          all: this.getWaitTimeForStatus(this.all, "Waiting"),
+          resort: this.getWaitTimeForStatus(this.resort, "Waiting"),
+          uy: this.getWaitTimeForStatus(this.uy, "Waiting")
+        },
+        {
+          name: "# of Days until Passed",
+          selected: this.getWaitTimeForStatus([this.selected], "Passed"),
+          all: this.getWaitTimeForStatus(this.all, "Passed"),
+          resort: this.getWaitTimeForStatus(this.resort, "Passed"),
+          uy: this.getWaitTimeForStatus(this.uy, "Passed")
+        },
+        {
+          name: "# of Days until Taken",
+          selected: this.getWaitTimeForStatus([this.selected], "Taken"),
+          all: this.getWaitTimeForStatus(this.all, "Taken"),
+          resort: this.getWaitTimeForStatus(this.resort, "Taken"),
+          uy: this.getWaitTimeForStatus(this.uy, "Taken")
+        }
+      ];
+    }
+  },
   methods: {
+    getWaitTimeForStatus(contracts, status) {
+      var filtered = contracts.filter(a => a.status == status);
+      if (filtered.length < 1) return "---";
+      return this.getAverageWaitTime(filtered);
+    }
     // updateStatusFilter: function(statusFilter) {
     //   //console.log("Status Filter Changed:\n" + JSON.stringify(statusFilter) + "\n");
     //   this.statusFilter = statusFilter;

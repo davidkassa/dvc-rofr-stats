@@ -1,15 +1,19 @@
 <template>
   <div class="data">
-    <router-view :meta=meta :selected=selected :contracts=contractData :waitingContracts=waitingContracts :passedContracts=passedContracts :takenContracts=takenContracts />
+    <router-view :meta=meta :selected=selected :unfilteredContracts=contracts :contracts=contractData :waitingContracts=waitingContracts :passedContracts=passedContracts :takenContracts=takenContracts />
     <div class="data-details">
-      <div class="float-container">
-        <rofr-dropdown class="left" 
+      <div class="columns">
+        <div class="column has-text-centered-mobile has-text-left-tablet">
+        <rofr-dropdown 
             @statusFilterChanged="updateStatusFilter"
             @resortFilterChanged="updateResortFilter"
             @useYearFilterChanged="updateUseYearFilter" />
         <!-- pass data to child to disable values -->
         <!-- <rofr-dropdown :data=contractData /> -->
-        <a v-show="Object.keys(meta).length !== 0" class="right" :href="meta.url" target="_blank">{{meta.text}} Last Updated: {{ meta.epoch | moment }}</a>
+        </div>
+        <div class="column has-text-centered-mobile has-text-right-tablet">
+          <a v-show="Object.keys(meta).length !== 0" :href="meta.url" target="_blank">{{meta.text}} Last Updated: {{ meta.epoch | moment }}</a>
+        </div>
       </div>
       <rofr-data-table :selected.sync=selected :data=contractData />
     </div>
@@ -112,15 +116,5 @@ export default {
 <style scoped lang="scss">
 .data-details {
   margin: 1%;
-}
-.float-container {
-  width: 100%;
-  display: inline-block;
-  .left {
-    float: left;
-  }
-  .right {
-    float: right;
-  }
 }
 </style>

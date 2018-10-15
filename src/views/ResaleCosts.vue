@@ -16,6 +16,7 @@
 import ResaleCostBoxplot from "@/components/ResaleCostBoxplot.vue"; // @ is an alias to /src
 import ResaleCostLineChart from "@/components/ResaleCostLineChart.vue";
 import StatBox from "@/components/StatBox.vue";
+import aggregate from "@/util/aggregate";
 
 export default {
   components: {
@@ -24,28 +25,19 @@ export default {
     StatBox
   },
   props: ["contracts", "passedContracts", "waitingContracts", "takenContracts"],
+  mixins: [aggregate],
   computed: {
     averagePrice: function() {
-      return this.getAverage(this.contracts);
+      return this.getAveragePricePerPoint(this.contracts);
     },
     averagePassedPrice: function() {
-      return this.getAverage(this.passedContracts);
+      return this.getAveragePricePerPoint(this.passedContracts);
     },
     averageWaitingPrice: function() {
-      return this.getAverage(this.waitingContracts);
+      return this.getAveragePricePerPoint(this.waitingContracts);
     },
     averageTakenPrice: function() {
-      return this.getAverage(this.takenContracts);
-    }
-  },
-  methods: {
-    getAverage: function(contracts) {
-      // console.log(contracts);
-      var sum = contracts.reduce(function(prevVal, elem) {
-        return prevVal + elem.pricePerPoint;
-      }, 0);
-      var avg = sum / contracts.length;
-      return "$" + avg.toFixed(2);
+      return this.getAveragePricePerPoint(this.takenContracts);
     }
   }
 };
