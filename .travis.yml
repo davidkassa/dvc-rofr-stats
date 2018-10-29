@@ -1,6 +1,8 @@
 language: node_js
 node_js:
-  - "node"
+  - "lts/*"
+# Using LTS as Node 11.0.0 breaks gRPC - https://github.com/grpc/grpc-node/issues/594
+
 # Not needed with `npm ci`
 # cache:
 #   directories:
