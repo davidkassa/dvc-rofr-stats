@@ -44,7 +44,7 @@
     "request": "^2.88.0",
     "request-promise-native": "^1.0.5",
     "sass-loader": "^7.1.0",
-    "vue-template-compiler": "^2.5.17"
+    "vue-template-compiler": "^2.5.20"
   },
   "browserslist": [
     "> 1%",
