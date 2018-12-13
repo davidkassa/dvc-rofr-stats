@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "cheerio": "^1.0.0-rc.2",
-    "firebase-admin": "~6.3.0",
+    "firebase-admin": "~6.4.0",
     "firebase-functions": "^2.1.0",
     "moment": "^2.23.0",
     "request": "^2.88.0",
