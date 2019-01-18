@@ -24,7 +24,15 @@
         "headers": [
           {
             "key": "Content-Security-Policy-Report-Only",
-            "value": "default-src 'none'; form-action 'none'; frame-ancestors 'none'; report-uri https://davidkassa.report-uri.com/r/d/csp/wizard;"
+            "value": "child-src docs.google.com; connect-src 'self' firestore.googleapis.com www.google-analytics.com stats.g.doubleclick.net; img-src 'self' www.google-analytics.com www.google.com stats.g.doubleclick.net; default-src 'self' firestore.googleapis.com www.google-analytics.com stats.g.doubleclick.net; style-src 'self'; worker-src 'self'; manifest-src 'self'; script-src 'self' storage.googleapis.com www.google-analytics.com; font-src 'self'; frame-src docs.google.com; report-uri https://davidkassa.report-uri.com/r/d/csp/wizard;"
+          },
+          {
+            "key": "Report-To",
+            "value": "{'group':'default','max_age':31536000,'endpoints':[{'url':'https://davidkassa.report-uri.com/a/d/g'}],'include_subdomains':true}"
+          },
+          {
+            "key": "NEL",
+            "value": "{'report_to':'default','max_age':31536000,'include_subdomains':true}"
           },
           {
             "key": "Referrer-Policy",
