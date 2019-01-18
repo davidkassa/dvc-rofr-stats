@@ -29,6 +29,8 @@ const cheerio = require("cheerio");
 //   });
 // });
 
+const currentYear = (new Date()).getFullYear();
+
 describe("parseEditDateFromHtml", () => {
   it("finds the correct epoch", () => {
     var htmlData = fs.readFileSync("tests/unit/functions/raw.html", {
@@ -116,7 +118,7 @@ describe("parseLine", () => {
 
     expect(output.availablePoints).toBe("0/17, 150/18, 150/19, 150/20");
     expect(output.dateResolved).toBe(null);
-    expect(output.dateSent).toBe("2018-05-07");
+    expect(output.dateSent).toBe(`${currentYear}-05-07`);
     expect(output.notes).toBe(null);
     expect(output.points).toBe(150);
     expect(output.pricePerPoint).toBe(88);
@@ -132,8 +134,8 @@ describe("parseLine", () => {
     let output = functions.parseLine(input);
 
     expect(output.availablePoints).toBe("0/17, 200/18, 200/19");
-    expect(output.dateResolved).toBe("2018-05-08");
-    expect(output.dateSent).toBe("2018-04-12");
+    expect(output.dateResolved).toBe(`${currentYear}-05-08`);
+    expect(output.dateSent).toBe(`${currentYear}-04-12`);
     expect(output.notes).toBe(null);
     expect(output.points).toBe(200);
     expect(output.pricePerPoint).toBe(102);
@@ -149,8 +151,8 @@ describe("parseLine", () => {
     let output = functions.parseLine(input);
 
     expect(output.availablePoints).toBe("0/17, 152/18, 220/19");
-    expect(output.dateResolved).toBe("2018-05-31");
-    expect(output.dateSent).toBe("2018-05-14");
+    expect(output.dateResolved).toBe(`${currentYear}-05-31`);
+    expect(output.dateSent).toBe(`${currentYear}-05-14`);
     expect(output.notes).toBe("International seller");
     expect(output.points).toBe(220);
     expect(output.pricePerPoint).toBe(104);
