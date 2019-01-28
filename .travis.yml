@@ -1,7 +1,7 @@
 language: node_js
 node_js:
-  - "lts/*"
-# Using LTS as Node 11.0.0 breaks gRPC - https://github.com/grpc/grpc-node/issues/594
+  - "8"
+# Using 8 to match Firebase Functions version
 
 # Not needed with `npm ci`
 # cache:
