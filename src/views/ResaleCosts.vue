@@ -1,13 +1,29 @@
 <template>
   <div class="columns">
     <div class="column">
-      <resale-cost-boxplot :waiting=waitingContracts :passed=passedContracts :taken=takenContracts class="chart" />
+      <resale-cost-boxplot
+        :waiting="waitingContracts"
+        :passed="passedContracts"
+        :taken="takenContracts"
+        class="chart"
+      />
     </div>
     <div class="column">
-      <resale-cost-line-chart :waiting=waitingContracts :passed=passedContracts :taken=takenContracts class="chart" />
+      <resale-cost-line-chart
+        :waiting="waitingContracts"
+        :passed="passedContracts"
+        :taken="takenContracts"
+        class="chart"
+      />
     </div>
     <div class="column">
-      <stat-box title="Average Price" :total=averagePrice :passed=averagePassedPrice :waiting=averageWaitingPrice :taken=averageTakenPrice />
+      <stat-box
+        title="Average Price"
+        :total="averagePrice"
+        :passed="averagePassedPrice"
+        :waiting="averageWaitingPrice"
+        :taken="averageTakenPrice"
+      />
     </div>
   </div>
 </template>

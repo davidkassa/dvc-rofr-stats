@@ -1,39 +1,46 @@
 <template>
   <div class="data-details">
     <b-table :data="data" :mobile-cards="true">
+      <template slot-scope="props">
+        <b-table-column label="">
+          <b>{{ props.row.name }}</b>
+        </b-table-column>
 
-        <template slot-scope="props">
-            <b-table-column label="">
-                <b>{{ props.row.name }}</b>
-            </b-table-column>
+        <b-table-column label="Selected Contract">
+          {{ props.row.selected }}
+        </b-table-column>
 
-            <b-table-column label="Selected Contract">
-                {{ props.row.selected }}
-            </b-table-column>
+        <b-table-column label="All Contracts">
+          {{ props.row.all }}
+        </b-table-column>
 
-            <b-table-column label="All Contracts">
-                {{ props.row.all }}
-            </b-table-column>
+        <b-table-column label="Same Resort">
+          {{ props.row.resort }}
+        </b-table-column>
 
-            <b-table-column label="Same Resort">
-                {{ props.row.resort }}
-            </b-table-column>
+        <b-table-column label="Same UY"> {{ props.row.uy }} </b-table-column>
+      </template>
 
-            <b-table-column label="Same UY">
-                {{ props.row.uy }}
-            </b-table-column>
-        </template>
-
-        <template slot="empty">
-            <section class="section">
-            <div class="has-text-centered">
-                <p>
-                    Select your contract from the table below to see how it compares to others.<br />
-                    Don't see your contract? Add it to the current <a :href="Object.keys(meta).length === 0 ? 'https://www.disboards.com/forums/purchasing-dvc.28/' : meta.url" target="_blank">DISBoard thread</a>.
-                </p>
-            </div>
-            </section>
-        </template>
+      <template slot="empty">
+        <section class="section">
+          <div class="has-text-centered">
+            <p>
+              Select your contract from the table below to see how it compares
+              to others.<br />
+              Don't see your contract? Add it to the current
+              <a
+                :href="
+                  Object.keys(meta).length === 0
+                    ? 'https://www.disboards.com/forums/purchasing-dvc.28/'
+                    : meta.url
+                "
+                target="_blank"
+                >DISBoard thread</a
+              >.
+            </p>
+          </div>
+        </section>
+      </template>
     </b-table>
     <!-- {{ selected }} -->
   </div>
