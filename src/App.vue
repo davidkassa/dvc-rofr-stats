@@ -1,18 +1,22 @@
 <template>
   <div id="app">
     <div class="content">
-    <div id="nav">
-      <router-link to="/">Home</router-link>
-      <!-- | <router-link to="/about">About</router-link> -->
-      | <router-link to="/resale-costs">Resale Costs</router-link>
-      | <router-link to="/wait-times">Wait Times</router-link>
-      | <router-link to="/compare-contracts">Compare</router-link>
-    </div>
-    <router-view/>
+      <div id="nav">
+        <router-link to="/">Home</router-link>
+        <!-- | <router-link to="/about">About</router-link> -->
+        | <router-link to="/resale-costs">Resale Costs</router-link> |
+        <router-link to="/wait-times">Wait Times</router-link> |
+        <router-link to="/compare-contracts">Compare</router-link>
+      </div>
+      <router-view />
     </div>
     <footer class="footer">
-      &copy; 2018 David Kassa. Made with <b-icon pack="fab" icon="fort-awesome" size="is-small" /> in Madison, WI<br/>
-      <a href="https://github.com/davidkassa/dvc-rofr-stats" target="_blnk"><b-icon pack="fab" icon="github" size="is-small" /> View on GitHub</a>   
+      &copy; 2018 David Kassa. Made with
+      <b-icon pack="fab" icon="fort-awesome" size="is-small" /> in Madison,
+      WI<br />
+      <a href="https://github.com/davidkassa/dvc-rofr-stats" target="_blnk"
+        ><b-icon pack="fab" icon="github" size="is-small" /> View on GitHub</a
+      >
     </footer>
   </div>
 </template>

@@ -19,7 +19,7 @@ export default {
 };
 </script>
 
-<style lang="scss" >
+<style lang="scss">
 .modal-card-body {
   padding: 0;
 }

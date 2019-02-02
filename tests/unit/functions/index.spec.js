@@ -29,7 +29,7 @@ const cheerio = require("cheerio");
 //   });
 // });
 
-const currentYear = (new Date()).getFullYear();
+const currentYear = new Date().getFullYear();
 
 describe("parseEditDateFromHtml", () => {
   it("finds the correct epoch", () => {
@@ -114,11 +114,11 @@ describe("parseLine", () => {
   it("parses a waiting contract", () => {
     let input =
       "NewbieMom---$88-$14839-150-AKV-Apr-0/17, 150/18, 150/19, 150/20- sent 5/7";
-    let output = functions.parseLine(input);
+    let output = functions.parseLine(input, moment([2018, 7, 15]));
 
     expect(output.availablePoints).toBe("0/17, 150/18, 150/19, 150/20");
     expect(output.dateResolved).toBe(null);
-    expect(output.dateSent).toBe(`${currentYear}-05-07`);
+    expect(output.dateSent).toBe(`2018-05-07`);
     expect(output.notes).toBe(null);
     expect(output.points).toBe(150);
     expect(output.pricePerPoint).toBe(88);
@@ -131,11 +131,11 @@ describe("parseLine", () => {
   it("parses a taken contract", () => {
     let input =
       "David K.---$102-$22356-200-AKV-Sep-0/17, 200/18, 200/19- sent 4/12, taken 5/8";
-    let output = functions.parseLine(input);
+    let output = functions.parseLine(input, moment([2018, 10, 15]));
 
     expect(output.availablePoints).toBe("0/17, 200/18, 200/19");
-    expect(output.dateResolved).toBe(`${currentYear}-05-08`);
-    expect(output.dateSent).toBe(`${currentYear}-04-12`);
+    expect(output.dateResolved).toBe(`2018-05-08`);
+    expect(output.dateSent).toBe(`2018-04-12`);
     expect(output.notes).toBe(null);
     expect(output.points).toBe(200);
     expect(output.pricePerPoint).toBe(102);
@@ -148,11 +148,11 @@ describe("parseLine", () => {
   it("parses a passed contract with comment", () => {
     let input =
       "David K.---$104-$24537-220-AKV-Mar-0/17, 152/18, 220/19-International seller- sent 5/14, passed 5/31";
-    let output = functions.parseLine(input);
+    let output = functions.parseLine(input, moment([2018, 7, 15]));
 
     expect(output.availablePoints).toBe("0/17, 152/18, 220/19");
-    expect(output.dateResolved).toBe(`${currentYear}-05-31`);
-    expect(output.dateSent).toBe(`${currentYear}-05-14`);
+    expect(output.dateResolved).toBe(`2018-05-31`);
+    expect(output.dateSent).toBe(`2018-05-14`);
     expect(output.notes).toBe("International seller");
     expect(output.points).toBe(220);
     expect(output.pricePerPoint).toBe(104);
@@ -168,5 +168,14 @@ describe("parseLine", () => {
     let output = functions.parseLine(input);
 
     expect(output.user).toBe("David-K.");
+  });
+  it("parses a line not going past max date", () => {
+    let input =
+      "David K.---$104-$24537-220-AKV-Mar-0/17, 152/18, 220/19-International seller- sent 5/14, passed 5/31";
+    let output = functions.parseLine(input, moment([2018, 3, 15]));
+
+    expect(output.availablePoints).toBe("0/17, 152/18, 220/19");
+    expect(output.dateResolved).toBe(`2017-05-31`);
+    expect(output.dateSent).toBe(`2017-05-14`);
   });
 });

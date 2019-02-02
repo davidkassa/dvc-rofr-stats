@@ -37,7 +37,7 @@ async function processDisBoardsData() {
 
       if (data.epoch !== epoch) {
         data.epoch = epoch;
-        const contracts = parseContractsFromHtml(hash, $);
+        const contracts = parseContractsFromHtml(hash, $, data.maxDate);
         console.log(
           "parsed epoch: " + epoch + " contracts: " + contracts.length
         );
@@ -73,6 +73,7 @@ async function getMetadata(): Promise<Meta[]> {
     m.epoch = data.epoch;
     m.text = data.text;
     m.url = data.url;
+    m.maxDate = moment(data.maxDate, "YYYY-MM-DD");
     meta.push(m);
   }
   return meta; // snapshot.docs[0].data(); // only 1 record
@@ -128,12 +129,12 @@ function parseEditDateFromHtml(hash, $) {
   return epoch;
 }
 
-function parseContractsFromHtml(hash, $): Contract[] {
+function parseContractsFromHtml(hash, $, maxDate): Contract[] {
   // https://www.disboa......#post-59034110
   // id=post-59034110
   // div class=messageContent
 
-  const html = $(hash + " div.messageContent").html();
+  const html: string = $(hash + " div.messageContent").html();
   const lines = html.split("<br>").map(l =>
     cheerio
       .load(l)
@@ -142,13 +143,13 @@ function parseContractsFromHtml(hash, $): Contract[] {
   );
   const contracts = lines
     .filter(l => l.indexOf("---") >= 0)
-    .map(parseLine)
+    .map(l => parseLine(l, maxDate))
     .filter(l => l !== null);
 
   return contracts;
 }
 
-function parseLine(line): Contract {
+function parseLine(line: string, maxDate: moment.Moment): Contract {
   // NewbieMom---$88-$14839-150-AKV-Apr-0/17, 150/18, 150/19, 150/20- sent 5/7
   // David K.---$102-$22356-200-AKV-Sep-0/17, 200/18, 200/19- sent 4/12, taken 5/8
   // David K.---$104-$24537-220-AKV-Mar-0/17, 152/18, 220/19-International seller- sent 5/14, passed 5/31
@@ -176,17 +177,25 @@ function parseLine(line): Contract {
   contract.notes = props.length === 8 ? props[6] : null;
   const dateStr = props.length === 8 ? props[7] : props[6];
   const dates = dateStr.split(",");
-  const dateSentStr = dates[0].replace("sent").trim();
-  contract.dateSent = moment(dateSentStr, "MM/DD").format("YYYY-MM-DD");
+  const dateSentStr = dates[0].replace("sent", "").trim();
+  let momentSent = moment(dateSentStr, "MM/DD");
+  while (momentSent > maxDate) {
+    momentSent = momentSent.subtract(1, "year");
+  }
+  contract.dateSent = momentSent.format("YYYY-MM-DD");
   let status = "Waiting";
   let dateResolved = null;
   if (dates.length === 2) {
     status = dates[1].indexOf("taken") >= 0 ? "Taken" : "Passed";
     const dateResolvedStr = dates[1]
-      .replace("taken")
-      .replace("passed")
+      .replace("taken", "")
+      .replace("passed", "")
       .trim();
-    dateResolved = moment(dateResolvedStr, "MM/DD").format("YYYY-MM-DD");
+    let momentResolved = moment(dateResolvedStr, "MM/DD");
+    while (momentResolved > maxDate) {
+      momentResolved = momentResolved.subtract(1, "year");
+    }
+    dateResolved = momentResolved.format("YYYY-MM-DD");
   }
   contract.status = status;
   contract.dateResolved = dateResolved;

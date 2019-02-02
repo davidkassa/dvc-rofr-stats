@@ -1,5 +1,12 @@
 <template>
-  <b-table :data=data :columns=columns :selected.sync=selectedRecord @update:selected=changeSelected default-sort="status" focusable />
+  <b-table
+    :data="data"
+    :columns="columns"
+    :selected.sync="selectedRecord"
+    @update:selected="changeSelected"
+    default-sort="status"
+    focusable
+  />
 </template>
 
 <script>

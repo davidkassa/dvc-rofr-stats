@@ -1,16 +1,34 @@
 <template>
-<div class="columns">
-  <div class="column">
-    <purchase-status-pie-chart :waiting=waitingContracts.length :passed=passedContracts.length :taken=takenContracts.length class="chart" />
+  <div class="columns">
+    <div class="column">
+      <purchase-status-pie-chart
+        :waiting="waitingContracts.length"
+        :passed="passedContracts.length"
+        :taken="takenContracts.length"
+        class="chart"
+      />
+    </div>
+    <div class="column">
+      <!--
+        <resale-cost-boxplot :waiting=waitingContracts :passed=passedContracts :taken=takenContracts class="chart" />
+      -->
+      <wait-time-line-chart
+        :waiting="waitingContracts"
+        :passed="passedContracts"
+        :taken="takenContracts"
+        class="chart"
+      />
+    </div>
+    <div class="column">
+      <stat-box
+        title="Average Wait Time"
+        :total="averageWaitTime"
+        :passed="averagePassedWaitTime"
+        :waiting="averageWaitingWaitTime"
+        :taken="averageTakenWaitTime"
+      />
+    </div>
   </div>
-  <div class="column">
-    <!-- <resale-cost-boxplot :waiting=waitingContracts :passed=passedContracts :taken=takenContracts class="chart" /> -->
-    <wait-time-line-chart :waiting=waitingContracts :passed=passedContracts :taken=takenContracts class="chart" />
-  </div>
-  <div class="column">
-    <stat-box title="Average Wait Time" :total=averageWaitTime :passed=averagePassedWaitTime :waiting=averageWaitingWaitTime :taken=averageTakenWaitTime />
-  </div>
-</div>
 </template>
 
 <script>

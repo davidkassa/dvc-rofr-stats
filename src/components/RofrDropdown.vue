@@ -1,11 +1,12 @@
 <template>
-<div>
+  <div>
     <vueMultiSelect
       @selectionChanged="updateValues"
       :options="options"
       :filters="filters"
-      :selectOptions="data" />
-</div>
+      :selectOptions="data"
+    />
+  </div>
 </template>
 
 <script>
@@ -299,5 +300,4 @@ export default {
   content: none;
 }
 </style>
-<style lang="scss">
-</style>
+<style lang="scss"></style>

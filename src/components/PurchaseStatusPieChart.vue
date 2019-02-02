@@ -1,6 +1,7 @@
 <template>
-  <div>&nbsp;
-  <internal-pie :chartData=datacollection />
+  <div>
+    &nbsp;
+    <internal-pie :chartData="datacollection" />
   </div>
 </template>
 
