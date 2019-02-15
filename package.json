@@ -42,7 +42,7 @@
     "cheerio": "^1.0.0-rc.2",
     "node-sass": "^4.11.0",
     "request": "^2.88.0",
-    "request-promise-native": "^1.0.5",
+    "request-promise-native": "^1.0.7",
     "sass-loader": "^7.1.0",
     "vue-template-compiler": "^2.6.6"
   },
