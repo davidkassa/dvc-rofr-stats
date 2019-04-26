@@ -12,20 +12,20 @@
     "logs": "firebase functions:log"
   },
   "dependencies": {
-    "cheerio": "^1.0.0-rc.2",
-    "firebase-admin": "~7.0.0",
-    "firebase-functions": "^2.2.0",
+    "cheerio": "^1.0.0-rc.3",
+    "firebase-admin": "~7.3.0",
+    "firebase-functions": "^2.3.0",
     "moment": "^2.24.0",
     "request": "^2.88.0",
-    "request-promise-native": "^1.0.5"
+    "request-promise-native": "^1.0.7"
   },
   "devDependencies": {
-    "@types/cheerio": "^0.22.10",
+    "@types/cheerio": "^0.22.11",
     "@types/request": "^2.48.1",
-    "@types/request-promise-native": "^1.0.15",
-    "tslint": "^5.12.1",
-    "tslint-config-prettier": "^1.17.0",
-    "typescript": "^3.3.1"
+    "@types/request-promise-native": "^1.0.16",
+    "tslint": "^5.16.0",
+    "tslint-config-prettier": "^1.18.0",
+    "typescript": "^3.4.5"
   },
   "engines": {"node": "8"},
   "main": "lib/index.js",
