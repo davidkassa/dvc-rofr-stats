@@ -38,6 +38,7 @@ describe("parseEditDateFromHtml", () => {
     });
     var result = functions.parseEditDateFromHtml(
       "#post-59034110",
+      ".messageMeta .DateTime",
       ".editDate .DateTime",
       cheerio.load(htmlData)
     );
@@ -53,6 +54,7 @@ describe("parseEditDateFromHtml", () => {
     );
     var result = functions.parseEditDateFromHtml(
       "#post-59034110",
+      ".messageMeta .DateTime",
       ".editDate .DateTime",
       cheerio.load(htmlData)
     );
@@ -64,6 +66,26 @@ describe("parseEditDateFromHtml", () => {
     );
   });
 
+  it("finds post date from parseHtmlError file", () => {
+    var htmlData = fs.readFileSync(
+      "tests/unit/functions/raw.parseHtmlError.html",
+      {
+        encoding: "utf8"
+      }
+    );
+    var result = functions.parseEditDateFromHtml(
+      "article[data-content=post-60475577]",
+      ".message-attribution-main time",
+      "INVALID EDIT TIME .message-lastEdit time",
+      cheerio.load(htmlData)
+    );
+    //Apr 7, 2019 at 1:05:25 PM
+    expect(result).toBe(
+      moment([2019, 3, 7, 12, 5, 25, 0]) // zero-based month
+        .unix()
+        .toString()
+    );
+  });
   it("finds edit date from parseHtmlError file", () => {
     var htmlData = fs.readFileSync(
       "tests/unit/functions/raw.parseHtmlError.html",
@@ -73,12 +95,13 @@ describe("parseEditDateFromHtml", () => {
     );
     var result = functions.parseEditDateFromHtml(
       "article[data-content=post-60475577]",
-      "time",
+      ".message-attribution-main time",
+      ".message-lastEdit time",
       cheerio.load(htmlData)
     );
-    //Apr 7, 2019 at 1:05 PM
+    //Jun 20, 2019 at 4:41:08 PM
     expect(result).toBe(
-      moment([2019, 3, 7, 12, 5, 25, 0]) // zero-based month
+      moment([2019, 5, 20, 11, 41, 8, 0]) // zero-based month
         .unix()
         .toString()
     );
@@ -90,6 +113,7 @@ describe("parseEditDateFromHtml", () => {
     var result = functions.parseEditDateFromHtml(
       "#post-59034110",
       ".messageMeta .DateTime",
+      ".editDate .DateTime",
       cheerio.load(htmlData)
     );
     //Apr 3, 2018 at 12:51 PM
@@ -106,6 +130,7 @@ describe("parseEditDateFromHtml", () => {
     var result = functions.parseEditDateFromHtml(
       "#post-59418202",
       ".messageMeta .DateTime",
+      ".editDate .DateTime",
       cheerio.load(htmlData)
     );
     //Apr 3, 2018 at 12:51 PM

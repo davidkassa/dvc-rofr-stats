@@ -47,11 +47,17 @@ async function processDisBoardsData() {
       const id = hash.substring(1);
       // const id = url.pathname.substring(url.pathname.lastIndexOf("/") + 1);
       const parentSelector = "article[data-content=" + id + "]";
-      const childDateSelector = "time";
+      const childPostDateSelector = ".message-attribution-main time";
+      const childEditDateSelector = ".message-lastEdit time";
       const childContentSelector = ".bbWrapper";
 
       const $ = await getRawHtml(data.url);
-      const epoch = parseEditDateFromHtml(parentSelector, childDateSelector, $);
+      const epoch = parseEditDateFromHtml(
+        parentSelector,
+        childPostDateSelector,
+        childEditDateSelector,
+        $
+      );
 
       if (data.epoch !== epoch) {
         data.epoch = epoch;
@@ -122,14 +128,19 @@ async function getRawHtml(url) {
   return request(options);
 }
 
-function parseEditDateFromHtml(parentSelector, childSelector, $) {
+function parseEditDateFromHtml(
+  parentSelector,
+  childPostDateSelector,
+  childEditDateSelector,
+  $
+) {
   // https://www.disboa......#post-59034110
   // id=post-59034110
   // div class=editDate class=DateTime data-time data-diff, epoch
 
   // timeNode = $(hash + " .messageMeta .DateTime");
   // let timeNode = $(hash + " .editDate .DateTime");
-  const timeNode = $(parentSelector + " " + childSelector);
+  let timeNode = $(parentSelector + " " + childEditDateSelector);
   let epoch = timeNode.attr("data-time"); // "epoch";
   if (!epoch) {
     const editStr = timeNode.attr("title"); // format: Apr 3, 2018 at 1:51 PM
@@ -137,6 +148,18 @@ function parseEditDateFromHtml(parentSelector, childSelector, $) {
       epoch = moment(editStr, "MMM D, YYYY at h:mm A")
         .unix()
         .toString();
+    }
+  }
+  if (!epoch) {
+    timeNode = $(parentSelector + " " + childPostDateSelector);
+    epoch = timeNode.attr("data-time"); // "epoch";
+    if (!epoch) {
+      const dateStr = timeNode.attr("title"); // format: Apr 3, 2018 at 1:51 PM
+      if (dateStr) {
+        epoch = moment(dateStr, "MMM D, YYYY at h:mm A")
+          .unix()
+          .toString();
+      }
     }
   }
 
