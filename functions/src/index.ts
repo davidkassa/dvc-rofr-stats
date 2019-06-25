@@ -31,7 +31,7 @@ const runtimeOpts = {
 // https://firebase.google.com/docs/functions/schedule-functions
 // https://console.cloud.google.com/cloudscheduler
 exports.hourly_job = functions
-  .runtimeOpts(runtimeOpts)
+  .runWith(runtimeOpts)
   .pubsub.schedule("every 1 hours")
   .onRun(async context => {
     return processDisBoardsData();
