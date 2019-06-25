@@ -11,15 +11,26 @@ import { Meta } from "./meta";
 // https://github.com/firebase/functions-samples/blob/master/presence-firestore/functions/index.js
 admin.initializeApp();
 
-// Since this code will be running in the Cloud Functions enviornment
+// Since this code will be running in the Cloud Functions environment
 // we call initialize Firestore without any arguments because it
 // detects authentication from the environment.
 const firestore = admin.firestore();
 
-// https://github.com/firebase/functions-cron
-exports.hourly_job = functions.pubsub.topic("hourly-tick").onPublish(event => {
-  return processDisBoardsData();
-});
+// from running `firebase functions:shell --debug`
+// Ignoring trigger "hourly_job" because the service "pubsub.googleapis.com" is not yet supported.
+if (process.env.NODE_ENV === "TEMP_pubsub") {
+  exports.testFunction = functions.https.onRequest(() => {
+    return processDisBoardsData();
+  });
+}
+
+// https://firebase.google.com/docs/functions/schedule-functions
+// https://console.cloud.google.com/cloudscheduler
+exports.hourly_job = functions.pubsub
+  .schedule("every 1 hours")
+  .onRun(async context => {
+    return processDisBoardsData();
+  });
 
 // can't get to work with raw-loader
 // import htmlData from "@/../data/4.2018-raw.html";
@@ -31,13 +42,31 @@ async function processDisBoardsData() {
     const changeData: Array<{ meta: Meta; contracts: Contract[] }> = [];
     const meta = await getMetadata();
     for (const data of meta) {
-      const hash = new URL(data.url).hash;
+      const url = new URL(data.url);
+      const hash = url.hash; // includes #
+      const id = hash.substring(1);
+      // const id = url.pathname.substring(url.pathname.lastIndexOf("/") + 1);
+      const parentSelector = "article[data-content=" + id + "]";
+      const childPostDateSelector = ".message-attribution-main time";
+      const childEditDateSelector = ".message-lastEdit time";
+      const childContentSelector = ".bbWrapper";
+
       const $ = await getRawHtml(data.url);
-      const epoch = parseEditDateFromHtml(hash, $);
+      const epoch = parseEditDateFromHtml(
+        parentSelector,
+        childPostDateSelector,
+        childEditDateSelector,
+        $
+      );
 
       if (data.epoch !== epoch) {
         data.epoch = epoch;
-        const contracts = parseContractsFromHtml(hash, $, data.maxDate);
+        const contracts = parseContractsFromHtml(
+          parentSelector,
+          childContentSelector,
+          $,
+          data.maxDate
+        );
         console.log(
           "parsed epoch: " + epoch + " contracts: " + contracts.length
         );
@@ -99,12 +128,19 @@ async function getRawHtml(url) {
   return request(options);
 }
 
-function parseEditDateFromHtml(hash, $) {
+function parseEditDateFromHtml(
+  parentSelector,
+  childPostDateSelector,
+  childEditDateSelector,
+  $
+) {
   // https://www.disboa......#post-59034110
   // id=post-59034110
   // div class=editDate class=DateTime data-time data-diff, epoch
 
-  let timeNode = $(hash + " .editDate .DateTime");
+  // timeNode = $(hash + " .messageMeta .DateTime");
+  // let timeNode = $(hash + " .editDate .DateTime");
+  let timeNode = $(parentSelector + " " + childEditDateSelector);
   let epoch = timeNode.attr("data-time"); // "epoch";
   if (!epoch) {
     const editStr = timeNode.attr("title"); // format: Apr 3, 2018 at 1:51 PM
@@ -115,7 +151,7 @@ function parseEditDateFromHtml(hash, $) {
     }
   }
   if (!epoch) {
-    timeNode = $(hash + " .messageMeta .DateTime");
+    timeNode = $(parentSelector + " " + childPostDateSelector);
     epoch = timeNode.attr("data-time"); // "epoch";
     if (!epoch) {
       const dateStr = timeNode.attr("title"); // format: Apr 3, 2018 at 1:51 PM
@@ -126,15 +162,23 @@ function parseEditDateFromHtml(hash, $) {
       }
     }
   }
+
   return epoch;
 }
 
-function parseContractsFromHtml(hash, $, maxDate): Contract[] {
+function parseContractsFromHtml(
+  parentSelector,
+  childSelector,
+  $,
+  maxDate
+): Contract[] {
   // https://www.disboa......#post-59034110
   // id=post-59034110
   // div class=messageContent
+  // " .bbWrapper"
 
-  const html: string = $(hash + " div.messageContent").html();
+  const html: string = $(parentSelector + " " + childSelector).html();
+
   const lines = html.split("<br>").map(l =>
     cheerio
       .load(l)

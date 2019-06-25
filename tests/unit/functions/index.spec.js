@@ -38,13 +38,13 @@ describe("parseEditDateFromHtml", () => {
     });
     var result = functions.parseEditDateFromHtml(
       "#post-59034110",
+      ".messageMeta .DateTime",
+      ".editDate .DateTime",
       cheerio.load(htmlData)
     );
     expect(result).toBe("1528564129");
   });
-});
 
-describe("parseEditDateFromHtml", () => {
   it("finds the correct edit date string", () => {
     var htmlData = fs.readFileSync(
       "tests/unit/functions/raw.editdatestring.html",
@@ -54,6 +54,8 @@ describe("parseEditDateFromHtml", () => {
     );
     var result = functions.parseEditDateFromHtml(
       "#post-59034110",
+      ".messageMeta .DateTime",
+      ".editDate .DateTime",
       cheerio.load(htmlData)
     );
     //Jun 5, 2018 at 2:51 PM
@@ -63,15 +65,47 @@ describe("parseEditDateFromHtml", () => {
         .toString()
     );
   });
-});
 
-describe("parseEditDateFromHtml", () => {
+  it("finds post date from parseHtmlError file", () => {
+    var htmlData = fs.readFileSync(
+      "tests/unit/functions/raw.parseHtmlError.html",
+      {
+        encoding: "utf8"
+      }
+    );
+    var result = functions.parseEditDateFromHtml(
+      "article[data-content=post-60475577]",
+      ".message-attribution-main time",
+      "INVALID EDIT TIME .message-lastEdit time",
+      cheerio.load(htmlData)
+    );
+    //Apr 7, 2019 at 1:05:25 PM
+    expect(result).toBe("1554656725");
+  });
+  it("finds edit date from parseHtmlError file", () => {
+    var htmlData = fs.readFileSync(
+      "tests/unit/functions/raw.parseHtmlError.html",
+      {
+        encoding: "utf8"
+      }
+    );
+    var result = functions.parseEditDateFromHtml(
+      "article[data-content=post-60475577]",
+      ".message-attribution-main time",
+      ".message-lastEdit time",
+      cheerio.load(htmlData)
+    );
+    //Jun 20, 2019 at 4:41:08 PM
+    expect(result).toBe("1561048868");
+  });
   it("finds the correct date string", () => {
     var htmlData = fs.readFileSync("tests/unit/functions/raw.datestring.html", {
       encoding: "utf8"
     });
     var result = functions.parseEditDateFromHtml(
       "#post-59034110",
+      ".messageMeta .DateTime",
+      ".editDate .DateTime",
       cheerio.load(htmlData)
     );
     //Apr 3, 2018 at 12:51 PM
@@ -81,15 +115,14 @@ describe("parseEditDateFromHtml", () => {
         .toString()
     );
   });
-});
-
-describe("parseEditDateFromHtml", () => {
   it("finds the correct date string from no-edit", () => {
     var htmlData = fs.readFileSync("tests/unit/functions/raw.noedit.html", {
       encoding: "utf8"
     });
     var result = functions.parseEditDateFromHtml(
       "#post-59418202",
+      ".messageMeta .DateTime",
+      ".editDate .DateTime",
       cheerio.load(htmlData)
     );
     //Apr 3, 2018 at 12:51 PM
@@ -104,9 +137,24 @@ describe("parseContractsFromHtml", () => {
     });
     var result = functions.parseContractsFromHtml(
       "#post-59034110",
+      "div.messageContent",
       cheerio.load(htmlData)
     );
     expect(result.length).toBe(164);
+  });
+  it("works on the parseHtmlError file", () => {
+    var htmlData = fs.readFileSync(
+      "tests/unit/functions/raw.parseHtmlError.html",
+      {
+        encoding: "utf8"
+      }
+    );
+    var result = functions.parseContractsFromHtml(
+      "article[data-content=post-60475577]",
+      ".bbWrapper",
+      cheerio.load(htmlData)
+    );
+    expect(result.length).toBe(219);
   });
 });
 
