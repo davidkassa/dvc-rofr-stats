@@ -80,11 +80,7 @@ describe("parseEditDateFromHtml", () => {
       cheerio.load(htmlData)
     );
     //Apr 7, 2019 at 1:05:25 PM
-    expect(result).toBe(
-      moment([2019, 3, 7, 12, 5, 25, 0]) // zero-based month
-        .unix()
-        .toString()
-    );
+    expect(result).toBe("1554656725");
   });
   it("finds edit date from parseHtmlError file", () => {
     var htmlData = fs.readFileSync(
@@ -100,11 +96,7 @@ describe("parseEditDateFromHtml", () => {
       cheerio.load(htmlData)
     );
     //Jun 20, 2019 at 4:41:08 PM
-    expect(result).toBe(
-      moment([2019, 5, 20, 11, 41, 8, 0]) // zero-based month
-        .unix()
-        .toString()
-    );
+    expect(result).toBe("1561048868");
   });
   it("finds the correct date string", () => {
     var htmlData = fs.readFileSync("tests/unit/functions/raw.datestring.html", {
