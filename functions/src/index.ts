@@ -24,10 +24,15 @@ if (process.env.NODE_ENV === "TEMP_pubsub") {
   });
 }
 
+const runtimeOpts = {
+  timeoutSeconds: 300
+};
+
 // https://firebase.google.com/docs/functions/schedule-functions
 // https://console.cloud.google.com/cloudscheduler
-exports.hourly_job = functions.pubsub
-  .schedule("every 1 hours")
+exports.hourly_job = functions
+  .runtimeOpts(runtimeOpts)
+  .pubsub.schedule("every 1 hours")
   .onRun(async context => {
     return processDisBoardsData();
   });
