@@ -15,7 +15,7 @@
     "@fortawesome/fontawesome-free-webfonts": "^1.0.9",
     "buefy": "^0.7.8",
     "chart.js": "^2.8.0",
-    "chartjs-plugin-datalabels": "^0.5.0",
+    "chartjs-plugin-datalabels": "^0.6.0",
     "core-js": "^2.6.5",
     "firebase": "^5.11.1",
     "moment": "^2.24.0",
