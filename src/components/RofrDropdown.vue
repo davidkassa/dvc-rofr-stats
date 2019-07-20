@@ -187,7 +187,7 @@ export default {
         {
           nameAll: "Select All",
           nameNotAll: "Deselect All",
-          func: elem => {
+          func: () => {
             return true;
           }
         }

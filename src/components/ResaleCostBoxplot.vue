@@ -3,8 +3,7 @@
 </template>
 
 <script>
-import ECharts from "vue-echarts/components/ECharts";
-
+import ECharts from "vue-echarts";
 import dataTool from "echarts/dist/extension/dataTool";
 
 // import "echarts/lib/chart/line";
