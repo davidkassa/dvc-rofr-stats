@@ -102,6 +102,11 @@ export default {
             category: "Resort"
           },
           {
+            name: "Riviera (RIV)",
+            value: "RIV",
+            category: "Resort"
+          },
+          {
             name: "Saratoga Springs (SSR)",
             value: "SSR",
             category: "Resort"
