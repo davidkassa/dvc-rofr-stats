@@ -6,7 +6,18 @@
     @update:selected="changeSelected"
     default-sort="status"
     focusable
-  />
+  >
+    <template slot-scope="props" slot="header">
+      <b-tooltip
+        :active="!!props.column.meta"
+        :label="props.column.meta"
+        multilined
+        is-large
+        dashed
+        animated
+      >{{ props.column.label }}</b-tooltip>
+    </template>
+  </b-table>
 </template>
 
 <script>
@@ -36,6 +47,20 @@ export default {
           numeric: true,
           label: "Price per Point",
           field: "pricePerPoint"
+        },
+        {
+          sortable: true,
+          numeric: true,
+          label: "Price per Point (Normalized)",
+          field: "pricePerPointNormalized",
+          meta:
+            "Normalized Price includes closing cost fees and a unique algorithm around whether the contract is stripped or loaded. For every point remaining from the previous use year the contract price is reduced ($15). For every point used in the current or next use year the contract price is increased ($17/$19)."
+        },
+        {
+          sortable: true,
+          numeric: true,
+          label: "Price per Lifetime Point",
+          field: "pricePerLifetimePoint"
         },
         {
           sortable: true,

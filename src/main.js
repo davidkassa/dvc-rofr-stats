@@ -4,7 +4,7 @@ import Buefy from "buefy";
 
 import VueAnalytics from "vue-analytics";
 
-import VueFire from "vuefire";
+import { firestorePlugin } from "vuefire";
 
 import App from "./App.vue";
 import router from "./router";
@@ -26,7 +26,7 @@ Vue.use(VueAnalytics, {
   id: process.env.VUE_APP_GOOGLE_ANALYTICS_ID,
   router
 });
-Vue.use(VueFire);
+Vue.use(firestorePlugin);
 
 new Vue({
   router,

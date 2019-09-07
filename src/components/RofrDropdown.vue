@@ -1,211 +1,123 @@
 <template>
   <div>
     <vueMultiSelect
-      @selectionChanged="updateValues"
+      v-model="values"
+      search
       :options="options"
       :filters="filters"
+      :btnLabel="btnLabel"
       :selectOptions="data"
+      @selectionChanged="updateValues"
     />
   </div>
 </template>
 
 <script>
 import vueMultiSelect from "vue-multi-select";
-import "vue-multi-select/dist/lib/vue-multi-select.min.css";
+import "vue-multi-select/dist/lib/vue-multi-select.css";
 export default {
   props: {
+    resorts: { required: true },
     statusEventName: { type: String, default: "statusFilterChanged" },
     resortEventName: { type: String, default: "resortFilterChanged" },
     useYearEventName: { type: String, default: "useYearFilterChanged" }
   },
   data() {
+    let listData = [
+      {
+        name: "Status",
+        list: [
+          {
+            name: "Passed",
+            value: "Passed",
+            category: "Status"
+          },
+          {
+            name: "Waiting",
+            value: "Waiting",
+            category: "Status"
+          },
+          {
+            name: "Taken",
+            value: "Taken",
+            category: "Status"
+          }
+        ]
+      },
+      {
+        name: "Resort",
+        list: this.resorts.map(r => {
+          return { category: "Resort", ...r };
+        })
+      },
+      {
+        name: "Use Year",
+        list: [
+          {
+            name: "January",
+            value: "Jan",
+            category: "UseYear"
+          },
+          {
+            name: "February",
+            value: "Feb",
+            category: "UseYear"
+          },
+          {
+            name: "March",
+            value: "Mar",
+            category: "UseYear"
+          },
+          {
+            name: "April",
+            value: "Apr",
+            category: "UseYear"
+          },
+          { name: "May", value: "May", category: "UseYear" },
+          { name: "June", value: "Jun", category: "UseYear" },
+          { name: "July", value: "Jul", category: "UseYear" },
+          {
+            name: "August",
+            value: "Aug",
+            category: "UseYear"
+          },
+          {
+            name: "September",
+            value: "Sep",
+            category: "UseYear"
+          },
+          {
+            name: "October",
+            value: "Oct",
+            category: "UseYear"
+          },
+          {
+            name: "November",
+            value: "Nov",
+            category: "UseYear"
+          },
+          {
+            name: "December",
+            value: "Dec",
+            category: "UseYear"
+          }
+        ]
+      }
+    ];
     return {
+      btnLabel: values => `Filter by Status, Resort, and UY (${values.length})`,
       name: "",
-      values: [],
-      data: [
-        {
-          name: "Status",
-          list: [
-            {
-              name: "Passed",
-              value: "Passed",
-              category: "Status",
-              selected: true
-            },
-            {
-              name: "Waiting",
-              value: "Waiting",
-              category: "Status",
-              selected: true
-            },
-            {
-              name: "Taken",
-              value: "Taken",
-              category: "Status",
-              selected: true
-            }
-          ]
-        },
-        {
-          name: "Resort",
-          list: [
-            {
-              name: "Animal Kingdom (AKV)",
-              value: "AKV",
-              category: "Resort",
-              selected: true
-            },
-            {
-              name: "Aulani (AUL)",
-              value: "AUL",
-              category: "Resort",
-              selected: true
-            },
-            {
-              name: "Bay Lake Tower (BLT)",
-              value: "BLT",
-              category: "Resort",
-              selected: true
-            },
-            {
-              name: "Beach Club (BCV)",
-              value: "BCV",
-              category: "Resort",
-              selected: true
-            },
-            {
-              name: "Boardwalk (BWV)",
-              value: "BWV",
-              category: "Resort",
-              selected: true
-            },
-            {
-              name: "Grand Californian (VGC)",
-              value: "VGC",
-              category: "Resort",
-              selected: true
-            },
-            {
-              name: "Grand Floridian (VGF)",
-              value: "VGF",
-              category: "Resort",
-              selected: true
-            },
-            {
-              name: "Hilton Head (HH)",
-              value: "HH",
-              category: "Resort",
-              selected: true
-            },
-            {
-              name: "Old Key West (exp. 2042) (OKW)",
-              value: "OKW",
-              category: "Resort",
-              selected: true
-            },
-            {
-              name: "Old Key West Extended (exp 2057) (OKW(E))",
-              value: "OKW(E)",
-              category: "Resort",
-              selected: true
-            },
-            {
-              name: "Polynesian (PVB)",
-              value: "PVB",
-              category: "Resort",
-              selected: true
-            },
-            {
-              name: "Saratoga Springs (SSR)",
-              value: "SSR",
-              category: "Resort",
-              selected: true
-            },
-            {
-              name: "Vero Beach (VB)",
-              value: "VB",
-              category: "Resort",
-              selected: true
-            },
-            {
-              name: "Wilderness Lodge: Boulder Ridge (BRV@WL)",
-              value: "BRV@WL",
-              category: "Resort",
-              selected: true
-            },
-            {
-              name: "Wilderness Lodge: Copper Creek (CCV@WL)",
-              value: "CCV@WL",
-              category: "Resort",
-              selected: true
-            }
-          ]
-        },
-        {
-          name: "Use Year",
-          list: [
-            {
-              name: "January",
-              value: "Jan",
-              category: "UseYear",
-              selected: true
-            },
-            {
-              name: "February",
-              value: "Feb",
-              category: "UseYear",
-              selected: true
-            },
-            {
-              name: "March",
-              value: "Mar",
-              category: "UseYear",
-              selected: true
-            },
-            {
-              name: "April",
-              value: "Apr",
-              category: "UseYear",
-              selected: true
-            },
-            { name: "May", value: "May", category: "UseYear", selected: true },
-            { name: "June", value: "Jun", category: "UseYear", selected: true },
-            { name: "July", value: "Jul", category: "UseYear", selected: true },
-            {
-              name: "August",
-              value: "Aug",
-              category: "UseYear",
-              selected: true
-            },
-            {
-              name: "September",
-              value: "Sep",
-              category: "UseYear",
-              selected: true
-            },
-            {
-              name: "October",
-              value: "Oct",
-              category: "UseYear",
-              selected: true
-            },
-            {
-              name: "November",
-              value: "Nov",
-              category: "UseYear",
-              selected: true
-            },
-            {
-              name: "December",
-              value: "Dec",
-              category: "UseYear",
-              selected: true
-            }
-          ]
-        }
-      ],
+      values: listData.flatMap(d => d.list),
+      data: listData,
       filters: [
         // TODO - filter Resort on WDW, MK, Epcot, AK, D. Springs
+        {
+          nameAll: "Select All",
+          nameNotAll: "Deselect All",
+          func: () => {
+            return true;
+          }
+        }
         // {
         //   nameAll: "select <= 10",
         //   nameNotAll: "Deselect <= 10",
@@ -230,7 +142,6 @@ export default {
       options: {
         multi: true,
         groups: true,
-        btnLabel: "Filter by Status, Resort, and UY",
         cssSelected: option =>
           option["selected"] ? { "font-weight": "bold" } : ""
       },
@@ -300,4 +211,9 @@ export default {
   content: none;
 }
 </style>
-<style lang="scss"></style>
+<style lang="scss">
+.select .checkBoxContainer {
+  // does not work in Firefox
+  overflow-y: overlay !important;
+}
+</style>
