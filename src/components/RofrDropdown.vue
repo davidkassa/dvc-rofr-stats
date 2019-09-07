@@ -17,6 +17,7 @@ import vueMultiSelect from "vue-multi-select";
 import "vue-multi-select/dist/lib/vue-multi-select.css";
 export default {
   props: {
+    resorts: { required: true },
     statusEventName: { type: String, default: "statusFilterChanged" },
     resortEventName: { type: String, default: "resortFilterChanged" },
     useYearEventName: { type: String, default: "useYearFilterChanged" }
@@ -45,88 +46,9 @@ export default {
       },
       {
         name: "Resort",
-        list: [
-          {
-            name: "Animal Kingdom (AKV)",
-            value: "AKV",
-            category: "Resort"
-          },
-          {
-            name: "Aulani (AUL)",
-            value: "AUL",
-            category: "Resort"
-          },
-          {
-            name: "Bay Lake Tower (BLT)",
-            value: "BLT",
-            category: "Resort"
-          },
-          {
-            name: "Beach Club (BCV)",
-            value: "BCV",
-            category: "Resort"
-          },
-          {
-            name: "Boardwalk (BWV)",
-            value: "BWV",
-            category: "Resort"
-          },
-          {
-            name: "Grand Californian (VGC)",
-            value: "VGC",
-            category: "Resort"
-          },
-          {
-            name: "Grand Floridian (VGF)",
-            value: "VGF",
-            category: "Resort"
-          },
-          {
-            name: "Hilton Head (HH)",
-            value: "HH",
-            category: "Resort"
-          },
-          {
-            name: "Old Key West (exp. 2042) (OKW)",
-            value: "OKW",
-            category: "Resort"
-          },
-          {
-            name: "Old Key West Extended (exp 2057) (OKW(E))",
-            value: "OKW(E)",
-            category: "Resort"
-          },
-          {
-            name: "Polynesian (PVB)",
-            value: "PVB",
-            category: "Resort"
-          },
-          {
-            name: "Riviera (RIV)",
-            value: "RIV",
-            category: "Resort"
-          },
-          {
-            name: "Saratoga Springs (SSR)",
-            value: "SSR",
-            category: "Resort"
-          },
-          {
-            name: "Vero Beach (VB)",
-            value: "VB",
-            category: "Resort"
-          },
-          {
-            name: "Wilderness Lodge: Boulder Ridge (BRV@WL)",
-            value: "BRV@WL",
-            category: "Resort"
-          },
-          {
-            name: "Wilderness Lodge: Copper Creek (CCV@WL)",
-            value: "CCV@WL",
-            category: "Resort"
-          }
-        ]
+        list: this.resorts.map(r => {
+          return { category: "Resort", ...r };
+        })
       },
       {
         name: "Use Year",
