@@ -26,7 +26,7 @@
             v-show="Object.keys(meta).length !== 0"
             :href="meta.url"
             target="_blank"
-          >{{ meta.text }} Last Updated: {{ meta.epoch | moment }}</a>
+            >{{ meta.text }} Last Updated: {{ meta.epoch | moment }}</a>
         </div>
       </div>
       <rofr-data-table :selected.sync="selected" :data="contractData" />
