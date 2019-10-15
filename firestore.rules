@@ -1,10 +1,11 @@
+// https://fireship.io/snippets/firestore-rules-recipes/
 service cloud.firestore {
   match /databases/{database}/documents {
     match /{document=**} {
-      allow read;
+      allow read: if false;
     }
-    match /stub-to-stop-emails {
-    	allow read: if false;
+    match /{collectionName}/{docId} {
+      allow read: if collectionName != 'stub-to-stop-emails';
     }
   }
 }
