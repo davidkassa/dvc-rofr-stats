@@ -26,7 +26,7 @@
             v-show="Object.keys(meta).length !== 0"
             :href="meta.url"
             target="_blank"
-          >{{ meta.text }} Last Updated: {{ meta.epoch | moment }}</a>
+            >{{ meta.text }} Last Updated: {{ meta.epoch | moment }}</a>
         </div>
       </div>
       <rofr-data-table :selected.sync="selected" :data="contractData" />
@@ -185,8 +185,11 @@ export default {
           let availablePoints = c.availablePoints
             .split(",")
             .reduce((accum, year) => {
+              try {
               let x = year.trim().split("/"); // points/year
               accum["20" + x[1].trim()] = x[0].trim();
+              }
+              catch { }
               return accum;
             }, {});
 
