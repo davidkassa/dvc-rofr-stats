@@ -27,7 +27,7 @@
     "firebase-functions-test": "^0.1.7",
     "tslint": "^5.20.1",
     "tslint-config-prettier": "^1.18.0",
-    "typescript": "^3.7.4"
+    "typescript": "^3.7.5"
   },
   "engines": {
     "node": "10"
