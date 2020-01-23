@@ -3,12 +3,12 @@
     "lib": ["es6"],
     "module": "commonjs",
     "noImplicitReturns": true,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
     "outDir": "lib",
     "sourceMap": true,
     "target": "es6"
   },
   "compileOnSave": true,
-  "include": [
-    "src"
-  ]
+  "include": ["src"]
 }

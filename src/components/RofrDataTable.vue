@@ -15,7 +15,8 @@
         is-large
         dashed
         animated
-        >{{ props.column.label }}</b-tooltip>
+        >{{ props.column.label }}</b-tooltip
+      >
     </template>
   </b-table>
 </template>
