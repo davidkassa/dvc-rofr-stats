@@ -29,7 +29,7 @@ const cheerio = require("cheerio");
 //   });
 // });
 
-const currentYear = new Date().getFullYear();
+// const currentYear = new Date().getFullYear();
 
 describe("parseEditDateFromHtml", () => {
   it("finds the correct epoch", () => {
