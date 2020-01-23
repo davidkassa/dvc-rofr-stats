@@ -106,7 +106,9 @@
     // Prefer const for values that will not change. This better documents code.
     "prefer-const": { "severity": "warning" },
 
-    "no-console": { "severity": "off" }
+    "no-console": { "severity": "off" },
+
+    "array-type": [true, "array-simple"]
   },
   "extends": ["tslint:latest", "tslint-config-prettier"],
   "defaultSeverity": "error"
