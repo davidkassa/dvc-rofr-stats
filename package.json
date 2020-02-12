@@ -50,7 +50,7 @@
     "fibers": "^4.0.2",
     "node-sass": "^4.13.1",
     "prettier": "^1.19.1",
-    "request": "^2.88.0",
+    "request": "^2.88.2",
     "request-promise-native": "^1.0.8",
     "sass-loader": "^8.0.2",
     "vue-template-compiler": "^2.6.11"
