@@ -12,7 +12,7 @@ Can be found hosted at <https://www.dvcstats.com>
 
 | Service       | [Master](https://www.dvcstats.com)                                                                                              | [Develop](https://dev.dvcstats.com)                                                                                               |
 | ------------- | ------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- |
-| CI Status     | [![Master](https://travis-ci.org/davidkassa/dvc-rofr-stats.svg?branch=master)](https://travis-ci.org/davidkassa/dvc-rofr-stats) | [![Develop](https://travis-ci.org/davidkassa/dvc-rofr-stats.svg?branch=develop)](https://travis-ci.org/davidkassa/dvc-rofr-stats) |
+| CI Status     | [![Master](https://travis-ci.com/davidkassa/dvc-rofr-stats.svg?branch=master)](https://travis-ci.com/davidkassa/dvc-rofr-stats) | [![Develop](https://travis-ci.com/davidkassa/dvc-rofr-stats.svg?branch=develop)](https://travis-ci.com/davidkassa/dvc-rofr-stats) |
 | Build History | [![Master](https://buildstats.info/travisci/chart/davidkassa/dvc-rofr-stats?includeBuildsFromPullRequest=false&branch=master)]  | [![Develop](https://buildstats.info/travisci/chart/davidkassa/dvc-rofr-stats?includeBuildsFromPullRequest=false&branch=develop)]  |
 
 ### Getting started
