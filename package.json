@@ -18,7 +18,7 @@
     "chartjs-plugin-datalabels": "^0.7.0",
     "core-js": "^3.6.5",
     "echarts": "^4.8.0",
-    "firebase": "^7.14.6",
+    "firebase": "^7.15.0",
     "moment": "^2.26.0",
     "moving-average": "^1.0.0",
     "register-service-worker": "^1.7.1",
