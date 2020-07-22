@@ -17,7 +17,7 @@
     "firebase-functions": "^3.6.2",
     "moment": "^2.27.0",
     "request": "^2.88.2",
-    "request-promise-native": "^1.0.8"
+    "request-promise-native": "^1.0.9"
   },
   "devDependencies": {
     "@types/cheerio": "^0.22.18",
