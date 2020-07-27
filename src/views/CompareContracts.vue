@@ -62,18 +62,18 @@ export default {
     };
   },
   computed: {
-    all: function() {
+    all: function () {
       return this.unfilteredContracts;
     },
-    resort: function() {
+    resort: function () {
       if (Object.keys(this.selected).length === 0) return [];
-      return this.all.filter(a => a.resort === this.selected.resort);
+      return this.all.filter((a) => a.resort === this.selected.resort);
     },
-    uy: function() {
+    uy: function () {
       if (Object.keys(this.selected).length === 0) return [];
-      return this.resort.filter(a => a.useYear === this.selected.useYear);
+      return this.resort.filter((a) => a.useYear === this.selected.useYear);
     },
-    data: function() {
+    data: function () {
       if (Object.keys(this.selected).length === 0) return [];
       return [
         {
@@ -81,59 +81,59 @@ export default {
           selected: "- " + [this.selected].length + " -",
           all: this.all.length,
           resort: this.resort.length,
-          uy: this.uy.length
+          uy: this.uy.length,
         },
         {
           name: "Average Points per Contract",
           selected: this.getAveragePoints([this.selected]),
           all: this.getAveragePoints(this.all),
           resort: this.getAveragePoints(this.resort),
-          uy: this.getAveragePoints(this.uy)
+          uy: this.getAveragePoints(this.uy),
         },
         {
           name: "Average Price per Point",
           selected: this.getAveragePricePerPoint([this.selected]),
           all: this.getAveragePricePerPoint(this.all),
           resort: this.getAveragePricePerPoint(this.resort),
-          uy: this.getAveragePricePerPoint(this.uy)
+          uy: this.getAveragePricePerPoint(this.uy),
         },
         {
           name: "Average Total Cost",
           selected: this.getAverageTotalCost([this.selected]),
           all: this.getAverageTotalCost(this.all),
           resort: this.getAverageTotalCost(this.resort),
-          uy: this.getAverageTotalCost(this.uy)
+          uy: this.getAverageTotalCost(this.uy),
         },
         {
           name: "# of Days Waiting",
           selected: this.getWaitTimeForStatus([this.selected], "Waiting"),
           all: this.getWaitTimeForStatus(this.all, "Waiting"),
           resort: this.getWaitTimeForStatus(this.resort, "Waiting"),
-          uy: this.getWaitTimeForStatus(this.uy, "Waiting")
+          uy: this.getWaitTimeForStatus(this.uy, "Waiting"),
         },
         {
           name: "# of Days until Passed",
           selected: this.getWaitTimeForStatus([this.selected], "Passed"),
           all: this.getWaitTimeForStatus(this.all, "Passed"),
           resort: this.getWaitTimeForStatus(this.resort, "Passed"),
-          uy: this.getWaitTimeForStatus(this.uy, "Passed")
+          uy: this.getWaitTimeForStatus(this.uy, "Passed"),
         },
         {
           name: "# of Days until Taken",
           selected: this.getWaitTimeForStatus([this.selected], "Taken"),
           all: this.getWaitTimeForStatus(this.all, "Taken"),
           resort: this.getWaitTimeForStatus(this.resort, "Taken"),
-          uy: this.getWaitTimeForStatus(this.uy, "Taken")
-        }
+          uy: this.getWaitTimeForStatus(this.uy, "Taken"),
+        },
       ];
-    }
+    },
   },
   methods: {
     getWaitTimeForStatus(contracts, status) {
-      var filtered = contracts.filter(a => a.status == status);
+      var filtered = contracts.filter((a) => a.status == status);
       if (filtered.length < 1) return "---";
       return this.getAverageWaitTime(filtered);
-    }
+    },
     // updateStatusFilter: function(statusFilter) {
     //   //console.log("Status Filter Changed:\n" + JSON.stringify(statusFilter) + "\n");
     //   this.statusFilter = statusFilter;
@@ -143,7 +143,7 @@ export default {
     // moment: function(date) {
     //   return moment.unix(Number(date)).format("ddd, MMM D LT"); //.format('MMMM Do YYYY, h:mm:ss a');
     // }
-  }
+  },
 };
 </script>
 

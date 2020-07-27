@@ -42,24 +42,24 @@ export default {
   components: {
     PurchaseStatusPieChart,
     WaitTimeLineChart,
-    StatBox
+    StatBox,
   },
   mixins: [aggregate],
   props: ["contracts", "passedContracts", "waitingContracts", "takenContracts"],
   computed: {
-    averageWaitTime: function() {
+    averageWaitTime: function () {
       return this.getAverageWaitTime(this.contracts);
     },
-    averagePassedWaitTime: function() {
+    averagePassedWaitTime: function () {
       return this.getAverageWaitTime(this.passedContracts);
     },
-    averageWaitingWaitTime: function() {
+    averageWaitingWaitTime: function () {
       return this.getAverageWaitTime(this.waitingContracts);
     },
-    averageTakenWaitTime: function() {
+    averageTakenWaitTime: function () {
       return this.getAverageWaitTime(this.takenContracts);
-    }
-  }
+    },
+  },
 };
 </script>
 

@@ -10,7 +10,7 @@ var config = {
   databaseURL: process.env.VUE_APP_FIREBASE_DATABASE_URL,
   projectId: process.env.VUE_APP_FIREBASE_PROJECT_ID,
   storageBucket: process.env.VUE_APP_FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: process.env.VUE_APP_FIREBASE_MESSAGING_SENDER_ID
+  messagingSenderId: process.env.VUE_APP_FIREBASE_MESSAGING_SENDER_ID,
 };
 /* eslint-enable no-undef */
 

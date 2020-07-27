@@ -54,37 +54,37 @@ import "echarts/lib/component/tooltip";
 
 export default {
   components: {
-    chart: ECharts
+    chart: ECharts,
   },
   props: ["waiting", "passed", "taken"],
   data() {
     return {};
   },
   computed: {
-    option: function() {
+    option: function () {
       return {
         tooltip: {
-          trigger: "axis"
+          trigger: "axis",
         },
         legend: {
           data: [
             "Passed",
             // "Waiting",
-            "Taken"
-          ]
+            "Taken",
+          ],
         },
         xAxis: {
           type: "time",
-          boundaryGap: false
+          boundaryGap: false,
         },
         yAxis: {
           type: "value",
           boundaryGap: false,
           splitLine: {
-            show: false
+            show: false,
           },
           min: "dataMin",
-          max: "dataMax"
+          max: "dataMax",
         },
         series: [
           {
@@ -92,7 +92,7 @@ export default {
             type: "line",
             lineStyle: { color: "#61c661" },
             itemStyle: { color: "#61c661", borderColor: "#3CAA3C" },
-            data: this.passedWaitTimeByDate
+            data: this.passedWaitTimeByDate,
           },
           // {
           //   name: "Waiting",
@@ -106,38 +106,38 @@ export default {
             type: "line",
             lineStyle: { color: "#f87979" },
             itemStyle: { color: "#f87979", borderColor: "#D44B4B" },
-            data: this.takenWaitTimeByDate
-          }
-        ]
+            data: this.takenWaitTimeByDate,
+          },
+        ],
       };
     },
-    passedWaitTimeByDate: function() {
+    passedWaitTimeByDate: function () {
       return this.getWaitTimeByDate(this.passed);
     },
     // waitingWaitTimeByDate: function() {
     //   return this.getWaitTimeByDate(this.waiting);
     // },
-    takenWaitTimeByDate: function() {
+    takenWaitTimeByDate: function () {
       return this.getWaitTimeByDate(this.taken);
-    }
+    },
   },
   methods: {
     getMovingAverageOfWaitTimeByDate(status) {
       let prices = this.getWaitTimeByDate(status);
       let movingAverage = [];
       let ma = MA(DAY);
-      prices.map(p => {
+      prices.map((p) => {
         ma.push(moment.utc(p.value[0]), p.value[1]);
         movingAverage.push({ value: [p.value[0], ma.movingAverage()] });
       });
       return movingAverage;
     },
     getWaitTimeByDate(status) {
-      let uniqueDates = [...new Set(status.map(s => s.dateSent))];
+      let uniqueDates = [...new Set(status.map((s) => s.dateSent))];
       let waitTimeByDate = uniqueDates
-        .map(d => {
-          let singleDateStatus = status.filter(s => s.dateSent == d);
-          let sum = singleDateStatus.reduce(function(prevVal, elem) {
+        .map((d) => {
+          let singleDateStatus = status.filter((s) => s.dateSent == d);
+          let sum = singleDateStatus.reduce(function (prevVal, elem) {
             let resolved = moment(elem.dateResolved, moment.HTML5_FMT.DATE);
             if (!resolved.isValid()) {
               resolved = moment();
@@ -158,8 +158,8 @@ export default {
         });
 
       return waitTimeByDate;
-    }
-  }
+    },
+  },
 };
 // option = {
 //     xAxis: {

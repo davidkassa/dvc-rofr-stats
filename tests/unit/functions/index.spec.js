@@ -34,7 +34,7 @@ const cheerio = require("cheerio");
 describe("parseEditDateFromHtml", () => {
   it("finds the correct epoch", () => {
     var htmlData = fs.readFileSync("tests/unit/functions/raw.html", {
-      encoding: "utf8"
+      encoding: "utf8",
     });
     var result = functions.parseEditDateFromHtml(
       "#post-59034110",
@@ -49,7 +49,7 @@ describe("parseEditDateFromHtml", () => {
     var htmlData = fs.readFileSync(
       "tests/unit/functions/raw.editdatestring.html",
       {
-        encoding: "utf8"
+        encoding: "utf8",
       }
     );
     var result = functions.parseEditDateFromHtml(
@@ -70,7 +70,7 @@ describe("parseEditDateFromHtml", () => {
     var htmlData = fs.readFileSync(
       "tests/unit/functions/raw.parseHtmlError.html",
       {
-        encoding: "utf8"
+        encoding: "utf8",
       }
     );
     var result = functions.parseEditDateFromHtml(
@@ -86,7 +86,7 @@ describe("parseEditDateFromHtml", () => {
     var htmlData = fs.readFileSync(
       "tests/unit/functions/raw.parseHtmlError.html",
       {
-        encoding: "utf8"
+        encoding: "utf8",
       }
     );
     var result = functions.parseEditDateFromHtml(
@@ -100,7 +100,7 @@ describe("parseEditDateFromHtml", () => {
   });
   it("finds the correct date string", () => {
     var htmlData = fs.readFileSync("tests/unit/functions/raw.datestring.html", {
-      encoding: "utf8"
+      encoding: "utf8",
     });
     var result = functions.parseEditDateFromHtml(
       "#post-59034110",
@@ -109,15 +109,11 @@ describe("parseEditDateFromHtml", () => {
       cheerio.load(htmlData)
     );
     //Apr 3, 2018 at 12:51 PM
-    expect(result).toBe(
-      moment([2018, 3, 23, 12, 51, 0, 0])
-        .unix()
-        .toString()
-    );
+    expect(result).toBe(moment([2018, 3, 23, 12, 51, 0, 0]).unix().toString());
   });
   it("finds the correct date string from no-edit", () => {
     var htmlData = fs.readFileSync("tests/unit/functions/raw.noedit.html", {
-      encoding: "utf8"
+      encoding: "utf8",
     });
     var result = functions.parseEditDateFromHtml(
       "#post-59418202",
@@ -133,7 +129,7 @@ describe("parseEditDateFromHtml", () => {
 describe("parseContractsFromHtml", () => {
   it("finds the correct number of contracts", () => {
     var htmlData = fs.readFileSync("tests/unit/functions/raw.html", {
-      encoding: "utf8"
+      encoding: "utf8",
     });
     var result = functions.parseContractsFromHtml(
       "#post-59034110",
@@ -146,7 +142,7 @@ describe("parseContractsFromHtml", () => {
     var htmlData = fs.readFileSync(
       "tests/unit/functions/raw.parseHtmlError.html",
       {
-        encoding: "utf8"
+        encoding: "utf8",
       }
     );
     var result = functions.parseContractsFromHtml(

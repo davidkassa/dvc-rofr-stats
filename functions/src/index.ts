@@ -19,8 +19,8 @@ const firestore = admin.firestore();
 // from running `firebase functions:shell --debug`
 // Ignoring trigger "hourly_job" because the service "pubsub.googleapis.com" is not yet supported.
 if (process.env.NODE_ENV === "TEMP_pubsub") {
-  exports.testFunction = functions.https.onRequest(() => {
-    processDisBoardsData();
+  exports.testFunction = functions.https.onRequest(async () => {
+    await processDisBoardsData();
   });
 }
 

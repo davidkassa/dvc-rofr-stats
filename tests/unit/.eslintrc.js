@@ -1,9 +1,9 @@
 module.exports = {
   env: {
-    jest: true
+    jest: true,
   },
   rules: {
     "import/no-extraneous-dependencies": "off",
-    "no-console": "off"
-  }
+    "no-console": "off",
+  },
 };

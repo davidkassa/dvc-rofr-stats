@@ -24,12 +24,12 @@ Vue.config.productionTip = false;
 Vue.use(Buefy, { defaultIconPack: "fas" });
 Vue.use(VueAnalytics, {
   id: process.env.VUE_APP_GOOGLE_ANALYTICS_ID,
-  router
+  router,
 });
 Vue.use(firestorePlugin);
 
 new Vue({
   router,
   store,
-  render: h => h(App)
+  render: (h) => h(App),
 }).$mount("#app");

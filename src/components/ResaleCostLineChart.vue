@@ -54,33 +54,33 @@ import "echarts/lib/component/tooltip";
 
 export default {
   components: {
-    chart: ECharts
+    chart: ECharts,
   },
   props: ["waiting", "passed", "taken"],
   data() {
     return {};
   },
   computed: {
-    option: function() {
+    option: function () {
       return {
         tooltip: {
-          trigger: "axis"
+          trigger: "axis",
         },
         legend: {
-          data: ["Passed", "Waiting", "Taken"]
+          data: ["Passed", "Waiting", "Taken"],
         },
         xAxis: {
           type: "time",
-          boundaryGap: false
+          boundaryGap: false,
         },
         yAxis: {
           type: "value",
           boundaryGap: false,
           splitLine: {
-            show: false
+            show: false,
           },
           min: "dataMin",
-          max: "dataMax"
+          max: "dataMax",
         },
         series: [
           {
@@ -88,52 +88,52 @@ export default {
             type: "line",
             lineStyle: { color: "#61c661" },
             itemStyle: { color: "#61c661", borderColor: "#3CAA3C" },
-            data: this.passedPricesPerPointByDate
+            data: this.passedPricesPerPointByDate,
           },
           {
             name: "Waiting",
             type: "line",
             lineStyle: { color: "#f8b379" },
             itemStyle: { color: "#f8b379", borderColor: "#D4894B" },
-            data: this.waitingPricesPerPointByDate
+            data: this.waitingPricesPerPointByDate,
           },
           {
             name: "Taken",
             type: "line",
             lineStyle: { color: "#f87979" },
             itemStyle: { color: "#f87979", borderColor: "#D44B4B" },
-            data: this.takenPricesPerPointByDate
-          }
-        ]
+            data: this.takenPricesPerPointByDate,
+          },
+        ],
       };
     },
-    passedPricesPerPointByDate: function() {
+    passedPricesPerPointByDate: function () {
       return this.getPricesPerPointByDate(this.passed);
     },
-    waitingPricesPerPointByDate: function() {
+    waitingPricesPerPointByDate: function () {
       return this.getPricesPerPointByDate(this.waiting);
     },
-    takenPricesPerPointByDate: function() {
+    takenPricesPerPointByDate: function () {
       return this.getPricesPerPointByDate(this.taken);
-    }
+    },
   },
   methods: {
     getMovingAverageOfPricesPerPointByDate(status) {
       let prices = this.getPricesPerPointByDate(status);
       let movingAverage = [];
       let ma = MA(DAY);
-      prices.map(p => {
+      prices.map((p) => {
         ma.push(moment.utc(p.value[0]), p.value[1]);
         movingAverage.push({ value: [p.value[0], ma.movingAverage()] });
       });
       return movingAverage;
     },
     getPricesPerPointByDate(status) {
-      let uniqueDates = [...new Set(status.map(s => s.dateSent))];
+      let uniqueDates = [...new Set(status.map((s) => s.dateSent))];
       let pppByDate = uniqueDates
-        .map(d => {
-          let singleDateStatus = status.filter(s => s.dateSent == d);
-          let sum = singleDateStatus.reduce(function(prevVal, elem) {
+        .map((d) => {
+          let singleDateStatus = status.filter((s) => s.dateSent == d);
+          let sum = singleDateStatus.reduce(function (prevVal, elem) {
             return prevVal + elem.pricePerPoint;
           }, 0);
           let avg = sum / singleDateStatus.length;
@@ -146,8 +146,8 @@ export default {
         });
 
       return pppByDate;
-    }
-  }
+    },
+  },
 };
 // option = {
 //     xAxis: {
