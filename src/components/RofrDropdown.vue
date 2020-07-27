@@ -5,8 +5,8 @@
       search
       :options="options"
       :filters="filters"
-      :btnLabel="btnLabel"
-      :selectOptions="data"
+      :btn-label="btnLabel"
+      :select-options="data"
       @selectionChanged="updateValues"
     />
   </div>
@@ -16,6 +16,7 @@
 import vueMultiSelect from "vue-multi-select";
 import "vue-multi-select/dist/lib/vue-multi-select.css";
 export default {
+  components: { vueMultiSelect },
   props: {
     resorts: { required: true },
     statusEventName: { type: String, default: "statusFilterChanged" },
@@ -201,7 +202,6 @@ export default {
       }
     },
   },
-  components: { vueMultiSelect },
 };
 </script>
 

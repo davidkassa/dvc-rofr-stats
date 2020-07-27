@@ -10,6 +10,7 @@ module.exports = {
     "no-debugger": process.env.NODE_ENV === "production" ? "warn" : "off",
   },
 
+  parser: "vue-eslint-parser",
   parserOptions: {
     parser: "babel-eslint",
   },

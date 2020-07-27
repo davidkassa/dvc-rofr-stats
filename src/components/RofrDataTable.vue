@@ -1,13 +1,13 @@
 <template>
   <b-table
+    :selected.sync="selected"
     :data="data"
     :columns="columns"
-    :selected.sync="selectedRecord"
-    @update:selected="changeSelected"
     default-sort="status"
     focusable
+    @update:selected="$emit('update:selected', selected)"
   >
-    <template slot-scope="props" slot="header">
+    <template #header="props">
       <b-tooltip
         :active="!!props.column.meta"
         :label="props.column.meta"
@@ -24,14 +24,8 @@
 <script>
 export default {
   props: ["data", "selected"],
-  methods: {
-    changeSelected(record) {
-      this.$emit("update:selected", record);
-    },
-  },
   data() {
     return {
-      selectedRecord: {},
       columns: [
         {
           sortable: true,

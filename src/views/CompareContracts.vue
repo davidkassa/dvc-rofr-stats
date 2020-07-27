@@ -1,7 +1,7 @@
 <template>
   <div class="data-details">
     <b-table :data="data" :mobile-cards="true">
-      <template slot-scope="props">
+      <template #default="props">
         <b-table-column label="">
           <b>{{ props.row.name }}</b>
         </b-table-column>
@@ -21,7 +21,7 @@
         <b-table-column label="Same UY"> {{ props.row.uy }} </b-table-column>
       </template>
 
-      <template slot="empty">
+      <template #empty>
         <section class="section">
           <div class="has-text-centered">
             <p>
@@ -50,12 +50,17 @@
 import aggregate from "@/util/aggregate";
 
 export default {
+  filters: {
+    // moment: function(date) {
+    //   return moment.unix(Number(date)).format("ddd, MMM D LT"); //.format('MMMM Do YYYY, h:mm:ss a');
+    // }
+  },
+  mixins: [aggregate],
   // components: {
   //   RofrDataTable,
   //   RofrDropdown
   // },
   props: ["meta", "selected", "unfilteredContracts"],
-  mixins: [aggregate],
   data() {
     return {
       // metaStore: []
@@ -138,11 +143,6 @@ export default {
     //   //console.log("Status Filter Changed:\n" + JSON.stringify(statusFilter) + "\n");
     //   this.statusFilter = statusFilter;
     // },
-  },
-  filters: {
-    // moment: function(date) {
-    //   return moment.unix(Number(date)).format("ddd, MMM D LT"); //.format('MMMM Do YYYY, h:mm:ss a');
-    // }
   },
 };
 </script>

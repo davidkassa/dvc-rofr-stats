@@ -40,8 +40,8 @@ export default {
     ResaleCostLineChart,
     StatBox,
   },
-  props: ["contracts", "passedContracts", "waitingContracts", "takenContracts"],
   mixins: [aggregate],
+  props: ["contracts", "passedContracts", "waitingContracts", "takenContracts"],
   computed: {
     averagePrice: function () {
       return this.getAveragePricePerPoint(this.contracts);

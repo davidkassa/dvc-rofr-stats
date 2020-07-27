@@ -3,11 +3,11 @@
     <router-view
       :meta="meta"
       :selected="selected"
-      :unfilteredContracts="contracts"
+      :unfiltered-contracts="contracts"
       :contracts="contractData"
-      :waitingContracts="waitingContracts"
-      :passedContracts="passedContracts"
-      :takenContracts="takenContracts"
+      :waiting-contracts="waitingContracts"
+      :passed-contracts="passedContracts"
+      :taken-contracts="takenContracts"
     />
     <div class="data-details">
       <div class="columns">
@@ -45,6 +45,11 @@ export default {
   components: {
     RofrDataTable,
     RofrDropdown,
+  },
+  filters: {
+    moment: function (date) {
+      return moment.unix(Number(date)).format("ddd, MMM D LT"); //.format('MMMM Do YYYY, h:mm:ss a');
+    },
   },
   data() {
     return {
@@ -280,11 +285,6 @@ export default {
     updateUseYearFilter: function (useYearFilter) {
       //console.log("Use Year Filter Changed:\n" + JSON.stringify(useYearFilter) + "\n");
       this.useYearFilter = useYearFilter;
-    },
-  },
-  filters: {
-    moment: function (date) {
-      return moment.unix(Number(date)).format("ddd, MMM D LT"); //.format('MMMM Do YYYY, h:mm:ss a');
     },
   },
 };
