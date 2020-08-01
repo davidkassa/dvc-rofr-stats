@@ -28,7 +28,7 @@
     "vue-echarts": "^4.1.0",
     "vue-multi-select": "^4.5.0",
     "vue-router": "^3.3.4",
-    "vuefire": "^2.2.3",
+    "vuefire": "^2.2.4",
     "vuex": "^3.5.1"
   },
   "devDependencies": {
