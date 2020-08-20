@@ -26,8 +26,8 @@
 import FeedbackDialog from "@/components/FeedbackDialog.vue";
 
 export default {
-  name: "home",
-  components: { FeedbackDialog }
+  name: "Home",
+  components: { FeedbackDialog },
 };
 </script>
 

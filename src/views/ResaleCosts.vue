@@ -38,24 +38,24 @@ export default {
   components: {
     ResaleCostBoxplot,
     ResaleCostLineChart,
-    StatBox
+    StatBox,
   },
-  props: ["contracts", "passedContracts", "waitingContracts", "takenContracts"],
   mixins: [aggregate],
+  props: ["contracts", "passedContracts", "waitingContracts", "takenContracts"],
   computed: {
-    averagePrice: function() {
+    averagePrice: function () {
       return this.getAveragePricePerPoint(this.contracts);
     },
-    averagePassedPrice: function() {
+    averagePassedPrice: function () {
       return this.getAveragePricePerPoint(this.passedContracts);
     },
-    averageWaitingPrice: function() {
+    averageWaitingPrice: function () {
       return this.getAveragePricePerPoint(this.waitingContracts);
     },
-    averageTakenPrice: function() {
+    averageTakenPrice: function () {
       return this.getAveragePricePerPoint(this.takenContracts);
-    }
-  }
+    },
+  },
 };
 </script>
 

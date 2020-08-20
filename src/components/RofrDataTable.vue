@@ -1,13 +1,13 @@
 <template>
   <b-table
+    :selected.sync="selected"
     :data="data"
     :columns="columns"
-    :selected.sync="selectedRecord"
-    @update:selected="changeSelected"
     default-sort="status"
     focusable
+    @update:selected="$emit('update:selected', selected)"
   >
-    <template slot-scope="props" slot="header">
+    <template #header="props">
       <b-tooltip
         :active="!!props.column.meta"
         :label="props.column.meta"
@@ -24,30 +24,24 @@
 <script>
 export default {
   props: ["data", "selected"],
-  methods: {
-    changeSelected(record) {
-      this.$emit("update:selected", record);
-    }
-  },
   data() {
     return {
-      selectedRecord: {},
       columns: [
         {
           sortable: true,
           label: "Status",
-          field: "status"
+          field: "status",
         },
         {
           sortable: true,
           label: "User",
-          field: "user"
+          field: "user",
         },
         {
           sortable: true,
           numeric: true,
           label: "Price per Point",
-          field: "pricePerPoint"
+          field: "pricePerPoint",
         },
         {
           sortable: true,
@@ -55,58 +49,58 @@ export default {
           label: "Price per Point (Normalized)",
           field: "pricePerPointNormalized",
           meta:
-            "Normalized Price includes closing cost fees and a unique algorithm around whether the contract is stripped or loaded. For every point remaining from the previous use year the contract price is reduced ($15). For every point used in the current or next use year the contract price is increased ($17/$19)."
+            "Normalized Price includes closing cost fees and a unique algorithm around whether the contract is stripped or loaded. For every point remaining from the previous use year the contract price is reduced ($15). For every point used in the current or next use year the contract price is increased ($17/$19).",
         },
         {
           sortable: true,
           numeric: true,
           label: "Price per Lifetime Point",
-          field: "pricePerLifetimePoint"
+          field: "pricePerLifetimePoint",
         },
         {
           sortable: true,
           numeric: true,
           label: "Total Cost",
-          field: "totalCost"
+          field: "totalCost",
         },
         {
           sortable: true,
           numeric: true,
           label: "Points",
-          field: "points"
+          field: "points",
         },
         {
           sortable: true,
           label: "Resort",
-          field: "resort"
+          field: "resort",
         },
         {
           sortable: true,
           label: "Use Year (UY)",
-          field: "useYear"
+          field: "useYear",
         },
         {
           sortable: true,
           label: "Available Points",
-          field: "availablePoints"
+          field: "availablePoints",
         },
         {
           sortable: true,
           label: "Notes",
-          field: "notes"
+          field: "notes",
         },
         {
           sortable: true,
           label: "Date Sent",
-          field: "dateSent"
+          field: "dateSent",
         },
         {
           sortable: true,
           label: "Date Resolved",
-          field: "dateResolved"
-        }
-      ]
+          field: "dateResolved",
+        },
+      ],
     };
-  }
+  },
 };
 </script>

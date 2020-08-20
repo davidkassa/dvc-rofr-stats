@@ -3,9 +3,9 @@ import * as moment from "moment";
 // define a mixin object
 export default {
   methods: {
-    getAverageWaitTime: function(contracts) {
+    getAverageWaitTime: function (contracts) {
       // console.log(contracts);
-      var sum = contracts.reduce(function(prevVal, elem) {
+      var sum = contracts.reduce(function (prevVal, elem) {
         let resolved = moment(elem.dateResolved, moment.HTML5_FMT.DATE);
         if (!resolved.isValid()) {
           resolved = moment();
@@ -19,18 +19,18 @@ export default {
       var avg = sum / contracts.length;
       return avg.toFixed(2) + " days";
     },
-    getAveragePoints: function(contracts) {
+    getAveragePoints: function (contracts) {
       return this.getAverage(contracts, "points");
     },
-    getAveragePricePerPoint: function(contracts) {
+    getAveragePricePerPoint: function (contracts) {
       return "$" + this.getAverage(contracts, "pricePerPoint");
     },
-    getAverageTotalCost: function(contracts) {
+    getAverageTotalCost: function (contracts) {
       return "$" + this.getAverage(contracts, "totalCost");
     },
-    getAverage: function(contracts, prop) {
+    getAverage: function (contracts, prop) {
       // console.log(contracts);
-      var sum = contracts.reduce(function(prevVal, elem) {
+      var sum = contracts.reduce(function (prevVal, elem) {
         var val = elem[prop];
         if (isNaN(val)) {
           val = 0;
@@ -39,6 +39,6 @@ export default {
       }, 0);
       var avg = sum / contracts.length;
       return avg.toFixed(2);
-    }
-  }
+    },
+  },
 };

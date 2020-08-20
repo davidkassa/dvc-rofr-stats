@@ -5,8 +5,8 @@
       search
       :options="options"
       :filters="filters"
-      :btnLabel="btnLabel"
-      :selectOptions="data"
+      :btn-label="btnLabel"
+      :select-options="data"
       @selectionChanged="updateValues"
     />
   </div>
@@ -16,11 +16,12 @@
 import vueMultiSelect from "vue-multi-select";
 import "vue-multi-select/dist/lib/vue-multi-select.css";
 export default {
+  components: { vueMultiSelect },
   props: {
     resorts: { required: true },
     statusEventName: { type: String, default: "statusFilterChanged" },
     resortEventName: { type: String, default: "resortFilterChanged" },
-    useYearEventName: { type: String, default: "useYearFilterChanged" }
+    useYearEventName: { type: String, default: "useYearFilterChanged" },
   },
   data() {
     let listData = [
@@ -30,25 +31,25 @@ export default {
           {
             name: "Passed",
             value: "Passed",
-            category: "Status"
+            category: "Status",
           },
           {
             name: "Waiting",
             value: "Waiting",
-            category: "Status"
+            category: "Status",
           },
           {
             name: "Taken",
             value: "Taken",
-            category: "Status"
-          }
-        ]
+            category: "Status",
+          },
+        ],
       },
       {
         name: "Resort",
-        list: this.resorts.map(r => {
+        list: this.resorts.map((r) => {
           return { category: "Resort", ...r };
-        })
+        }),
       },
       {
         name: "Use Year",
@@ -56,22 +57,22 @@ export default {
           {
             name: "January",
             value: "Jan",
-            category: "UseYear"
+            category: "UseYear",
           },
           {
             name: "February",
             value: "Feb",
-            category: "UseYear"
+            category: "UseYear",
           },
           {
             name: "March",
             value: "Mar",
-            category: "UseYear"
+            category: "UseYear",
           },
           {
             name: "April",
             value: "Apr",
-            category: "UseYear"
+            category: "UseYear",
           },
           { name: "May", value: "May", category: "UseYear" },
           { name: "June", value: "Jun", category: "UseYear" },
@@ -79,35 +80,36 @@ export default {
           {
             name: "August",
             value: "Aug",
-            category: "UseYear"
+            category: "UseYear",
           },
           {
             name: "September",
             value: "Sep",
-            category: "UseYear"
+            category: "UseYear",
           },
           {
             name: "October",
             value: "Oct",
-            category: "UseYear"
+            category: "UseYear",
           },
           {
             name: "November",
             value: "Nov",
-            category: "UseYear"
+            category: "UseYear",
           },
           {
             name: "December",
             value: "Dec",
-            category: "UseYear"
-          }
-        ]
-      }
+            category: "UseYear",
+          },
+        ],
+      },
     ];
     return {
-      btnLabel: values => `Filter by Status, Resort, and UY (${values.length})`,
+      btnLabel: (values) =>
+        `Filter by Status, Resort, and UY (${values.length})`,
       name: "",
-      values: listData.flatMap(d => d.list),
+      values: listData.flatMap((d) => d.list),
       data: listData,
       filters: [
         // TODO - filter Resort on WDW, MK, Epcot, AK, D. Springs
@@ -116,8 +118,8 @@ export default {
           nameNotAll: "Deselect All",
           func: () => {
             return true;
-          }
-        }
+          },
+        },
         // {
         //   nameAll: "select <= 10",
         //   nameNotAll: "Deselect <= 10",
@@ -142,12 +144,12 @@ export default {
       options: {
         multi: true,
         groups: true,
-        cssSelected: option =>
-          option["selected"] ? { "font-weight": "bold" } : ""
+        cssSelected: (option) =>
+          option["selected"] ? { "font-weight": "bold" } : "",
       },
       selectedStatuses: [],
       selectedResorts: [],
-      selectedUseYears: []
+      selectedUseYears: [],
     };
   },
   computed: {
@@ -163,13 +165,13 @@ export default {
     updateValues(values) {
       this.values = values;
       this.updateSelectedStatuses(
-        this.values.filter(s => s.category == "Status")
+        this.values.filter((s) => s.category == "Status")
       );
       this.updateSelectedResorts(
-        this.values.filter(s => s.category == "Resort")
+        this.values.filter((s) => s.category == "Resort")
       );
       this.updateSelectedUseYears(
-        this.values.filter(s => s.category == "UseYear")
+        this.values.filter((s) => s.category == "UseYear")
       );
     },
     updateSelectedStatuses(statuses) {
@@ -177,7 +179,7 @@ export default {
         this.selectedStatuses = statuses;
         this.$emit(
           this.statusEventName,
-          this.selectedStatuses.map(s => s.value)
+          this.selectedStatuses.map((s) => s.value)
         );
       }
     },
@@ -186,7 +188,7 @@ export default {
         this.selectedResorts = resorts;
         this.$emit(
           this.resortEventName,
-          this.selectedResorts.map(s => s.value)
+          this.selectedResorts.map((s) => s.value)
         );
       }
     },
@@ -195,12 +197,11 @@ export default {
         this.selectedUseYears = useYears;
         this.$emit(
           this.useYearEventName,
-          this.selectedUseYears.map(s => s.value)
+          this.selectedUseYears.map((s) => s.value)
         );
       }
-    }
+    },
   },
-  components: { vueMultiSelect }
 };
 </script>
 

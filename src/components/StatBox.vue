@@ -29,7 +29,7 @@
         <div class="column">
           <div
             :style="{
-              visibility: passed.includes('NaN') ? 'hidden' : 'visible'
+              visibility: passed.includes('NaN') ? 'hidden' : 'visible',
             }"
             class="box-record"
           >
@@ -37,7 +37,7 @@
           </div>
           <div
             :style="{
-              visibility: waiting.includes('NaN') ? 'hidden' : 'visible'
+              visibility: waiting.includes('NaN') ? 'hidden' : 'visible',
             }"
             class="box-record"
           >
@@ -45,7 +45,7 @@
           </div>
           <div
             :style="{
-              visibility: taken.includes('NaN') ? 'hidden' : 'visible'
+              visibility: taken.includes('NaN') ? 'hidden' : 'visible',
             }"
             class="box-record"
           >
@@ -59,7 +59,7 @@
 
 <script>
 export default {
-  props: ["title", "total", "passed", "waiting", "taken"]
+  props: ["title", "total", "passed", "waiting", "taken"],
 };
 </script>
 

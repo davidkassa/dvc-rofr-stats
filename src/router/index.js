@@ -19,7 +19,7 @@ export default new Router({
     {
       path: "/",
       name: "home",
-      component: Home
+      component: Home,
     },
     // {
     //   path: "/about",
@@ -34,19 +34,19 @@ export default new Router({
         {
           path: "/compare-contracts",
           name: "compare-contracts",
-          component: CompareContracts
+          component: CompareContracts,
         },
         {
           path: "/resale-costs",
           name: "resale-costs",
-          component: ResaleCosts
+          component: ResaleCosts,
         },
         {
           path: "/wait-times",
           name: "wait-times",
-          component: WaitTimes
-        }
-      ]
-    }
-  ]
+          component: WaitTimes,
+        },
+      ],
+    },
+  ],
 });

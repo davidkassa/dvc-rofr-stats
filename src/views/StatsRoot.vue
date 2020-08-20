@@ -3,11 +3,11 @@
     <router-view
       :meta="meta"
       :selected="selected"
-      :unfilteredContracts="contracts"
+      :unfiltered-contracts="contracts"
       :contracts="contractData"
-      :waitingContracts="waitingContracts"
-      :passedContracts="passedContracts"
-      :takenContracts="takenContracts"
+      :waiting-contracts="waitingContracts"
+      :passed-contracts="passedContracts"
+      :taken-contracts="takenContracts"
     />
     <div class="data-details">
       <div class="columns">
@@ -44,7 +44,12 @@ import * as moment from "moment";
 export default {
   components: {
     RofrDataTable,
-    RofrDropdown
+    RofrDropdown,
+  },
+  filters: {
+    moment: function (date) {
+      return moment.unix(Number(date)).format("ddd, MMM D LT"); //.format('MMMM Do YYYY, h:mm:ss a');
+    },
   },
   data() {
     return {
@@ -58,108 +63,108 @@ export default {
         {
           name: "Animal Kingdom (AKV)",
           value: "AKV",
-          expirationYear: "2057"
+          expirationYear: "2057",
         },
         {
           name: "Aulani (AUL)",
           value: "AUL",
-          expirationYear: "2062"
+          expirationYear: "2062",
         },
         {
           name: "Bay Lake Tower (BLT)",
           value: "BLT",
-          expirationYear: "2060"
+          expirationYear: "2060",
         },
         {
           name: "Beach Club (BCV)",
           value: "BCV",
-          expirationYear: "2042"
+          expirationYear: "2042",
         },
         {
           name: "Boardwalk (BWV)",
           value: "BWV",
-          expirationYear: "2042"
+          expirationYear: "2042",
         },
         {
           name: "Grand Californian (VGC)",
           value: "VGC",
-          expirationYear: "2060"
+          expirationYear: "2060",
         },
         {
           name: "Grand Floridian (VGF)",
           value: "VGF",
-          expirationYear: "2064"
+          expirationYear: "2064",
         },
         {
           name: "Hilton Head (HH)",
           value: "HH",
-          expirationYear: "2042"
+          expirationYear: "2042",
         },
         {
           name: "Old Key West (exp. 2042) (OKW)",
           value: "OKW",
-          expirationYear: "2042"
+          expirationYear: "2042",
         },
         {
           name: "Old Key West Extended (exp 2057) (OKW(E))",
           value: "OKW(E)",
-          expirationYear: "2057"
+          expirationYear: "2057",
         },
         {
           name: "Polynesian (PVB)",
           value: "PVB",
-          expirationYear: "2066"
+          expirationYear: "2066",
         },
         {
           name: "Riviera (RIV/DRR)",
           value: "RIV",
-          expirationYear: "2069"
+          expirationYear: "2069",
         },
         {
           name: "Saratoga Springs (SSR)",
           value: "SSR",
-          expirationYear: "2054"
+          expirationYear: "2054",
         },
         {
           name: "Vero Beach (VB)",
           value: "VB",
-          expirationYear: "2042"
+          expirationYear: "2042",
         },
         {
           name: "Wilderness Lodge: Boulder Ridge (BRV@WL)",
           value: "BRV@WL",
-          expirationYear: "2042"
+          expirationYear: "2042",
         },
         {
           name: "Wilderness Lodge: Copper Creek (CCV@WL)",
           value: "CCV@WL",
-          expirationYear: "2068"
-        }
-      ]
+          expirationYear: "2068",
+        },
+      ],
     };
   },
   firestore() {
     return {
-      contracts: db.collection("contracts").where(
-        "dateSent",
-        ">=",
-        moment()
-          .subtract(3, "months")
-          .format(moment.HTML5_FMT.DATE)
-      ),
-      metaStore: db.collection("meta")
+      contracts: db
+        .collection("contracts")
+        .where(
+          "dateSent",
+          ">=",
+          moment().subtract(3, "months").format(moment.HTML5_FMT.DATE)
+        ),
+      metaStore: db.collection("meta"),
     };
   },
   computed: {
-    meta: function() {
+    meta: function () {
       // console.log(this.metaStore.find(d => d.active === true));
       return this.metaStore.length == 0
         ? {}
-        : this.metaStore.find(d => d.active === true);
+        : this.metaStore.find((d) => d.active === true);
     },
-    contractData: function() {
+    contractData: function () {
       return this.contracts
-        .map(c => {
+        .map((c) => {
           // calculate lifetime points
           // Notice the points expire in JANUARY so if your use year
           // is February or a later month then your points actually expire the year before!
@@ -173,11 +178,7 @@ export default {
           // add 2 years to get past next year - TODO is there additional UY logic here?
           let remainingYears = Math.max(
             0,
-            c.points *
-              (expirationYear -
-                moment()
-                  .add(2, "years")
-                  .year())
+            c.points * (expirationYear - moment().add(2, "years").year())
           );
           let lifetimePrice =
             c.totalCost / (lastYear + thisYear + nextYear + remainingYears);
@@ -240,57 +241,52 @@ export default {
           return {
             pricePerPointNormalized: normalizedPrice.toFixed(2),
             pricePerLifetimePoint: lifetimePrice.toFixed(2),
-            ...c
+            ...c,
           };
         })
         .filter(
-          a =>
+          (a) =>
             this.statusFilter.length != 0 &&
             this.statusFilter.indexOf(a.status) !== -1
         )
         .filter(
-          a =>
+          (a) =>
             this.resortFilter.length != 0 &&
             this.resortFilter.indexOf(a.resort) !== -1
         )
         .filter(
-          a =>
+          (a) =>
             this.useYearFilter.length != 0 &&
             this.useYearFilter.indexOf(a.useYear) !== -1
         );
     },
-    passedContracts: function() {
+    passedContracts: function () {
       //return this.contractData.where("Status", "==", "Passed");
-      return this.contractData.filter(a => a.status == "Passed");
+      return this.contractData.filter((a) => a.status == "Passed");
     },
-    waitingContracts: function() {
+    waitingContracts: function () {
       //return this.contractData.where("Status", "==", "Waiting");
-      return this.contractData.filter(a => a.status == "Waiting");
+      return this.contractData.filter((a) => a.status == "Waiting");
     },
-    takenContracts: function() {
+    takenContracts: function () {
       //return this.contractData.where("Status", "==", "Taken");
-      return this.contractData.filter(a => a.status == "Taken");
-    }
+      return this.contractData.filter((a) => a.status == "Taken");
+    },
   },
   methods: {
-    updateStatusFilter: function(statusFilter) {
+    updateStatusFilter: function (statusFilter) {
       //console.log("Status Filter Changed:\n" + JSON.stringify(statusFilter) + "\n");
       this.statusFilter = statusFilter;
     },
-    updateResortFilter: function(resortFilter) {
+    updateResortFilter: function (resortFilter) {
       //console.log("Resort Filter Changed:\n" + JSON.stringify(resortFilter) + "\n");
       this.resortFilter = resortFilter;
     },
-    updateUseYearFilter: function(useYearFilter) {
+    updateUseYearFilter: function (useYearFilter) {
       //console.log("Use Year Filter Changed:\n" + JSON.stringify(useYearFilter) + "\n");
       this.useYearFilter = useYearFilter;
-    }
+    },
   },
-  filters: {
-    moment: function(date) {
-      return moment.unix(Number(date)).format("ddd, MMM D LT"); //.format('MMMM Do YYYY, h:mm:ss a');
-    }
-  }
 };
 </script>
 

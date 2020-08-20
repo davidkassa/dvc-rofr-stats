@@ -19,8 +19,8 @@ const firestore = admin.firestore();
 // from running `firebase functions:shell --debug`
 // Ignoring trigger "hourly_job" because the service "pubsub.googleapis.com" is not yet supported.
 if (process.env.NODE_ENV === "TEMP_pubsub") {
-  exports.testFunction = functions.https.onRequest(() => {
-    return processDisBoardsData();
+  exports.testFunction = functions.https.onRequest(async () => {
+    await processDisBoardsData();
   });
 }
 
@@ -41,7 +41,7 @@ exports.hourly_job = functions
 // import htmlData from "@/../data/4.2018-raw.html";
 
 async function processDisBoardsData() {
-  console.log("Processing DisBoard Data!");
+  functions.logger.debug("Processing DisBoard Data!");
 
   try {
     const changeData: Array<{ meta: Meta; contracts: Contract[] }> = [];
@@ -72,7 +72,7 @@ async function processDisBoardsData() {
           $,
           data.maxDate
         );
-        console.log(
+        functions.logger.debug(
           "parsed epoch: " + epoch + " contracts: " + contracts.length
         );
         contracts.forEach(c => (c.metaId = data.id));
@@ -85,7 +85,7 @@ async function processDisBoardsData() {
 
     return true;
   } catch (err) {
-    console.error(err);
+    functions.logger.error(err);
     return false;
   }
 }
@@ -207,14 +207,14 @@ function parseLine(line: string, maxDate: moment.Moment): Contract {
   const a = line.split("---");
   if (a.length !== 2) {
     // error state
-    console.error("Error: " + line);
+    functions.logger.error("Error: " + line);
     return null;
   }
   contract.user = a[0];
   const props = a[1].split("-");
   if (props.length < 7 || props.length > 8) {
     // error state
-    console.error("Error: " + line);
+    functions.logger.error("Error: " + line);
     return null;
   }
   contract.pricePerPoint = Number(props[0].substr(1)); // strip $
@@ -267,7 +267,7 @@ async function saveChangeDataToFirebase(data) {
 }
 
 async function saveContractsToFirebase(data) {
-  console.log("saving contracts: " + data.contracts.length);
+  functions.logger.debug("saving contracts: " + data.contracts.length);
   // get contracts from DB, wrap with found bool
   try {
     const contractSnapshot = await firestore
@@ -299,13 +299,13 @@ async function saveContractsToFirebase(data) {
         .delete();
     }
   } catch (err) {
-    console.error(err);
+    functions.logger.error(err);
     return false;
   }
   return true;
 }
 async function saveMetaToFirebase(meta: Meta) {
-  console.log("saving meta: " + meta.id);
+  functions.logger.debug("saving meta: " + meta.id);
 
   await firestore
     .collection("meta")
