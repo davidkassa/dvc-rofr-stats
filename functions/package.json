@@ -20,7 +20,7 @@
     "request-promise-native": "^1.0.9"
   },
   "devDependencies": {
-    "@types/cheerio": "^0.22.21",
+    "@types/cheerio": "^0.22.22",
     "@types/node": "^14.11.2",
     "@types/request": "^2.48.5",
     "@types/request-promise-native": "^1.0.17",
