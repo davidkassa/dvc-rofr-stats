@@ -1,27 +1,39 @@
 <template>
   <div class="data-details">
     <b-table :data="data" :mobile-cards="true">
-      <template #default="props">
-        <b-table-column label="">
-          <b>{{ props.row.name }}</b>
-        </b-table-column>
+      <b-table-column label="" v-slot="props" :visible="data.length > 0">
+        <b>{{ props.row.name }}</b>
+      </b-table-column>
 
-        <b-table-column label="Selected Contract">
-          {{ props.row.selected }}
-        </b-table-column>
+      <b-table-column
+        label="Selected Contract"
+        v-slot="props"
+        :visible="data.length > 0"
+      >
+        {{ props.row.selected }}
+      </b-table-column>
 
-        <b-table-column label="All Contracts">
-          {{ props.row.all }}
-        </b-table-column>
+      <b-table-column
+        label="All Contracts"
+        v-slot="props"
+        :visible="data.length > 0"
+      >
+        {{ props.row.all }}
+      </b-table-column>
 
-        <b-table-column label="Same Resort">
-          {{ props.row.resort }}
-        </b-table-column>
+      <b-table-column
+        label="Same Resort"
+        v-slot="props"
+        :visible="data.length > 0"
+      >
+        {{ props.row.resort }}
+      </b-table-column>
 
-        <b-table-column label="Same UY"> {{ props.row.uy }} </b-table-column>
-      </template>
+      <b-table-column label="Same UY" v-slot="props" :visible="data.length > 0">
+        {{ props.row.uy }}
+      </b-table-column>
 
-      <template #empty>
+      <template v-slot:empty>
         <section class="section">
           <div class="has-text-centered">
             <p>
@@ -150,5 +162,6 @@ export default {
 <style scoped lang="scss">
 .data-details {
   margin: 1%;
+  text-align: left;
 }
 </style>
