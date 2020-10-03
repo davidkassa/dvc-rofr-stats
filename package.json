@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "@fortawesome/fontawesome-free-webfonts": "^1.0.9",
-    "buefy": "^0.8.20",
+    "buefy": "^0.9.3",
     "chart.js": "^2.9.3",
     "chartjs-plugin-datalabels": "^0.7.0",
     "core-js": "^3.6.5",
@@ -24,7 +24,7 @@
     "register-service-worker": "^1.7.1",
     "vue": "^2.6.12",
     "vue-analytics": "^5.22.1",
-    "vue-chartjs": "^3.5.0",
+    "vue-chartjs": "^3.5.1",
     "vue-echarts": "^4.1.0",
     "vue-multi-select": "^4.5.0",
     "vue-router": "^3.4.5",
