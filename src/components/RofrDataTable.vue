@@ -9,13 +9,14 @@
     <template #header="props">
       <b-tooltip
         :active="!!props.column.meta"
-        :label="props.column.meta"
+        :label="props.column.meta || ''"
         multilined
         is-large
         dashed
         animated
-        >{{ props.column.label }}</b-tooltip
       >
+        {{ props.column.label }}
+      </b-tooltip>
     </template>
     <template>
       <b-table-column field="status" label="Status" sortable v-slot="props">
