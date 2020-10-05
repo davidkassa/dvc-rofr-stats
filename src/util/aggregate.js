@@ -23,10 +23,10 @@ export default {
       return this.getAverage(contracts, "points");
     },
     getAveragePricePerPoint: function (contracts) {
-      return "$" + this.getAverage(contracts, "pricePerPoint");
+      return this.asCurrencyFormat(this.getAverage(contracts, "pricePerPoint"));
     },
     getAverageTotalCost: function (contracts) {
-      return "$" + this.getAverage(contracts, "totalCost");
+      return this.asCurrencyFormat(this.getAverage(contracts, "totalCost"));
     },
     getAverage: function (contracts, prop) {
       // console.log(contracts);
@@ -39,6 +39,9 @@ export default {
       }, 0);
       var avg = sum / contracts.length;
       return avg.toFixed(2);
+    },
+    asCurrencyFormat: function (num) {
+      return "$" + parseFloat(num).toLocaleString("en");
     },
   },
 };
