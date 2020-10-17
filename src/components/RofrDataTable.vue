@@ -6,18 +6,6 @@
     focusable
     @update:selected="$emit('update:selected', selected)"
   >
-    <template #header="props">
-      <b-tooltip
-        :active="!!props.column.meta"
-        :label="props.column.meta || ''"
-        multilined
-        is-large
-        dashed
-        animated
-      >
-        {{ props.column.label }}
-      </b-tooltip>
-    </template>
     <template>
       <b-table-column field="status" label="Status" sortable v-slot="props">
         {{ props.row.status }}
@@ -37,12 +25,23 @@
       <b-table-column
         field="pricePerPointNormalized"
         label="Price per Point (Normalized)"
-        meta="Normalized Price includes closing cost fees and a unique algorithm around whether the contract is stripped or loaded. For every point remaining from the previous use year the contract price is reduced ($15). For every point used in the current or next use year the contract price is increased ($17/$19)."
         numeric
         sortable
-        v-slot="props"
       >
-        ${{ props.row.pricePerPointNormalized.toLocaleString("en") }}
+        <template v-slot:header="{ column }">
+          <b-tooltip
+            label="Normalized Price includes closing cost fees and a unique algorithm around whether the contract is stripped or loaded. For every point remaining from the previous use year the contract price is reduced ($15). For every point used in the current or next use year the contract price is increased ($17/$19)."
+            multilined
+            is-large
+            dashed
+            animated
+          >
+            {{ column.label }}
+          </b-tooltip>
+        </template>
+        <template v-slot="props">
+          ${{ props.row.pricePerPointNormalized.toLocaleString("en") }}
+        </template>
       </b-table-column>
       <b-table-column
         field="pricePerLifetimePoint"
@@ -54,7 +53,7 @@
         ${{ props.row.pricePerLifetimePoint.toLocaleString("en") }}
       </b-table-column>
       <b-table-column
-        field="totlaCost"
+        field="totalCost"
         label="Total Cost"
         numeric
         sortable
