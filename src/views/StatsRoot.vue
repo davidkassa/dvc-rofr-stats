@@ -13,11 +13,23 @@
       <div class="columns">
         <div class="column has-text-centered-mobile has-text-left-tablet">
           <rofr-dropdown
+            class="is-pulled-left mr-1"
             :resorts="resortData"
             @statusFilterChanged="updateStatusFilter"
             @resortFilterChanged="updateResortFilter"
             @useYearFilterChanged="updateUseYearFilter"
           />
+          <download-csv
+            class="is-pulled-left"
+            :data="contractData"
+            :fields="csvFields"
+            :labels="csvLabels"
+            name="DVC_Stats.csv"
+          >
+            <b-button icon-left="file-excel" size="is-small">
+              Download Data
+            </b-button>
+          </download-csv>
           <!-- pass data to child to disable values -->
           <!-- <rofr-dropdown :data=contractData /> -->
         </div>
@@ -59,6 +71,36 @@ export default {
       statusFilter: [],
       resortFilter: [],
       useYearFilter: [],
+      csvFields: [
+        "status",
+        "user",
+        "pricePerPoint",
+        "pricePerPointNormalized",
+        "pricePerLifetimePoint",
+        "totalCost",
+        "points",
+        "resort",
+        "useYear",
+        "availablePoints",
+        "notes",
+        "dateSent",
+        "dateResolved",
+      ],
+      csvLabels: {
+        status: "Status",
+        user: "User",
+        pricePerPoint: "Price per Point",
+        pricePerPointNormalized: "Price per Point (Normalized)",
+        pricePerLifetimePoint: "Price per Lifetime Point",
+        totalCost: "Total Cost",
+        points: "Points",
+        resort: "Resort",
+        useYear: "Use Year (UY)",
+        availablePoints: "Available Points",
+        notes: "Notes",
+        dateSent: "Date Sent",
+        dateResolved: "Date Resolved",
+      },
       resortData: [
         {
           name: "Animal Kingdom (AKV)",

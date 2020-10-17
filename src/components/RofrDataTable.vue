@@ -2,21 +2,112 @@
   <b-table
     :selected.sync="selected"
     :data="data"
-    :columns="columns"
     default-sort="status"
     focusable
     @update:selected="$emit('update:selected', selected)"
   >
-    <template #header="props">
-      <b-tooltip
-        :active="!!props.column.meta"
-        :label="props.column.meta"
-        multilined
-        is-large
-        dashed
-        animated
-        >{{ props.column.label }}</b-tooltip
+    <template>
+      <b-table-column field="status" label="Status" sortable v-slot="props">
+        {{ props.row.status }}
+      </b-table-column>
+      <b-table-column field="user" label="User" sortable v-slot="props">
+        {{ props.row.user }}
+      </b-table-column>
+      <b-table-column
+        field="pricePerPoint"
+        label="Price per Point"
+        numeric
+        sortable
+        v-slot="props"
       >
+        ${{ props.row.pricePerPoint.toLocaleString("en") }}
+      </b-table-column>
+      <b-table-column
+        field="pricePerPointNormalized"
+        label="Price per Point (Normalized)"
+        numeric
+        sortable
+      >
+        <template v-slot:header="{ column }">
+          <b-tooltip
+            label="Normalized Price includes closing cost fees and a unique algorithm around whether the contract is stripped or loaded. For every point remaining from the previous use year the contract price is reduced ($15). For every point used in the current or next use year the contract price is increased ($17/$19)."
+            multilined
+            is-large
+            dashed
+            animated
+          >
+            {{ column.label }}
+          </b-tooltip>
+        </template>
+        <template v-slot="props">
+          ${{ props.row.pricePerPointNormalized.toLocaleString("en") }}
+        </template>
+      </b-table-column>
+      <b-table-column
+        field="pricePerLifetimePoint"
+        label="Price per Lifetime Point"
+        numeric
+        sortable
+        v-slot="props"
+      >
+        ${{ props.row.pricePerLifetimePoint.toLocaleString("en") }}
+      </b-table-column>
+      <b-table-column
+        field="totalCost"
+        label="Total Cost"
+        numeric
+        sortable
+        v-slot="props"
+      >
+        ${{ props.row.totalCost.toLocaleString("en") }}
+      </b-table-column>
+      <b-table-column
+        field="points"
+        label="Points"
+        numeric
+        sortable
+        v-slot="props"
+      >
+        {{ props.row.points.toLocaleString("en") }}
+      </b-table-column>
+      <b-table-column field="resort" label="Resort" sortable v-slot="props">
+        {{ props.row.resort }}
+      </b-table-column>
+      <b-table-column
+        field="useYear"
+        label="Use Year (UY)"
+        sortable
+        v-slot="props"
+      >
+        {{ props.row.useYear }}
+      </b-table-column>
+      <b-table-column
+        field="availablePoints"
+        label="Available Points"
+        sortable
+        v-slot="props"
+      >
+        ${{ props.row.availablePoints }}
+      </b-table-column>
+      <b-table-column field="notes" label="Notes" sortable v-slot="props">
+        {{ props.row.Notes }}
+      </b-table-column>
+      <b-table-column
+        field="dateSent"
+        label="Date Sent"
+        sortable
+        v-slot="props"
+      >
+        {{ props.row.dateSent }}
+      </b-table-column>
+      <b-table-column
+        field="dateResolved"
+        label="Date Resolved"
+        sortable
+        v-slot="props"
+      >
+        {{ props.row.dateResolved }}
+      </b-table-column>
     </template>
   </b-table>
 </template>
@@ -25,82 +116,7 @@
 export default {
   props: ["data", "selected"],
   data() {
-    return {
-      columns: [
-        {
-          sortable: true,
-          label: "Status",
-          field: "status",
-        },
-        {
-          sortable: true,
-          label: "User",
-          field: "user",
-        },
-        {
-          sortable: true,
-          numeric: true,
-          label: "Price per Point",
-          field: "pricePerPoint",
-        },
-        {
-          sortable: true,
-          numeric: true,
-          label: "Price per Point (Normalized)",
-          field: "pricePerPointNormalized",
-          meta:
-            "Normalized Price includes closing cost fees and a unique algorithm around whether the contract is stripped or loaded. For every point remaining from the previous use year the contract price is reduced ($15). For every point used in the current or next use year the contract price is increased ($17/$19).",
-        },
-        {
-          sortable: true,
-          numeric: true,
-          label: "Price per Lifetime Point",
-          field: "pricePerLifetimePoint",
-        },
-        {
-          sortable: true,
-          numeric: true,
-          label: "Total Cost",
-          field: "totalCost",
-        },
-        {
-          sortable: true,
-          numeric: true,
-          label: "Points",
-          field: "points",
-        },
-        {
-          sortable: true,
-          label: "Resort",
-          field: "resort",
-        },
-        {
-          sortable: true,
-          label: "Use Year (UY)",
-          field: "useYear",
-        },
-        {
-          sortable: true,
-          label: "Available Points",
-          field: "availablePoints",
-        },
-        {
-          sortable: true,
-          label: "Notes",
-          field: "notes",
-        },
-        {
-          sortable: true,
-          label: "Date Sent",
-          field: "dateSent",
-        },
-        {
-          sortable: true,
-          label: "Date Resolved",
-          field: "dateResolved",
-        },
-      ],
-    };
+    return {};
   },
 };
 </script>

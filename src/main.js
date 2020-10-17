@@ -1,6 +1,7 @@
 import Vue from "vue";
 import Buefy from "buefy";
 // const Buefy = () => import(/* webpackChunkName: "buefy" */ "buefy");
+import JsonCSV from "vue-json-csv";
 
 import VueAnalytics from "vue-analytics";
 
@@ -22,6 +23,7 @@ Vue.config.productionTip = false;
 /* eslint-disable no-undef */
 
 Vue.use(Buefy, { defaultIconPack: "fas" });
+Vue.component("downloadCsv", JsonCSV);
 Vue.use(VueAnalytics, {
   id: process.env.VUE_APP_GOOGLE_ANALYTICS_ID,
   router,

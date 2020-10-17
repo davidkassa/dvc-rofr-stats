@@ -9,6 +9,7 @@
         label="Selected Contract"
         v-slot="props"
         :visible="data.length > 0"
+        numeric
       >
         {{ props.row.selected }}
       </b-table-column>
@@ -17,6 +18,7 @@
         label="All Contracts"
         v-slot="props"
         :visible="data.length > 0"
+        numeric
       >
         {{ props.row.all }}
       </b-table-column>
@@ -25,11 +27,17 @@
         label="Same Resort"
         v-slot="props"
         :visible="data.length > 0"
+        numeric
       >
         {{ props.row.resort }}
       </b-table-column>
 
-      <b-table-column label="Same UY" v-slot="props" :visible="data.length > 0">
+      <b-table-column
+        label="Same UY"
+        v-slot="props"
+        :visible="data.length > 0"
+        numeric
+      >
         {{ props.row.uy }}
       </b-table-column>
 
