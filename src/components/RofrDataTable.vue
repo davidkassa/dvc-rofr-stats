@@ -87,7 +87,7 @@
         sortable
         v-slot="props"
       >
-        ${{ props.row.availablePoints }}
+        {{ props.row.availablePoints }}
       </b-table-column>
       <b-table-column field="notes" label="Notes" sortable v-slot="props">
         {{ props.row.Notes }}
