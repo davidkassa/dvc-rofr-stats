@@ -41,7 +41,7 @@
     "@vue/cli-plugin-vuex": "^4.5.8",
     "@vue/cli-service": "^4.5.8",
     "@vue/eslint-config-prettier": "^6.0.0",
-    "@vue/test-utils": "^1.1.0",
+    "@vue/test-utils": "^1.1.1",
     "babel-eslint": "^10.1.0",
     "babel-jest": "^26.6.1",
     "cheerio": "^1.0.0-rc.3",
