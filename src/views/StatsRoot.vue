@@ -210,7 +210,7 @@ export default {
           // calculate lifetime points
           // Notice the points expire in JANUARY so if your use year
           // is February or a later month then your points actually expire the year before!
-          let expirationYear = 2042; // lookupResortExpirationYear(c.resort);
+          let expirationYear = this.lookupResortExpirationYear(c.resort);
           if (c.useYear !== "Jan") {
             expirationYear--;
           }
@@ -327,6 +327,9 @@ export default {
     updateUseYearFilter: function (useYearFilter) {
       //console.log("Use Year Filter Changed:\n" + JSON.stringify(useYearFilter) + "\n");
       this.useYearFilter = useYearFilter;
+    },
+    lookupResortExpirationYear: function (resort) {
+      return this.resortData.find((r) => r.value == resort).expirationYear;
     },
   },
 };
