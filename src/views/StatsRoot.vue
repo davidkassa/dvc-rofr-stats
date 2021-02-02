@@ -329,7 +329,7 @@ export default {
       this.useYearFilter = useYearFilter;
     },
     lookupResortExpirationYear: function (resort) {
-      return this.resortData.find((r) => r.value == resort).expirationYear;
+      return this.resortData.find((r) => r.value == resort)?.expirationYear;
     },
   },
 };
