@@ -207,25 +207,8 @@ export default {
     contractData: function () {
       return this.contracts
         .map((c) => {
-          // calculate lifetime points
-          // Notice the points expire in JANUARY so if your use year
-          // is February or a later month then your points actually expire the year before!
-          let expirationYear = this.lookupResortExpirationYear(c.resort);
-          if (c.useYear !== "Jan") {
-            expirationYear--;
-          }
-          let lastYear = 0;
-          let thisYear = 0;
-          let nextYear = 0;
-          // add 2 years to get past next year - TODO is there additional UY logic here?
-          let remainingYears = Math.max(
-            0,
-            c.points * (expirationYear - moment().add(2, "years").year())
-          );
-          let lifetimePrice =
-            c.totalCost / (lastYear + thisYear + nextYear + remainingYears);
 
-          // Normalized Points
+          // Get points from previous, current, and next year
           let availablePoints = c.availablePoints
             .split(",")
             .reduce((accum, year) => {
@@ -247,6 +230,50 @@ export default {
             currentYear--;
           }
 
+          let previousYearPoints = availablePoints[currentYear - 1] || 0;
+          let currentYearPoints = availablePoints[currentYear] || 0;
+          let nextYearPoints = availablePoints[currentYear + 1] || 0;
+
+
+
+
+          // calculate lifetime points
+          // Notice the points expire in JANUARY so if your use year
+          // is February or a later month then your points actually expire the year before!
+          // DO I NEED THIS? OR IS CALCULATING THE UY GOOD ENOUGH? Could be an off-by-one
+
+          // Lets look at OKW - 100 point contract expires 2042. Today is Feb 15, 2021 so what does that mean?
+          // Jan UY vs Mar UY
+
+          // Jan UY means I have points from Jan 1, 2042 to Dec 31, 2042
+          // Mar UY means I have points from Mar 1, 2041 to Feb 29, 2042
+          // All points are done on Dec 31, 2042
+
+          // Today is 2021 UY for Jan contract, previous year was 2020, next year 2022
+          // Today is 2020 UY for Mar contract, previous year was 2019, next year 2021
+
+          // Jan has 2021, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, and 42 = 2200 points
+          // Mar has 2020, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, and 42 = 2300 points
+
+          // Jan: expYear - currentYear = 2042 - 2021 = 21 years, need to add 1
+          // Mar: expYear - currentYear = 2042 - 2020 = 22 years, need to add 1
+
+          let expirationYear = this.lookupResortExpirationYear(c.resort);
+          // Not needed based on logic above
+          // if (c.useYear !== "Jan") {
+          //   expirationYear--;
+          // }
+
+          // add 2 years to get past next year - TODO is there additional UY logic here?
+          let remainingYears = Math.max(
+            0,
+            c.points * (((expirationYear - currentYear) + 1) - 2) // add 1 for inclusive year (see above) and remove 2 as those years are  calculated explicitly (below)
+          );
+          let lifetimePrice =
+            c.totalCost / (previousYearPoints + currentYearPoints + nextYearPoints + remainingYears);
+
+
+          // Normalized Points
           let normalizedPriceTotal;
           let includeFees = true;
           if (includeFees) {
@@ -258,23 +285,20 @@ export default {
           // expect last year to be spent, if not modify value ($15)
           let previousYearCost = 15;
           let expectedPreviousYearPoints = 0;
-          let actualPreviousYearPoints = availablePoints[currentYear - 1] || 0;
           normalizedPriceTotal +=
-            (expectedPreviousYearPoints - actualPreviousYearPoints) *
+            (expectedPreviousYearPoints - previousYearPoints) *
             previousYearCost;
           // expect this year to not be spent? value at $17
           let currentYearCost = 17;
           let expectedCurrentYearPoints = c.points;
-          let actualCurrentYearPoints = availablePoints[currentYear] || 0;
           normalizedPriceTotal +=
-            (expectedCurrentYearPoints - actualCurrentYearPoints) *
+            (expectedCurrentYearPoints - currentYearPoints) *
             currentYearCost;
           // expect next year to not be spent, if they are add value ($19 - disney rental price)
           let nextYearCost = 19;
           let expectedNextYearPoints = c.points;
-          let actualNextYearPoints = availablePoints[currentYear + 1] || 0;
           normalizedPriceTotal +=
-            (expectedNextYearPoints - actualNextYearPoints) * nextYearCost;
+            (expectedNextYearPoints - nextYearPoints) * nextYearCost;
 
           let normalizedPrice = normalizedPriceTotal / c.points;
 
