@@ -49,7 +49,7 @@
     "eslint-plugin-prettier": "^3.3.1",
     "eslint-plugin-vue": "^7.5.0",
     "fibers": "^5.0.0",
-    "node-sass": "^4.14.1",
+    "node-sass": "^5.0.0",
     "prettier": "^2.2.1",
     "request": "^2.88.2",
     "request-promise-native": "^1.0.9",
