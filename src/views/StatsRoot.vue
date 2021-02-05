@@ -230,17 +230,16 @@ export default {
             currentYear--;
           }
 
-          let previousYearPoints = availablePoints[currentYear - 1] || 0;
-          let currentYearPoints = availablePoints[currentYear] || 0;
-          let nextYearPoints = availablePoints[currentYear + 1] || 0;
-
+          let previousYearPoints = parseInt(availablePoints[currentYear - 1] || 0);
+          let currentYearPoints = parseInt(availablePoints[currentYear] || 0);
+          let nextYearPoints = parseInt(availablePoints[currentYear + 1] || 0);
+          // console.log(`prev: ${previousYearPoints} current ${currentYearPoints} next ${nextYearPoints}`);
 
 
 
           // calculate lifetime points
           // Notice the points expire in JANUARY so if your use year
           // is February or a later month then your points actually expire the year before!
-          // DO I NEED THIS? OR IS CALCULATING THE UY GOOD ENOUGH? Could be an off-by-one
 
           // Lets look at OKW - 100 point contract expires 2042. Today is Feb 15, 2021 so what does that mean?
           // Jan UY vs Mar UY
@@ -264,13 +263,17 @@ export default {
           //   expirationYear--;
           // }
 
-          // add 2 years to get past next year - TODO is there additional UY logic here?
+          // add 2 years to get past next year
           let remainingYears = Math.max(
             0,
             c.points * (((expirationYear - currentYear) + 1) - 2) // add 1 for inclusive year (see above) and remove 2 as those years are  calculated explicitly (below)
           );
+          // console.log(`remaining: ${remainingYears} total cost: ${c.totalCost} points: ${c.points}`);  
           let lifetimePrice =
             c.totalCost / (previousYearPoints + currentYearPoints + nextYearPoints + remainingYears);
+          // console.log(`lifetime price: ${lifetimePrice}`);
+          // console.log("sum: " + (previousYearPoints + currentYearPoints + nextYearPoints + remainingYears))
+          // console.log("recalculate: " + c.totalCost / (previousYearPoints + currentYearPoints + nextYearPoints + remainingYears))
 
 
           // Normalized Points
@@ -353,7 +356,7 @@ export default {
       this.useYearFilter = useYearFilter;
     },
     lookupResortExpirationYear: function (resort) {
-      return this.resortData.find((r) => r.value == resort)?.expirationYear;
+      return parseInt(this.resortData.find((r) => r.value == resort)?.expirationYear || 0);
     },
   },
 };
