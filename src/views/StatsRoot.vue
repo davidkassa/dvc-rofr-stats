@@ -106,81 +106,99 @@ export default {
           name: "Animal Kingdom (AKV)",
           value: "AKV",
           expirationYear: "2057",
+          dues: "8.07",
         },
         {
           name: "Aulani (AUL)",
           value: "AUL",
           expirationYear: "2062",
+          dues: "8.35",
+          duesSubsidized: "6.28",
         },
         {
           name: "Bay Lake Tower (BLT)",
           value: "BLT",
           expirationYear: "2060",
+          dues: "6.90",
         },
         {
           name: "Beach Club (BCV)",
           value: "BCV",
           expirationYear: "2042",
+          dues: "7.44",
         },
         {
           name: "Boardwalk (BWV)",
           value: "BWV",
           expirationYear: "2042",
+          dues: "7.81",
         },
         {
           name: "Grand Californian (VGC)",
           value: "VGC",
           expirationYear: "2060",
+          dues: "6.99",
         },
         {
           name: "Grand Floridian (VGF)",
           value: "VGF",
           expirationYear: "2064",
+          dues: "6.81",
         },
         {
           name: "Hilton Head (HH)",
           value: "HH",
           expirationYear: "2042",
+          dues: "9.97",
         },
         {
           name: "Old Key West (exp. 2042) (OKW)",
           value: "OKW",
           expirationYear: "2042",
+          dues: "8.36",
         },
         {
           name: "Old Key West Extended (exp 2057) (OKW(E))",
           value: "OKW(E)",
           expirationYear: "2057",
+          dues: "8.36",
         },
         {
           name: "Polynesian (PVB)",
           value: "PVB",
           expirationYear: "2066",
+          dues: "7.05",
         },
         {
           name: "Riviera (RIV/DRR)",
           value: "RIV",
           expirationYear: "2069",
+          dues: "8.38",
         },
         {
           name: "Saratoga Springs (SSR)",
           value: "SSR",
           expirationYear: "2054",
+          dues: "7.11",
         },
         {
           name: "Vero Beach (VB)",
           value: "VB",
           expirationYear: "2042",
+          dues: "11.23",
+          duesSubsidized: "8.86",
         },
         {
           name: "Wilderness Lodge: Boulder Ridge (BRV@WL)",
           value: "BRV@WL",
           expirationYear: "2042",
+          dues: "8.11",
         },
         {
           name: "Wilderness Lodge: Copper Creek (CCV@WL)",
           value: "CCV@WL",
           expirationYear: "2068",
+          dues: "7.59",
         },
       ],
     };
@@ -306,6 +324,8 @@ export default {
           let normalizedPrice = normalizedPriceTotal / c.points;
 
           // TODO - add dues
+          // from https://www.dvcresalemarket.com/buying/annual-dues/ seeded dues are 2021
+          // CAGR average is 3.75%
 
           return {
             pricePerPointNormalized: normalizedPrice.toFixed(2),
