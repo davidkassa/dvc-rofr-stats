@@ -1,0 +1,41 @@
+version: 2
+updates:
+- package-ecosystem: npm
+  directory: "/"
+  schedule:
+    interval: daily
+    time: "11:00"
+  open-pull-requests-limit: 10
+  target-branch: develop
+  ignore:
+  - dependency-name: core-js
+    versions:
+    - 3.10.2
+  - dependency-name: buefy
+    versions:
+    - 0.9.5
+    - 0.9.6
+  - dependency-name: firebase
+    versions:
+    - 8.2.4
+- package-ecosystem: npm
+  directory: "/functions"
+  schedule:
+    interval: daily
+    time: "11:00"
+  open-pull-requests-limit: 10
+  target-branch: develop
+  ignore:
+  - dependency-name: "@types/node"
+    versions:
+    - 15.0.0
+  - dependency-name: firebase-admin
+    versions:
+    - 9.4.2
+    - 9.5.0
+    - 9.6.0
+  - dependency-name: "@types/cheerio"
+    versions:
+    - 0.22.24
+    - 0.22.25
+    - 0.22.27
