@@ -23,7 +23,12 @@ jobs:
           npm run test:unit
           npm run build-staging
       - name: Deploy
-        uses: w9jds/firebase-action@v2.0.0
-        env:
-          FIREBASE_TOKEN: ${{ secrets.FIREBASE_DEPLOY_KEY }}
-          PROJECT_ID: dvc-rofr-stats-dev
+        run: |
+          npm i -g firebase-tools
+          firebase deploy --token ${{ secrets.FIREBASE_DEPLOY_KEY }} --project staging
+        # Doesn't support Node 14: https://github.com/w9jds/firebase-action/issues/83
+        #uses: w9jds/firebase-action@v2.0.0
+        #with:
+        #  args: deploy --project staging
+        #env:
+        #  FIREBASE_TOKEN: ${{ secrets.FIREBASE_DEPLOY_KEY }}
