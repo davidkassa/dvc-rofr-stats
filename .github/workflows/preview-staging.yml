@@ -1,12 +1,12 @@
-name: Deploy Staging
+name: Preview Staging
 
 on:
-  push:
+  pull_request:
     branches:
       - develop
 
 jobs:
-  deploy_live_website:
+  build_and_preview_website:
     runs-on: ubuntu-latest
     steps:
       - name: Setup Node.js environment
@@ -28,4 +28,4 @@ jobs:
           repoToken: "${{ secrets.GITHUB_TOKEN }}"
           firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT_DEV }}"
           projectId: dvc-rofr-stats-dev
-          channelId: live
+          expires: 30d
