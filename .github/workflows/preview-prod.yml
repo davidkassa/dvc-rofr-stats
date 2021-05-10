@@ -1,0 +1,30 @@
+name: Preview Prod
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build_and_preview_website:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v2.1.5
+        with:
+          # Version Spec of the version to use.  Examples: 12.x, 10.15.1, >=10.15.0
+          node-version: 14.x # optional
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Build
+        run: |
+          npm ci
+          cd ./functions && npm ci && cd ..
+          npm run test:unit
+          npm run build
+      - name: Deploy
+        uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: "${{ secrets.GITHUB_TOKEN }}"
+          firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT_PROD }}"
+          projectId: dvc-rofr-stats
