@@ -23,7 +23,7 @@ jobs:
           npm run test:unit
           npm run build-staging
       - name: Deploy
-        uses: uses: w9jds/firebase-action@v2.0.0
+        uses: w9jds/firebase-action@v2.0.0
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_DEPLOY_KEY }}
           PROJECT_ID: dvc-rofr-stats-dev
