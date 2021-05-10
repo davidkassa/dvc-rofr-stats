@@ -1,0 +1,29 @@
+name: Deploy Staging
+
+on:
+  push:
+    branches:
+      - develop
+
+jobs:
+  build_and_deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v2.1.5
+        with:
+          # Version Spec of the version to use.  Examples: 12.x, 10.15.1, >=10.15.0
+          node-version: 14.x # optional
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Build
+        run: |
+          npm ci
+          cd ./functions && npm ci && cd ..
+          npm run test:unit
+          npm run build-staging
+      - name: Deploy
+        uses: uses: w9jds/firebase-action@v2.0.0
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_DEPLOY_KEY }}
+          PROJECT_ID: dvc-rofr-stats-dev
