@@ -30,7 +30,7 @@
     "typescript": "^4.2.4"
   },
   "engines": {
-    "node": "10"
+    "node": "14"
   },
   "main": "lib/index.js",
   "private": true
