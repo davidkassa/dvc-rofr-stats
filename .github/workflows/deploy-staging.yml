@@ -4,7 +4,9 @@ on:
   push:
     branches:
       - develop
-
+  schedule:
+    - cron: '0 3 20 * *'
+    
 jobs:
   build_and_deploy:
     runs-on: ubuntu-latest
