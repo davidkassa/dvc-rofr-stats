@@ -1,11 +1,11 @@
-name: Deploy Staging
+name: Deploy Production
 
 on:
   push:
     branches:
-      - develop
+      - main
   schedule:
-    - cron: '0 3 20 * *'
+    - cron: '0 3 5 * *'
     
 jobs:
   build_and_deploy:
@@ -23,14 +23,14 @@ jobs:
           npm ci
           cd ./functions && npm ci && cd ..
           npm run test:unit
-          npm run build-staging
+          npm run build
       - name: Deploy
         run: |
           npm i -g firebase-tools
-          firebase deploy --token ${{ secrets.FIREBASE_DEPLOY_KEY }} --project staging
+          firebase deploy --token ${{ secrets.FIREBASE_DEPLOY_KEY }} --project prod
         # Doesn't support Node 14: https://github.com/w9jds/firebase-action/issues/83
         #uses: w9jds/firebase-action@v2.0.0
         #with:
-        #  args: deploy --project staging
+        #  args: deploy --project prod
         #env:
         #  FIREBASE_TOKEN: ${{ secrets.FIREBASE_DEPLOY_KEY }}
