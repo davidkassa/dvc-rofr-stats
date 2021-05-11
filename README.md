@@ -36,7 +36,6 @@
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
 [![MIT License][license-shield]](LICENSE)
-[![Dependabot Status][dependabot-shield]][dependabot-url]
 
 | Service       | [Main](https://www.dvcstats.com)             | [Develop](https://dev.dvcstats.com)                   |
 | ------------- | -------------------------------------------- | ----------------------------------------------------- |
@@ -103,8 +102,6 @@ Distributed under the MIT License. See [LICENSE](LICENSE) for more information.
 [issues-shield]: https://img.shields.io/github/issues/davidkassa/dvc-rofr-stats?style=flat-square
 [issues-url]: https://github.com/davidkassa/dvc-rofr-stats/issues
 [license-shield]: https://img.shields.io/github/license/davidkassa/dvc-rofr-stats?style=flat-square
-[dependabot-shield]: https://api.dependabot.com/badges/status?host=github&repo=davidkassa/dvc-rofr-stats
-[dependabot-url]: https://dependabot.com/
 [build-main-shield]: https://img.shields.io/travis/com/davidkassa/dvc-rofr-stats/main?style=flat-square
 [build-main-url]: https://travis-ci.com/davidkassa/dvc-rofr-stats
 [build-main-history]: https://buildstats.info/travisci/chart/davidkassa/dvc-rofr-stats?includeBuildsFromPullRequest=false&branch=main
