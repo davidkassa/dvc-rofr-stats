@@ -41,6 +41,7 @@
 | ------------- | -------------------------------------------- | ----------------------------------------------------- |
 | CI Status     | [![Main][build-main-shield]][build-main-url] | [![Develop][build-develop-shield]][build-develop-url] |
 | Build History | [![Main][build-main-history]]                | [![Develop][build-develop-history]]                   |
+Note: Build history is not working
 
 ### Getting started
 
