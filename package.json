@@ -14,8 +14,8 @@
   "dependencies": {
     "@fortawesome/fontawesome-free-webfonts": "^1.0.9",
     "buefy": "^0.9.8",
-    "chart.js": "^2.9.4",
-    "chartjs-plugin-datalabels": "^1.0.0",
+    "chart.js": "^3.4.0",
+    "chartjs-plugin-datalabels": "^2.0.0",
     "core-js": "^3.15.2",
     "echarts": "^4.9.0",
     "firebase": "^8.6.8",
