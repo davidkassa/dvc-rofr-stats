@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "@fortawesome/fontawesome-free-webfonts": "^1.0.9",
-    "buefy": "^0.9.8",
+    "buefy": "^0.9.10",
     "chart.js": "^3.5.1",
     "chartjs-plugin-datalabels": "^2.0.0",
     "core-js": "^3.16.3",
