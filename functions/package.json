@@ -22,7 +22,7 @@
   "devDependencies": {
     "@types/cheerio": "^0.22.30",
     "@types/express-serve-static-core": "^4.17.24",
-    "@types/node": "^16.7.6",
+    "@types/node": "^16.7.13",
     "@types/request": "^2.48.7",
     "@types/request-promise-native": "^1.0.18",
     "firebase-functions-test": "^0.3.2",
