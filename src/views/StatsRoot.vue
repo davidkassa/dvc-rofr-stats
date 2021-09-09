@@ -206,12 +206,7 @@ export default {
   firestore() {
     return {
       contracts: db
-        .collection("contracts")
-        .where(
-          "dateSent",
-          ">=",
-          moment().subtract(3, "months").format(moment.HTML5_FMT.DATE)
-        ),
+        .collection("contracts"),
       metaStore: db.collection("meta"),
     };
   },
