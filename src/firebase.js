@@ -1,7 +1,7 @@
-import firebase from "firebase/app";
+import firebase from "firebase/compat/app";
 // const firebase = () =>
 //   import(/* webpackChunkName: "firebase" */ "firebase/app");
-import "firebase/firestore";
+import "firebase/compat/firestore";
 
 // Initialize Firebase
 var config = {
