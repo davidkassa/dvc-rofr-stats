@@ -14,7 +14,7 @@
   "dependencies": {
     "cheerio": "^1.0.0-rc.10",
     "firebase-admin": "^9.11.1",
-    "firebase-functions": "^3.15.4",
+    "firebase-functions": "^3.15.5",
     "moment": "^2.29.1",
     "request": "^2.88.2",
     "request-promise-native": "^1.0.9"
@@ -22,7 +22,7 @@
   "devDependencies": {
     "@types/cheerio": "^0.22.30",
     "@types/express-serve-static-core": "^4.17.24",
-    "@types/node": "^16.7.6",
+    "@types/node": "^16.9.0",
     "@types/request": "^2.48.7",
     "@types/request-promise-native": "^1.0.18",
     "firebase-functions-test": "^0.3.2",
