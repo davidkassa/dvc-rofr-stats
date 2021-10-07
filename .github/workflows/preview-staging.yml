@@ -1,7 +1,7 @@
 name: Preview Staging
 
 on:
-  pull_request:
+  pull_request_target:
     branches:
       - develop
 
@@ -16,6 +16,10 @@ jobs:
           node-version: 14.x # optional
       - name: Checkout
         uses: actions/checkout@v2
+        with:
+          # Check out the pull request HEAD
+          ref: ${{ github.event.pull_request.head.sha }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
       - name: Build
         run: |
           npm ci
