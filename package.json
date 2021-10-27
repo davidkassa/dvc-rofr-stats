@@ -16,7 +16,7 @@
     "buefy": "^0.9.10",
     "chart.js": "^3.5.1",
     "chartjs-plugin-datalabels": "^2.0.0",
-    "core-js": "^3.18.2",
+    "core-js": "^3.19.0",
     "echarts": "^4.9.0",
     "firebase": "^9.1.2",
     "moment": "^2.29.1",
@@ -28,7 +28,7 @@
     "vue-echarts": "^4.1.0",
     "vue-json-csv": "^1.2.12",
     "vue-multi-select": "^4.6.0",
-    "vue-router": "^3.5.2",
+    "vue-router": "^3.5.3",
     "vuefire": "^2.2.5",
     "vuex": "^3.6.2"
   },
