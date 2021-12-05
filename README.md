@@ -103,9 +103,9 @@ Distributed under the MIT License. See [LICENSE](LICENSE) for more information.
 [issues-shield]: https://img.shields.io/github/issues/davidkassa/dvc-rofr-stats?style=flat-square
 [issues-url]: https://github.com/davidkassa/dvc-rofr-stats/issues
 [license-shield]: https://img.shields.io/github/license/davidkassa/dvc-rofr-stats?style=flat-square
-[build-main-shield]: https://img.shields.io/travis/com/davidkassa/dvc-rofr-stats/main?style=flat-square
-[build-main-url]: https://travis-ci.com/davidkassa/dvc-rofr-stats
-[build-main-history]: https://buildstats.info/travisci/chart/davidkassa/dvc-rofr-stats?includeBuildsFromPullRequest=false&branch=main
-[build-develop-shield]: https://img.shields.io/travis/com/davidkassa/dvc-rofr-stats/develop?style=flat-square
-[build-develop-url]: https://travis-ci.com/davidkassa/dvc-rofr-stats/branches
-[build-develop-history]: https://buildstats.info/travisci/chart/davidkassa/dvc-rofr-stats?includeBuildsFromPullRequest=false&branch=develop
+[build-main-shield]: https://img.shields.io/github/workflow/status/davidkassa/dvc-rofr-stats/Deploy%20Production?style=flat-square
+[build-main-url]: https://github.com/davidkassa/dvc-rofr-stats/actions?query=branch%3Amain
+[build-main-history]: https://buildstats.info/github/chart/davidkassa/dvc-rofr-stats?includeBuildsFromPullRequest=false&branch=main
+[build-develop-shield]: https://img.shields.io/github/workflow/status/davidkassa/dvc-rofr-stats/Deploy%20Staging?style=flat-square
+[build-develop-url]: https://github.com/davidkassa/dvc-rofr-stats/actions?query=branch%3Adevelop
+[build-develop-history]: https://buildstats.info/github/chart/davidkassa/dvc-rofr-stats?includeBuildsFromPullRequest=false&branch=develop
