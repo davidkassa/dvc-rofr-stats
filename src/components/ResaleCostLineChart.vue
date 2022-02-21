@@ -1,16 +1,19 @@
 <template>
-  <chart :options="option"></chart>
+  <chart :option="option"></chart>
 </template>
 
 <script>
-import ECharts from "vue-echarts/components/ECharts";
+import ECharts from "vue-echarts";
+import { use } from 'echarts/core'
 import * as moment from "moment";
 import MA from "moving-average";
 const DAY = 24 * 60 * 60 * 1000; //1 day
 // import dataTool from "echarts/dist/extension/dataTool";
 
-import "echarts/lib/chart/line";
-import "echarts/lib/chart/bar";
+//////import "echarts/lib/chart/line";
+import { LineChart } from "echarts/charts"
+//////import "echarts/lib/chart/bar";
+import { BarChart } from "echarts/charts"
 // import "echarts/lib/chart/pie";
 // import "echarts/lib/chart/scatter";
 // import "echarts/lib/chart/radar";
@@ -31,7 +34,8 @@ import "echarts/lib/chart/bar";
 // import "echarts/lib/component/graphic";
 // import "echarts/lib/component/grid";
 // import "echarts/lib/component/legend";
-import "echarts/lib/component/tooltip";
+/////////import "echarts/lib/component/tooltip";
+import { TooltipComponent} from "echarts/components"
 // import "echarts/lib/component/polar";
 // import "echarts/lib/component/geo";
 // import "echarts/lib/component/parallel";
@@ -51,6 +55,13 @@ import "echarts/lib/component/tooltip";
 // import "echarts/lib/component/toolbox";
 
 // import "zrender/lib/vml/vml";
+
+use([
+  LineChart,
+  BarChart,
+  TooltipComponent
+])
+
 
 export default {
   components: {

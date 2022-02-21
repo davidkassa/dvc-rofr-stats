@@ -42,7 +42,7 @@
           >
         </div>
       </div>
-      <rofr-data-table :selected.sync="selected" :data="contractData" />
+      <rofr-data-table :selected="selected" :data="contractData" />
     </div>
   </div>
 </template>
@@ -50,7 +50,7 @@
 <script>
 import RofrDataTable from "@/components/RofrDataTable.vue";
 import RofrDropdown from "@/components/RofrDropdown.vue";
-import { db } from "../firebase";
+// import { db } from "../firebase";
 import * as moment from "moment";
 
 export default {
@@ -66,8 +66,9 @@ export default {
   data() {
     return {
       selected: {},
-      contracts: [],
-      metaStore: [],
+      contracts: [{"totalCost":22700,"metaId":"08EogqIzzMKoQYKKhcXT","pricePerPoint":130,"points":160,"availablePoints":"0/20, 9/21, 160/22, 160/23","status":"Passed","resort":"AKV","useYear":"Oct","pchecksum":"39e8d615ccffd5b69215c569fd9cd9f3","notes":null,"dateSent":"2021-11-20","dateResolved":"2022-01-03","user":"Swaysui"},
+      {"user":"tripphuff","useYear":"Mar","status":"Passed","totalCost":4729,"availablePoints":"0/20, 0/21, 39/22, 50/23","metaId":"6wbpfibv32iEZtSJpwRg","notes":null,"resort":"HH","dateSent":"2021-11-22","points":50,"pchecksum":"5484e8983a558abcb5cca560b0815823","dateResolved":"2021-12-09","pricePerPoint":80}],
+      metaStore: [{"maxDate":"2022-04-15","text":"Crafted from the Jan to Mar DISBoard thread.","active":true,"epoch":"1645304519","url":"https://www.disboards.com/threads/rofr-thread-jan-to-march-2022-please-see-first-post-for-instructions-formatting-tool.3865009/#post-63639363"}],
       statusFilter: [],
       resortFilter: [],
       useYearFilter: [],
@@ -205,14 +206,14 @@ export default {
   },
   firestore() {
     return {
-      contracts: db
-        .collection("contracts")
-        .where(
-          "dateSent",
-          ">=",
-          moment().subtract(3, "months").format(moment.HTML5_FMT.DATE)
-        ),
-      metaStore: db.collection("meta"),
+      // contracts: db
+      //   .collection("contracts")
+      //   .where(
+      //     "dateSent",
+      //     ">=",
+      //     moment().subtract(3, "months").format(moment.HTML5_FMT.DATE)
+      //   ),
+      // metaStore: db.collection("meta"),
     };
   },
   computed: {

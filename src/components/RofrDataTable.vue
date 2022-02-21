@@ -1,19 +1,19 @@
 <template>
-  <b-table
-    :selected.sync="selected"
+  <o-table
+    :selected="selected"
     :data="data"
     default-sort="status"
     focusable
     @update:selected="$emit('update:selected', selected)"
   >
     <template>
-      <b-table-column field="status" label="Status" sortable v-slot="props">
+      <o-table-column field="status" label="Status" sortable v-slot="props">
         {{ props.row.status }}
-      </b-table-column>
-      <b-table-column field="user" label="User" sortable v-slot="props">
+      </o-table-column>
+      <o-table-column field="user" label="User" sortable v-slot="props">
         {{ props.row.user }}
-      </b-table-column>
-      <b-table-column
+      </o-table-column>
+      <o-table-column
         field="pricePerPoint"
         label="Price per Point"
         numeric
@@ -21,8 +21,8 @@
         v-slot="props"
       >
         ${{ props.row.pricePerPoint.toLocaleString("en") }}
-      </b-table-column>
-      <b-table-column
+      </o-table-column>
+      <o-table-column
         field="pricePerPointNormalized"
         label="Price per Point (Normalized)"
         numeric
@@ -42,8 +42,8 @@
         <template v-slot="props">
           ${{ props.row.pricePerPointNormalized.toLocaleString("en") }}
         </template>
-      </b-table-column>
-      <b-table-column
+      </o-table-column>
+      <o-table-column
         field="pricePerLifetimePoint"
         label="Price per Lifetime Point"
         numeric
@@ -51,8 +51,8 @@
         v-slot="props"
       >
         ${{ props.row.pricePerLifetimePoint.toLocaleString("en") }}
-      </b-table-column>
-      <b-table-column
+      </o-table-column>
+      <o-table-column
         field="totalCost"
         label="Total Cost"
         numeric
@@ -60,8 +60,8 @@
         v-slot="props"
       >
         ${{ props.row.totalCost.toLocaleString("en") }}
-      </b-table-column>
-      <b-table-column
+      </o-table-column>
+      <o-table-column
         field="points"
         label="Points"
         numeric
@@ -69,47 +69,47 @@
         v-slot="props"
       >
         {{ props.row.points.toLocaleString("en") }}
-      </b-table-column>
-      <b-table-column field="resort" label="Resort" sortable v-slot="props">
+      </o-table-column>
+      <o-table-column field="resort" label="Resort" sortable v-slot="props">
         {{ props.row.resort }}
-      </b-table-column>
-      <b-table-column
+      </o-table-column>
+      <o-table-column
         field="useYear"
         label="Use Year (UY)"
         sortable
         v-slot="props"
       >
         {{ props.row.useYear }}
-      </b-table-column>
-      <b-table-column
+      </o-table-column>
+      <o-table-column
         field="availablePoints"
         label="Available Points"
         sortable
         v-slot="props"
       >
         {{ props.row.availablePoints }}
-      </b-table-column>
-      <b-table-column field="notes" label="Notes" sortable v-slot="props">
+      </o-table-column>
+      <o-table-column field="notes" label="Notes" sortable v-slot="props">
         {{ props.row.Notes }}
-      </b-table-column>
-      <b-table-column
+      </o-table-column>
+      <o-table-column
         field="dateSent"
         label="Date Sent"
         sortable
         v-slot="props"
       >
         {{ props.row.dateSent }}
-      </b-table-column>
-      <b-table-column
+      </o-table-column>
+      <o-table-column
         field="dateResolved"
         label="Date Resolved"
         sortable
         v-slot="props"
       >
         {{ props.row.dateResolved }}
-      </b-table-column>
+      </o-table-column>
     </template>
-  </b-table>
+  </o-table>
 </template>
 
 <script>
