@@ -1,7 +1,6 @@
-import firebase from "firebase/compat/app";
-// const firebase = () =>
-//   import(/* webpackChunkName: "firebase" */ "firebase/app");
-import "firebase/compat/firestore";
+import { initializeApp } from "firebase/app"
+import { getFirestore, collection, query, where } from "firebase/firestore";
+import * as moment from "moment";
 
 // Initialize Firebase
 var config = {
@@ -13,11 +12,12 @@ var config = {
   messagingSenderId: process.env.VUE_APP_FIREBASE_MESSAGING_SENDER_ID,
 };
 /* eslint-enable no-undef */
+const firebaseApp = initializeApp(config);
+const firestore = getFirestore(firebaseApp);
+const contracts = query(collection(firestore,"contracts"), where("dateSent",
+      ">=",
+      moment().subtract(3, "months").format(moment.HTML5_FMT.DATE)));
 
-firebase.initializeApp(config);
-const firestore = firebase.firestore();
-const settings = {
-  /* your settings... */
-};
-firestore.settings(settings);
-export const db = firestore;
+const meta = collection(firestore,"meta");
+
+export const db = { contracts, meta};
