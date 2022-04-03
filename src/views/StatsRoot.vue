@@ -225,7 +225,6 @@ export default {
     contractData: function () {
       return this.contracts
         .map((c) => {
-
           // Get points from previous, current, and next year
           let availablePoints = c.availablePoints
             .split(",")
@@ -248,12 +247,12 @@ export default {
             currentYear--;
           }
 
-          let previousYearPoints = parseInt(availablePoints[currentYear - 1] || 0);
+          let previousYearPoints = parseInt(
+            availablePoints[currentYear - 1] || 0
+          );
           let currentYearPoints = parseInt(availablePoints[currentYear] || 0);
           let nextYearPoints = parseInt(availablePoints[currentYear + 1] || 0);
           // console.log(`prev: ${previousYearPoints} current ${currentYearPoints} next ${nextYearPoints}`);
-
-
 
           // calculate lifetime points
           // Notice the points expire in JANUARY so if your use year
@@ -284,15 +283,18 @@ export default {
           // add 2 years to get past next year
           let remainingYears = Math.max(
             0,
-            c.points * (((expirationYear - currentYear) + 1) - 2) // add 1 for inclusive year (see above) and remove 2 as those years are  calculated explicitly (below)
+            c.points * (expirationYear - currentYear + 1 - 2) // add 1 for inclusive year (see above) and remove 2 as those years are  calculated explicitly (below)
           );
-          // console.log(`remaining: ${remainingYears} total cost: ${c.totalCost} points: ${c.points}`);  
+          // console.log(`remaining: ${remainingYears} total cost: ${c.totalCost} points: ${c.points}`);
           let lifetimePrice =
-            c.totalCost / (previousYearPoints + currentYearPoints + nextYearPoints + remainingYears);
+            c.totalCost /
+            (previousYearPoints +
+              currentYearPoints +
+              nextYearPoints +
+              remainingYears);
           // console.log(`lifetime price: ${lifetimePrice}`);
           // console.log("sum: " + (previousYearPoints + currentYearPoints + nextYearPoints + remainingYears))
           // console.log("recalculate: " + c.totalCost / (previousYearPoints + currentYearPoints + nextYearPoints + remainingYears))
-
 
           // Normalized Points
           let normalizedPriceTotal;
@@ -313,8 +315,7 @@ export default {
           let currentYearCost = 17;
           let expectedCurrentYearPoints = c.points;
           normalizedPriceTotal +=
-            (expectedCurrentYearPoints - currentYearPoints) *
-            currentYearCost;
+            (expectedCurrentYearPoints - currentYearPoints) * currentYearCost;
           // expect next year to not be spent, if they are add value ($19 - disney rental price)
           let nextYearCost = 19;
           let expectedNextYearPoints = c.points;
@@ -376,7 +377,9 @@ export default {
       this.useYearFilter = useYearFilter;
     },
     lookupResortExpirationYear: function (resort) {
-      return parseInt(this.resortData.find((r) => r.value == resort)?.expirationYear || 0);
+      return parseInt(
+        this.resortData.find((r) => r.value == resort)?.expirationYear || 0
+      );
     },
   },
 };
