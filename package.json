@@ -16,7 +16,7 @@
     "buefy": "^0.9.19",
     "chart.js": "^3.7.1",
     "chartjs-plugin-datalabels": "^2.0.0",
-    "core-js": "^3.21.1",
+    "core-js": "^3.22.1",
     "echarts": "^4.9.0",
     "firebase": "^9.6.10",
     "moment": "^2.29.2",
