@@ -22,7 +22,7 @@
     "moment": "^2.29.3",
     "moving-average": "^1.0.1",
     "register-service-worker": "^1.7.2",
-    "vue": "^2.6.14",
+    "vue": "^2.7.8",
     "vue-analytics": "^5.22.1",
     "vue-chartjs": "^3.5.1",
     "vue-echarts": "^4.1.0",
@@ -35,9 +35,9 @@
   "devDependencies": {
     "@vue/cli-plugin-babel": "~5.0.4",
     "@vue/cli-plugin-eslint": "~5.0.4",
-    "@vue/cli-plugin-pwa": "~5.0.4",
+    "@vue/cli-plugin-pwa": "~5.0.8",
     "@vue/cli-plugin-router": "^5.0.1",
-    "@vue/cli-plugin-unit-jest": "~5.0.4",
+    "@vue/cli-plugin-unit-jest": "~5.0.8",
     "@vue/cli-plugin-vuex": "^5.0.1",
     "@vue/cli-service": "~5.0.8",
     "@vue/eslint-config-prettier": "^6.0.0",
@@ -56,7 +56,7 @@
     "request": "^2.88.2",
     "request-promise-native": "^1.0.9",
     "sass-loader": "^13.0.2",
-    "vue-template-compiler": "^2.6.14"
+    "vue-template-compiler": "^2.7.8"
   },
   "browserslist": [
     "> 1%",
