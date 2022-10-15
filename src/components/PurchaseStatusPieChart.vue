@@ -6,14 +6,12 @@
 </template>
 
 <script>
-import { Pie, mixins } from "vue-chartjs";
-const { reactiveProp } = mixins;
+import { Pie } from "vue-chartjs/legacy";
 import { dataLabels } from "chartjs-plugin-datalabels";
 
 let setupComplete = false;
 var internalPie = {
-  extends: Pie,
-  mixins: [reactiveProp],
+  components: { Pie },
   mounted() {
     this.addPlugin({
       id: dataLabels,
