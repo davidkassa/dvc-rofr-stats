@@ -22,7 +22,7 @@
     "moment": "^2.29.4",
     "moving-average": "^1.0.1",
     "register-service-worker": "^1.7.2",
-    "vue": "^2.7.13",
+    "vue": "^3.2.42",
     "vue-analytics": "^5.22.1",
     "vue-chartjs": "^4.1.2",
     "vue-echarts": "^4.1.0",
