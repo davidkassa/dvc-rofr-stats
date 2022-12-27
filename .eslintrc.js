@@ -2,7 +2,7 @@ module.exports = {
   root: true,
 
   env: {
-    node: true,
+    es2021: true,
   },
 
   rules: {
@@ -18,9 +18,6 @@ module.exports = {
   },
 
   parser: "vue-eslint-parser",
-  parserOptions: {
-    parser: "@babel/eslint-parser",
-  },
 
   overrides: [
     {

@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import ECharts from "vue-echarts/components/ECharts";
+import ECharts from "vue-echarts";
 import * as moment from "moment";
 import MA from "moving-average";
 const DAY = 24 * 60 * 60 * 1000; //1 day

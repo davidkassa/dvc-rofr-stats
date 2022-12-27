@@ -7,14 +7,14 @@
 
 <script>
 import { Pie } from "vue-chartjs/legacy";
-import { dataLabels } from "chartjs-plugin-datalabels";
+import ChartDataLabels from "chartjs-plugin-datalabels";
 
 let setupComplete = false;
 var internalPie = {
   components: { Pie },
   mounted() {
     this.addPlugin({
-      id: dataLabels,
+      id: ChartDataLabels,
       // beforeInit: function (chart) {
       //   ....
       // }
