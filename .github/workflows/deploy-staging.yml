@@ -5,21 +5,21 @@ on:
     branches:
       - develop
   schedule:
-    - cron: '0 3 20 * *'
-    
+    - cron: "0 3 20 * *"
+
 jobs:
   build_and_deploy:
-    concurrency: 
+    concurrency:
       group: ${{ github.ref }}
     runs-on: ubuntu-latest
     steps:
       - name: Setup Node.js environment
-        uses: actions/setup-node@v2.1.5
+        uses: actions/setup-node@v3
         with:
           # Version Spec of the version to use.  Examples: 12.x, 10.15.1, >=10.15.0
-          node-version: 14.x # optional
+          node-version: 18
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Build
         run: |
           npm ci
