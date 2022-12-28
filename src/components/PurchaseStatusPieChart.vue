@@ -1,112 +1,63 @@
 <template>
-  <div>
-    &nbsp;
-    <internal-pie :chart-data="datacollection" />
-  </div>
+  <chart class="chart" :option="option"></chart>
 </template>
 
 <script>
-import { Pie } from "vue-chartjs/legacy";
-import ChartDataLabels from "chartjs-plugin-datalabels";
 
-let setupComplete = false;
-var internalPie = {
-  components: { Pie },
-  mounted() {
-    this.addPlugin({
-      id: ChartDataLabels,
-      // beforeInit: function (chart) {
-      //   ....
-      // }
-    });
-    this.addPlugin({
-      id: "hiddenSlices",
-      afterDatasetsUpdate: function (chartInstance) {
-        // If `hiddenSlices` has been set.
-        if (
-          chartInstance.config.data.hiddenSlices !== undefined &&
-          !setupComplete
-        ) {
-          // Iterate all datasets.
-          // console.log(chartInstance.config.data.hiddenSlices);
-          // for (var i = 0; i < chartInstance.data.datasets.length; ++i) {
-          // Iterate all indices of slices to be hidden.
-          chartInstance.config.data.hiddenSlices.forEach(function (index) {
-            // Hide this slice for this dataset.
-            chartInstance.getDatasetMeta(0).data[index].hidden = true;
-            setupComplete = true;
-          });
-          // }
-          chartInstance.update();
-        }
-      },
-      destroy: function () {
-        // console.log("destroy");
-        setupComplete = false;
-      },
-    });
-    this.renderChart(this.chartData, {
-      responsive: true,
-      maintainAspectRatio: false,
-      layout: {
-        padding: {
-          left: 10,
-          right: 10,
-          top: 10,
-          bottom: 10,
-        },
-      },
-      plugins: {
-        hiddenSlices: {},
-        datalabels: {
-          backgroundColor: function (context) {
-            return context.dataset.backgroundColor;
-          },
-          borderColor: "white",
-          borderRadius: 25,
-          borderWidth: 2,
-          color: "white",
-          display: function (context) {
-            var dataset = context.dataset;
-            var count = dataset.data.length;
-            var value = dataset.data[context.dataIndex];
-            return value > count * 1.5;
-          },
-          font: {
-            weight: "bold",
-          },
-          formatter: Math.round,
-        },
-      },
-    }); //,options);
-  },
-};
+import {use} from "echarts/core"
+import { CanvasRenderer } from "echarts/renderers";
+import { PieChart } from "echarts/charts"
+import { TooltipComponent, LegendComponent  } from "echarts/components"
+import ECharts from "vue-echarts";
+use([
+  CanvasRenderer,
+  PieChart,
+  TooltipComponent,
+  LegendComponent 
+]);
+
 
 export default {
   components: {
-    "internal-pie": internalPie,
+    chart: ECharts,
   },
-  props: ["waiting", "passed", "taken"],
+  mounted() {
+  },
+props: ["waiting", "passed", "taken"],
+  data() {
+    return {};
+  },
   computed: {
-    datacollection: function () {
+    option: function () {
       return {
-        hiddenSlices: [0],
-        labels: ["Waiting", "Passed", "Taken"],
-        datasets: [
+        tooltip: {
+        trigger: 'item',
+        formatter: '{b} : {c} ({d}%)',
+      },
+        legend: {
+          bottom: "0px",
+          padding: 5,
+          data: ["Passed", "Waiting", "Taken"],
+        },
+        series: [
           {
-            backgroundColor: ["#F8B379", "#61C661", "#f87979"],
-            data: [this.waiting, this.passed, this.taken],
-            datalabels: {
-              anchor: "end",
-            },
-          },
+            type: "pie",
+            avoidLabelOverlap: true,
+            name: "series",
+            data: [
+              { value: this.waiting, name: "Waiting", itemStyle: {color: "#F8B379" }, selected: false },
+              { value: this.passed, name: "Passed", itemStyle: {color: "#61C661" } , selected: true},
+              { value: this.taken, name: "Taken", itemStyle: {color: "#f87979" }, selected: true },
+            ],          
+          }
         ],
       };
     },
-    // },
-    // getRandomInt() {
-    //   return Math.floor(Math.random() * (50 - 5 + 1)) + 5;
-    // }
   },
 };
 </script>
+<style lang="scss" scoped>
+.chart {
+  height: 350px;
+}
+</style>
