@@ -2,7 +2,7 @@ module.exports = {
   root: true,
 
   env: {
-    node: true,
+    es2021: true,
   },
 
   rules: {
@@ -11,16 +11,13 @@ module.exports = {
     "vue/multi-word-component-names": [
       "error",
       {
-        ignores: ["Home"],
+        ignores: ["Home", "About"],
       },
     ],
     "vue/no-mutating-props": "warn",
   },
 
   parser: "vue-eslint-parser",
-  parserOptions: {
-    parser: "@babel/eslint-parser",
-  },
 
   overrides: [
     {

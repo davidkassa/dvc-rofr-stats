@@ -1,20 +1,15 @@
 import Vue from "vue";
-import Router from "vue-router";
+import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 // import About from "./views/About.vue";
 const StatsRoot = () => import(/*  */ "../views/StatsRoot.vue");
-const CompareContracts = () =>
-  import(
-    /* webpackChunkName: "compare-contracts" */ "../views/CompareContracts.vue"
-  );
-const ResaleCosts = () =>
-  import(/* webpackChunkName: "resale-costs" */ "../views/ResaleCosts.vue");
-const WaitTimes = () =>
-  import(/* webpackChunkName: "wait-times" */ "../views/WaitTimes.vue");
+const CompareContracts = () => import("../views/CompareContracts.vue");
+const ResaleCosts = () => import("../views/ResaleCosts.vue");
+const WaitTimes = () => import("../views/WaitTimes.vue");
 
-Vue.use(Router);
+Vue.use(VueRouter);
 
-export default new Router({
+export default new VueRouter({
   routes: [
     {
       path: "/",

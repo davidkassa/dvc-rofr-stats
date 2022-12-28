@@ -9,7 +9,6 @@ import { firestorePlugin } from "vuefire";
 
 import App from "./App.vue";
 import router from "./router";
-import store from "./store";
 //import "./registerServiceWorker";
 
 //import "buefy/lib/buefy.css";
@@ -25,13 +24,12 @@ Vue.config.productionTip = false;
 Vue.use(Buefy, { defaultIconPack: "fas" });
 Vue.component("downloadCsv", JsonCSV);
 Vue.use(VueAnalytics, {
-  id: process.env.VUE_APP_GOOGLE_ANALYTICS_ID,
+  id: import.meta.env.VITE_GOOGLE_ANALYTICS_ID,
   router,
 });
 Vue.use(firestorePlugin);
 
 new Vue({
   router,
-  store,
   render: (h) => h(App),
 }).$mount("#app");
