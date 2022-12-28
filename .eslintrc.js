@@ -11,7 +11,7 @@ module.exports = {
     "vue/multi-word-component-names": [
       "error",
       {
-        ignores: ["Home"],
+        ignores: ["Home", "About"],
       },
     ],
     "vue/no-mutating-props": "warn",

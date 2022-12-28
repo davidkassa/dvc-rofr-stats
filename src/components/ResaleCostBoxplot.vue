@@ -3,17 +3,13 @@
 </template>
 
 <script>
-import {use} from "echarts/core"
+import { use } from "echarts/core";
 import { CanvasRenderer } from "echarts/renderers";
-import { BoxplotChart } from "echarts/charts"
-import { TooltipComponent } from "echarts/components"
+import { BoxplotChart } from "echarts/charts";
+import { TooltipComponent } from "echarts/components";
 import { prepareBoxplotData } from "echarts/dist/extension/dataTool";
 import ECharts from "vue-echarts";
-use([
-  CanvasRenderer,
-  BoxplotChart,
-  TooltipComponent
-]);
+use([CanvasRenderer, BoxplotChart, TooltipComponent]);
 
 export default {
   components: {

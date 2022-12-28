@@ -3,17 +3,12 @@
 </template>
 
 <script>
-import {use} from "echarts/core"
+import { use } from "echarts/core";
 import { CanvasRenderer } from "echarts/renderers";
-import { LineChart } from "echarts/charts"
-import { TooltipComponent, GridComponent  } from "echarts/components"
+import { LineChart } from "echarts/charts";
+import { TooltipComponent, GridComponent } from "echarts/components";
 import ECharts from "vue-echarts";
-use([
-  CanvasRenderer,
-  LineChart,
-  TooltipComponent,
-  GridComponent 
-]);
+use([CanvasRenderer, LineChart, TooltipComponent, GridComponent]);
 
 import * as moment from "moment";
 import MA from "moving-average";
@@ -39,7 +34,7 @@ export default {
         xAxis: {
           type: "time",
           axisLabel: {
-            hideOverlap: true
+            hideOverlap: true,
           },
           boundaryGap: false,
         },
