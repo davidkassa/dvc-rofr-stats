@@ -24,7 +24,7 @@
         "headers": [
           {
             "key": "Content-Security-Policy-Report-Only",
-            "value": "child-src docs.google.com; connect-src 'self' firestore.googleapis.com www.google-analytics.com stats.g.doubleclick.net; img-src 'self' www.google-analytics.com www.google.com stats.g.doubleclick.net; default-src 'self' firestore.googleapis.com www.google-analytics.com stats.g.doubleclick.net; style-src 'self' 'unsafe-inline'; style-src-attr 'unsafe-inline'; worker-src 'self'; manifest-src 'self'; script-src 'self' storage.googleapis.com www.google-analytics.com 'unsafe-inline' 'unsafe-eval'; font-src 'self'; frame-src docs.google.com; report-uri https://davidkassa.report-uri.com/r/d/csp/wizard;"
+            "value": "child-src docs.google.com; connect-src 'self' firestore.googleapis.com www.google-analytics.com stats.g.doubleclick.net; img-src 'self' www.google-analytics.com www.google.com stats.g.doubleclick.net; default-src 'self' firestore.googleapis.com www.google-analytics.com stats.g.doubleclick.net; style-src 'self' 'unsafe-inline'; style-src-attr 'unsafe-inline'; style-src-elem 'unsafe-inline'; worker-src 'self'; manifest-src 'self'; script-src 'self' storage.googleapis.com www.google-analytics.com 'unsafe-inline' 'unsafe-eval'; font-src 'self'; frame-src docs.google.com; report-uri https://davidkassa.report-uri.com/r/d/csp/wizard;"
           },
           {
             "key": "Report-To",
