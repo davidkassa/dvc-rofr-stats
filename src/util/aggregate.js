@@ -1,4 +1,4 @@
-import * as moment from "moment";
+import moment from "moment";
 
 // define a mixin object
 export default {

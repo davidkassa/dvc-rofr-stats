@@ -51,7 +51,7 @@
 import RofrDataTable from "@/components/RofrDataTable.vue";
 import RofrDropdown from "@/components/RofrDropdown.vue";
 import { db } from "../firebase";
-import * as moment from "moment";
+import moment from "moment";
 
 export default {
   components: {

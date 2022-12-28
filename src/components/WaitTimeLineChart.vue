@@ -10,7 +10,7 @@ import { TooltipComponent, GridComponent } from "echarts/components";
 import ECharts from "vue-echarts";
 use([CanvasRenderer, LineChart, TooltipComponent, GridComponent]);
 
-import * as moment from "moment";
+import moment from "moment";
 import MA from "moving-average";
 const DAY = 24 * 60 * 60 * 1000; //1 day
 
