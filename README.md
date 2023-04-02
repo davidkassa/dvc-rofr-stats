@@ -41,6 +41,7 @@
 | ------------- | -------------------------------------------- | ----------------------------------------------------- |
 | CI Status     | [![Main][build-main-shield]][build-main-url] | [![Develop][build-develop-shield]][build-develop-url] |
 | Build History | [![Main][build-main-history]]                | [![Develop][build-develop-history]]                   |
+
 Note: Build history is not working
 
 ### Getting started
@@ -48,10 +49,9 @@ Note: Build history is not working
 This should be all you need to do to get started. This will point to an existing Firebase database that is read-only.
 
 ```javascript
-npm install -g @vue/cli
 git clone git@github.com:davidkassa/dvc-rofr-stats.git && cd dvc-rofr-stats
 npm install
-npm run serve
+npm run dev
 ```
 
 ### Firebase
