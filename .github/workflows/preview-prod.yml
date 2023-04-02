@@ -5,8 +5,12 @@ on:
     branches:
       - main
 
+# https://ashishb.net/tech/common-pitfalls-of-github-actions/
 jobs:
   build_and_preview_website:
+    concurrency:
+      group: ${{ github.workflow }}-${{ github.ref }}
+      cancel-in-progress: true
     runs-on: ubuntu-latest
     steps:
       - name: Setup Node.js environment
@@ -19,6 +23,18 @@ jobs:
         with:
           # Check out the pull request HEAD
           ref: ${{ github.event.pull_request.head.sha }}
+      # https://github.com/actions/cache/blob/main/examples.md#node---npm
+      - name: Get npm cache directory
+        id: npm-cache-dir
+        shell: bash
+        run: echo "dir=$(npm config get cache)" >> ${GITHUB_OUTPUT}
+      - uses: actions/cache@v3
+        id: npm-cache # use this to check for `cache-hit` ==> if: steps.npm-cache.outputs.cache-hit != 'true'
+        with:
+          path: ${{ steps.npm-cache-dir.outputs.dir }}
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
       - name: Build
         run: |
           npm ci

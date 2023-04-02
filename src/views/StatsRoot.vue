@@ -329,8 +329,8 @@ export default {
           // CAGR average is 3.75%
 
           return {
-            pricePerPointNormalized: normalizedPrice.toFixed(2),
-            pricePerLifetimePoint: lifetimePrice.toFixed(2),
+            pricePerPointNormalized: Number(normalizedPrice.toFixed(2)),
+            pricePerLifetimePoint: Number(lifetimePrice.toFixed(2)),
             ...c,
           };
         })
