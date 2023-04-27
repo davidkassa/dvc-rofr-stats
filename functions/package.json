@@ -21,7 +21,7 @@
   },
   "devDependencies": {
     "@types/cheerio": "^0.22.31",
-    "@types/express-serve-static-core": "^4.17.33",
+    "@types/express-serve-static-core": "^4.17.34",
     "@types/node": "^18.15.11",
     "@types/request": "^2.48.8",
     "@types/request-promise-native": "^1.0.18",
