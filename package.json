@@ -42,7 +42,7 @@
     "prettier": "^2.8.7",
     "request": "^2.88.2",
     "request-promise-native": "^1.0.9",
-    "sass": "^1.61.0",
+    "sass": "^1.63.6",
     "vite": "^4.3.3",
     "vitest": "^0.29.8",
     "vue-template-compiler": "^2.7.14"
