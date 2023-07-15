@@ -18,6 +18,7 @@ firebase.initializeApp(config);
 const firestore = firebase.firestore();
 const settings = {
   /* your settings... */
+  merge: true,
 };
 firestore.settings(settings);
 export const db = firestore;
