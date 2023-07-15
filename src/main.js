@@ -13,9 +13,9 @@ import router from "./router";
 
 //import "buefy/lib/buefy.css";
 import "./global.scss";
-import "@fortawesome/fontawesome-free-webfonts/scss/fontawesome.scss";
-import "@fortawesome/fontawesome-free-webfonts/scss/fa-solid.scss";
-import "@fortawesome/fontawesome-free-webfonts/scss/fa-brands.scss";
+import "@fortawesome/fontawesome-free/scss/fontawesome.scss";
+import "@fortawesome/fontawesome-free/scss/solid.scss";
+import "@fortawesome/fontawesome-free/scss/brands.scss";
 
 Vue.config.productionTip = false;
 
