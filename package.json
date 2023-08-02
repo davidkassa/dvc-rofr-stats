@@ -26,7 +26,7 @@
     "vue-json-csv": "^1.2.12",
     "vue-multi-select": "^4.6.0",
     "vue-router": "^3.6.5",
-    "vuefire": "^2.2.5"
+    "vuefire": "^3.1.13"
   },
   "devDependencies": {
     "@vitejs/plugin-vue2": "^2.2.0",
