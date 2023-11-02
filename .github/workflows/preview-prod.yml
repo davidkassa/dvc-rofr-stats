@@ -8,9 +8,6 @@ on:
 # https://ashishb.net/tech/common-pitfalls-of-github-actions/
 jobs:
   build_and_preview_website:
-    concurrency:
-      group: ${{ github.workflow }}-${{ github.ref }}
-      cancel-in-progress: true
     runs-on: ubuntu-latest
     steps:
       - name: Setup Node.js environment
