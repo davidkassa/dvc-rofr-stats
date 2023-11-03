@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^6.4.2",
-    "buefy": "^0.9.22",
+    "buefy": "^0.9.25",
     "echarts": "^5.4.1",
     "firebase": "^9.21.0",
     "moment": "^2.29.4",
