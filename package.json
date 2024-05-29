@@ -43,7 +43,7 @@
     "request": "^2.88.2",
     "request-promise-native": "^1.0.9",
     "sass": "^1.74.1",
-    "vite": "^5.2.9",
+    "vite": "^5.2.12",
     "vitest": "^1.4.0",
     "vue-template-compiler": "^2.7.16"
   },
