@@ -2,7 +2,7 @@ import * as cheerio from "cheerio";
 import * as admin from "firebase-admin";
 import * as functions from "firebase-functions";
 import * as moment from "moment";
-import * as request from "request-promise-native";
+import axios from "axios";
 import { URL } from "url";
 
 import { Contract } from "./contract";
@@ -40,13 +40,14 @@ exports.hourly_job = functions
 // can't get to work with raw-loader
 // import htmlData from "@/../data/4.2018-raw.html";
 
-async function processDisBoardsData() {
+const processDisBoardsData = async() => {
   functions.logger.debug("Processing DisBoard Data!");
 
   try {
     const changeData: Array<{ meta: Meta; contracts: Contract[] }> = [];
     const meta = await getMetadata();
     for (const data of meta) {
+      try {
       const url = new URL(data.url);
       const hash = url.hash; // includes #
       const id = hash.substring(1);
@@ -77,7 +78,12 @@ async function processDisBoardsData() {
         );
         contracts.forEach(c => (c.metaId = data.id));
         changeData.push({ meta: data, contracts });
-      }
+      } 
+    }catch (error) {
+      functions.logger.error(`Error processing data for URL ${data.url}:`, error);
+      // Decide whether to continue with the next item or throw the error
+      throw error;
+    }
     }
     if (changeData.length > 0) {
       return await saveChangeDataToFirebase(changeData);
@@ -85,12 +91,12 @@ async function processDisBoardsData() {
 
     return true;
   } catch (err) {
-    functions.logger.error(err);
+    functions.logger.error("Error in processDisBoardsData:", err);
     return false;
   }
 }
 
-async function getMetadata(): Promise<Meta[]> {
+const getMetadata = async(): Promise<Meta[]> => {
   // return {
   //   url:
   //     "https://www.disboards.com/threads/rofr-thread-april-to-june-2018-please-see-first-post-for-instructions-formatting-tool.3674375/#post-59034110",
@@ -113,32 +119,22 @@ async function getMetadata(): Promise<Meta[]> {
   return meta; // snapshot.docs[0].data(); // only 1 record
 }
 
-async function getRawHtml(url) {
-  // const fs = require("fs");
-  // const util = require("util");
-  // // Convert fs.readFile into Promise version of same
-  // const readFile = util.promisify(fs.readFile);
-  // const file = await readFile("../data/4.2018-raw.html", {
-  //   encoding: "utf8"
-  // });
-  // return cheerio.load(file);
-
-  const options = {
-    uri: url,
-    transform(body) {
-      return cheerio.load(body);
-    }
-  };
-
-  return request(options);
+const getRawHtml = async (url: string): Promise<cheerio.Root> => {
+  try {
+  const response = await axios.get(url);
+  return cheerio.load(response.data);
+} catch (error) {
+  console.error(`Error fetching URL ${url}:`, error);
+  throw error;
+}
 }
 
-function parseEditDateFromHtml(
+const parseEditDateFromHtml = (
   parentSelector,
   childPostDateSelector,
   childEditDateSelector,
   $
-) {
+) => {
   // https://www.disboa......#post-59034110
   // id=post-59034110
   // div class=editDate class=DateTime data-time data-diff, epoch
@@ -171,12 +167,12 @@ function parseEditDateFromHtml(
   return epoch;
 }
 
-function parseContractsFromHtml(
+const parseContractsFromHtml = (
   parentSelector,
   childSelector,
   $,
   maxDate
-): Contract[] {
+): Contract[] => {
   // https://www.disboa......#post-59034110
   // id=post-59034110
   // div class=messageContent
@@ -198,7 +194,7 @@ function parseContractsFromHtml(
   return contracts;
 }
 
-function parseLine(line: string, maxDate: moment.Moment): Contract {
+const parseLine = (line: string, maxDate: moment.Moment): Contract => {
   // NewbieMom---$88-$14839-150-AKV-Apr-0/17, 150/18, 150/19, 150/20- sent 5/7
   // David K.---$102-$22356-200-AKV-Sep-0/17, 200/18, 200/19- sent 4/12, taken 5/8
   // David K.---$104-$24537-220-AKV-Mar-0/17, 152/18, 220/19-International seller- sent 5/14, passed 5/31
@@ -252,7 +248,7 @@ function parseLine(line: string, maxDate: moment.Moment): Contract {
   return contract;
 }
 
-async function saveChangeDataToFirebase(data) {
+const saveChangeDataToFirebase = async (data)=> {
   let result = true;
   // wanna try to run and save all of these
   for (const d of data) {
@@ -266,7 +262,7 @@ async function saveChangeDataToFirebase(data) {
   return result;
 }
 
-async function saveContractsToFirebase(data) {
+const saveContractsToFirebase = async (data) => {
   functions.logger.debug("saving contracts: " + data.contracts.length);
   // get contracts from DB, wrap with found bool
   try {
@@ -304,7 +300,7 @@ async function saveContractsToFirebase(data) {
   }
   return true;
 }
-async function saveMetaToFirebase(meta: Meta) {
+const saveMetaToFirebase = async(meta: Meta) => {
   functions.logger.debug("saving meta: " + meta.id);
 
   await firestore
