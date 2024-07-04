@@ -2,7 +2,6 @@ import * as cheerio from "cheerio";
 import * as admin from "firebase-admin";
 import * as functions from "firebase-functions";
 import * as moment from "moment";
-import axios from "axios";
 import { URL } from "url";
 
 import { Contract } from "./contract";
@@ -121,12 +120,26 @@ const getMetadata = async(): Promise<Meta[]> => {
 
 const getRawHtml = async (url: string): Promise<cheerio.Root> => {
   try {
-  const response = await axios.get(url);
-  return cheerio.load(response.data);
-} catch (error) {
-  console.error(`Error fetching URL ${url}:`, error);
-  throw error;
-}
+    const response = await fetch(url, {
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
+        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+        'Accept-Language': 'en-US,en;q=0.5',
+        'Connection': 'keep-alive',
+        'Upgrade-Insecure-Requests': '1',
+      }
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const html = await response.text();
+    return cheerio.load(html);
+  } catch (error) {
+    console.error(`Error fetching URL ${url}:`, error);
+    throw error;
+  }
 }
 
 const parseEditDateFromHtml = (
