@@ -1,19 +1,19 @@
 <template>
-  <chart class="chart" :option="option"></chart>
+  <v-chart class="chart" :option="option"/>
 </template>
 
 <script>
 import { use } from "echarts/core";
 import { CanvasRenderer } from "echarts/renderers";
-import { BoxplotChart } from "echarts/charts";
-import { TooltipComponent } from "echarts/components";
+import { BoxplotChart, ScatterChart } from "echarts/charts";
+import { GridComponent, TooltipComponent } from "echarts/components";
 import { prepareBoxplotData } from "echarts/dist/extension/dataTool";
-import ECharts from "vue-echarts";
-use([CanvasRenderer, BoxplotChart, TooltipComponent]);
+import VChart from "vue-echarts";
+use([CanvasRenderer, BoxplotChart, GridComponent,TooltipComponent, ScatterChart]);
 
 export default {
   components: {
-    chart: ECharts,
+    VChart,
   },
   props: ["waiting", "passed", "taken"],
   data() {

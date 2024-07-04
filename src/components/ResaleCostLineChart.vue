@@ -1,14 +1,14 @@
 <template>
-  <chart class="chart" :option="option"></chart>
+  <v-chart class="chart" :option="option" />
 </template>
 
 <script>
 import { use } from "echarts/core";
 import { CanvasRenderer } from "echarts/renderers";
 import { LineChart } from "echarts/charts";
-import { TooltipComponent, GridComponent } from "echarts/components";
-import ECharts from "vue-echarts";
-use([CanvasRenderer, LineChart, TooltipComponent, GridComponent]);
+import { TooltipComponent, GridComponent, LegendComponent } from "echarts/components";
+import VChart from "vue-echarts";
+use([CanvasRenderer, LineChart, TooltipComponent, GridComponent,LegendComponent]);
 
 import moment from "moment";
 import MA from "moving-average";
@@ -16,7 +16,7 @@ const DAY = 24 * 60 * 60 * 1000; //1 day
 
 export default {
   components: {
-    chart: ECharts,
+    VChart,
   },
   props: ["waiting", "passed", "taken"],
   data() {
@@ -134,5 +134,6 @@ export default {
 <style lang="scss" scoped>
 .chart {
   height: 400px;
+  width: 400px;
 }
 </style>
