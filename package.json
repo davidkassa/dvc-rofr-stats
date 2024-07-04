@@ -23,7 +23,7 @@
     "vue": "^2.7.16",
     "vue-analytics": "^5.22.1",
     "vue-echarts": "^6.7.2",
-    "vue-json-csv": "^1.2.12",
+    "vue-json-csv": "^1.2.10",
     "vue-multi-select": "^4.6.0",
     "vue-router": "^3.6.5",
     "vuefire": "^2.2.5"
@@ -40,8 +40,6 @@
     "fibers": "^5.0.3",
     "jsdom": "^24.0.0",
     "prettier": "^3.3.2",
-    "request": "^2.88.2",
-    "request-promise-native": "^1.0.9",
     "sass": "^1.77.6",
     "vite": "^5.3.3",
     "vitest": "^1.4.0",
