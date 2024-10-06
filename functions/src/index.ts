@@ -1,7 +1,8 @@
 import * as cheerio from "cheerio";
 import * as admin from "firebase-admin";
-import * as functions from "firebase-functions";
+import { logger } from "firebase-functions/v2";
 import { onRequest } from "firebase-functions/v2/https";
+import { onSchedule, ScheduleOptions } from "firebase-functions/v2/scheduler";
 import * as moment from "moment";
 import { URL } from "url";
 
@@ -16,32 +17,44 @@ admin.initializeApp();
 // detects authentication from the environment.
 const firestore = admin.firestore();
 
-// from running `firebase functions:shell --debug`
-// Ignoring trigger "hourly_job" because the service "pubsub.googleapis.com" is not yet supported.
-if (process.env.NODE_ENV === "TEMP_pubsub") {
-  exports.testFunction = functions.https.onRequest(async () => {
-    await processDisBoardsData();
-  });
-}
-
 const runtimeOpts = {
   timeoutSeconds: 300,
 };
 
+// from running `firebase functions:shell --debug`
+// Ignoring trigger "hourly_job" because the service "pubsub.googleapis.com" is not yet supported.
+if (process.env.NODE_ENV === "TEMP_pubsub") {
+  exports.testFunction = onRequest(async (req, res) => {
+    try {
+      logger.info("Starting test function");
+      const result = await processDisBoardsData();
+      logger.info("Test function completed", { result });
+      res.status(200).json({ message: "Processing completed", result });
+    } catch (error) {
+      logger.error("Error in test function:", error);
+      res
+        .status(500)
+        .json({ message: "An error occurred", error: error.message });
+    }
+  });
+}
+
+const scheduleOpts: ScheduleOptions = {
+  ...runtimeOpts,
+  schedule: "every 1 hours",
+};
+
 // https://firebase.google.com/docs/functions/schedule-functions
 // https://console.cloud.google.com/cloudscheduler
-exports.hourly_job = functions
-  .runWith(runtimeOpts)
-  .pubsub.schedule("every 1 hours")
-  .onRun(async (context) => {
-    return processDisBoardsData();
-  });
+exports.hourly_job = onSchedule(scheduleOpts, async (context) => {
+  return processDisBoardsData();
+});
 
 // can't get to work with raw-loader
 // import htmlData from "@/../data/4.2018-raw.html";
 
-const processDisBoardsData = async () => {
-  functions.logger.debug("Processing DisBoard Data!");
+async function processDisBoardsData(): Promise<void> {
+  logger.debug("Processing DisBoard Data!");
 
   try {
     const changeData: Array<{ meta: Meta; contracts: Contract[] }> = [];
@@ -73,31 +86,27 @@ const processDisBoardsData = async () => {
             $,
             data.maxDate
           );
-          functions.logger.debug(
+          logger.debug(
             "parsed epoch: " + epoch + " contracts: " + contracts.length
           );
           contracts.forEach((c) => (c.metaId = data.id));
           changeData.push({ meta: data, contracts });
         }
       } catch (error) {
-        functions.logger.error(
-          `Error processing data for URL ${data.url}:`,
-          error
-        );
+        logger.error(`Error processing data for URL ${data.url}:`, error);
         // Decide whether to continue with the next item or throw the error
         throw error;
       }
     }
     if (changeData.length > 0) {
-      return await saveChangeDataToFirebase(changeData);
+      let result = await saveChangeDataToFirebase(changeData);
+      logger.debug(`Save changes result: ${result}`);
     }
-
-    return true;
   } catch (err) {
-    functions.logger.error("Error in processDisBoardsData:", err);
-    return false;
+    logger.error("Error in processDisBoardsData:", err);
+    throw err;
   }
-};
+}
 
 const getMetadata = async (): Promise<Meta[]> => {
   // return {
@@ -213,14 +222,14 @@ const parseLine = (line: string, maxDate: moment.Moment): Contract => {
   const a = line.split("---");
   if (a.length !== 2) {
     // error state
-    functions.logger.error("Error: " + line);
+    logger.error("Error: " + line);
     return null;
   }
   contract.user = a[0];
   const props = a[1].split("-");
   if (props.length < 7 || props.length > 8) {
     // error state
-    functions.logger.error("Error: " + line);
+    logger.error("Error: " + line);
     return null;
   }
   contract.pricePerPoint = Number(props[0].substr(1)); // strip $
@@ -273,7 +282,7 @@ const saveChangeDataToFirebase = async (data) => {
 };
 
 const saveContractsToFirebase = async (data) => {
-  functions.logger.debug("saving contracts: " + data.contracts.length);
+  logger.debug("saving contracts: " + data.contracts.length);
   // get contracts from DB, wrap with found bool
   try {
     const contractSnapshot = await firestore
@@ -302,13 +311,13 @@ const saveContractsToFirebase = async (data) => {
       await firestore.collection("contracts").doc(d.id).delete();
     }
   } catch (err) {
-    functions.logger.error(err);
+    logger.error(err);
     return false;
   }
   return true;
 };
 const saveMetaToFirebase = async (meta: Meta) => {
-  functions.logger.debug("saving meta: " + meta.id);
+  logger.debug("saving meta: " + meta.id);
 
   await firestore
     .collection("meta")
