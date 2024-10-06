@@ -31,9 +31,7 @@ jobs:
           npm run test:unit
           npm run build
       - name: Deploy
-        uses: FirebaseExtended/action-hosting-deploy@v0
-        with:
-          repoToken: "${{ secrets.GITHUB_TOKEN }}"
-          firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT_PROD }}"
-          projectId: dvc-rofr-stats
-          channelId: live
+        run: |
+          npm i -g firebase-tools@latest
+          set GOOGLE_APPLICATION_CREDENTIALS=${{secrets.FIREBASE_SERVICE_ACCOUNT_PROD}}
+          firebase deploy --project prod --json
