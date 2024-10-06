@@ -16,38 +16,25 @@ jobs:
       cancel-in-progress: true
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout
+        uses: actions/checkout@v4
       - name: Setup Node.js environment
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           # Version Spec of the version to use.  Examples: 12.x, 10.15.1, >=10.15.0
           node-version: 20
-      - name: Checkout
-        uses: actions/checkout@v3
-      # https://github.com/actions/cache/blob/main/examples.md#node---npm
-      - name: Get npm cache directory
-        id: npm-cache-dir
-        shell: bash
-        run: echo "dir=$(npm config get cache)" >> ${GITHUB_OUTPUT}
-      - uses: actions/cache@v3
-        id: npm-cache # use this to check for `cache-hit` ==> if: steps.npm-cache.outputs.cache-hit != 'true'
-        with:
-          path: ${{ steps.npm-cache-dir.outputs.dir }}
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
+          cache: "npm"
       - name: Build
         run: |
           npm ci
           cd ./functions && npm ci && cd ..
           npm run test:unit
           npm run build
+      - name: Setup Google Auth
+        uses: "google-github-actions/auth@v2"
+        with:
+          credentials_json: "${{secrets.FIREBASE_SERVICE_ACCOUNT_PROD}}"
       - name: Deploy
         run: |
-          npm i -g firebase-tools
-          firebase deploy --token ${{ secrets.FIREBASE_DEPLOY_KEY }} --project prod
-        # Doesn't support Node 14: https://github.com/w9jds/firebase-action/issues/83
-        #uses: w9jds/firebase-action@v2.0.0
-        #with:
-        #  args: deploy --project prod
-        #env:
-        #  FIREBASE_TOKEN: ${{ secrets.FIREBASE_DEPLOY_KEY }}
+          npm i -g firebase-tools@latest
+          firebase deploy --project prod --json
