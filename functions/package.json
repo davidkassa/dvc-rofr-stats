@@ -12,25 +12,25 @@
     "logs": "firebase functions:log"
   },
   "dependencies": {
-    "cheerio": "^1.0.0-rc.12",
-    "firebase-admin": "^12.2.0",
-    "firebase-functions": "^5.0.1",
+    "cheerio": "^1.0.0",
+    "firebase-admin": "^12.4.0",
+    "firebase-functions": "^5.1.1",
     "moment": "^2.30.1"
   },
   "devDependencies": {
     "@types/cheerio": "^0.22.35",
-    "@types/node": "^20.14.9",
-    "@typescript-eslint/eslint-plugin": "^7.15.0",
-    "@typescript-eslint/parser": "^7.15.0",
+    "@types/node": "^22.5.4",
+    "@typescript-eslint/eslint-plugin": "^7.16.1",
+    "@typescript-eslint/parser": "^7.18.0",
     "eslint": "^8.56.0",
     "eslint-config-prettier": "^9.1.0",
-    "eslint-plugin-import": "^2.29.1",
-    "eslint-plugin-jsdoc": "^48.5.0",
+    "eslint-plugin-import": "^2.31.0",
+    "eslint-plugin-jsdoc": "^50.2.2",
     "eslint-plugin-prefer-arrow": "^1.2.3",
-    "eslint-plugin-react": "^7.34.1",
-    "eslint-plugin-unicorn": "^54.0.0",
+    "eslint-plugin-react": "^7.35.2",
+    "eslint-plugin-unicorn": "^56.0.0",
     "firebase-functions-test": "^3.3.0",
-    "typescript": "^5.4.5"
+    "typescript": "^5.5.4"
   },
   "engines": {
     "node": "20"
