@@ -1,6 +1,7 @@
 import * as cheerio from "cheerio";
 import * as admin from "firebase-admin";
 import * as functions from "firebase-functions";
+import { onRequest } from "firebase-functions/v2/https";
 import * as moment from "moment";
 import { URL } from "url";
 
@@ -24,7 +25,7 @@ if (process.env.NODE_ENV === "TEMP_pubsub") {
 }
 
 const runtimeOpts = {
-  timeoutSeconds: 300
+  timeoutSeconds: 300,
 };
 
 // https://firebase.google.com/docs/functions/schedule-functions
@@ -32,14 +33,14 @@ const runtimeOpts = {
 exports.hourly_job = functions
   .runWith(runtimeOpts)
   .pubsub.schedule("every 1 hours")
-  .onRun(async context => {
+  .onRun(async (context) => {
     return processDisBoardsData();
   });
 
 // can't get to work with raw-loader
 // import htmlData from "@/../data/4.2018-raw.html";
 
-const processDisBoardsData = async() => {
+const processDisBoardsData = async () => {
   functions.logger.debug("Processing DisBoard Data!");
 
   try {
@@ -47,42 +48,45 @@ const processDisBoardsData = async() => {
     const meta = await getMetadata();
     for (const data of meta) {
       try {
-      const url = new URL(data.url);
-      const hash = url.hash; // includes #
-      const id = hash.substring(1);
-      // const id = url.pathname.substring(url.pathname.lastIndexOf("/") + 1);
-      const parentSelector = "article[data-content=" + id + "]";
-      const childPostDateSelector = ".message-attribution-main time";
-      const childEditDateSelector = ".message-lastEdit time";
-      const childContentSelector = ".bbWrapper";
+        const url = new URL(data.url);
+        const hash = url.hash; // includes #
+        const id = hash.substring(1);
+        // const id = url.pathname.substring(url.pathname.lastIndexOf("/") + 1);
+        const parentSelector = "article[data-content=" + id + "]";
+        const childPostDateSelector = ".message-attribution-main time";
+        const childEditDateSelector = ".message-lastEdit time";
+        const childContentSelector = ".bbWrapper";
 
-      const $ = await getRawHtml(data.url);
-      const epoch = parseEditDateFromHtml(
-        parentSelector,
-        childPostDateSelector,
-        childEditDateSelector,
-        $
-      );
-
-      if (data.epoch !== epoch) {
-        data.epoch = epoch;
-        const contracts = parseContractsFromHtml(
+        const $ = await getRawHtml(data.url);
+        const epoch = parseEditDateFromHtml(
           parentSelector,
-          childContentSelector,
-          $,
-          data.maxDate
+          childPostDateSelector,
+          childEditDateSelector,
+          $
         );
-        functions.logger.debug(
-          "parsed epoch: " + epoch + " contracts: " + contracts.length
+
+        if (data.epoch !== epoch) {
+          data.epoch = epoch;
+          const contracts = parseContractsFromHtml(
+            parentSelector,
+            childContentSelector,
+            $,
+            data.maxDate
+          );
+          functions.logger.debug(
+            "parsed epoch: " + epoch + " contracts: " + contracts.length
+          );
+          contracts.forEach((c) => (c.metaId = data.id));
+          changeData.push({ meta: data, contracts });
+        }
+      } catch (error) {
+        functions.logger.error(
+          `Error processing data for URL ${data.url}:`,
+          error
         );
-        contracts.forEach(c => (c.metaId = data.id));
-        changeData.push({ meta: data, contracts });
-      } 
-    }catch (error) {
-      functions.logger.error(`Error processing data for URL ${data.url}:`, error);
-      // Decide whether to continue with the next item or throw the error
-      throw error;
-    }
+        // Decide whether to continue with the next item or throw the error
+        throw error;
+      }
     }
     if (changeData.length > 0) {
       return await saveChangeDataToFirebase(changeData);
@@ -93,9 +97,9 @@ const processDisBoardsData = async() => {
     functions.logger.error("Error in processDisBoardsData:", err);
     return false;
   }
-}
+};
 
-const getMetadata = async(): Promise<Meta[]> => {
+const getMetadata = async (): Promise<Meta[]> => {
   // return {
   //   url:
   //     "https://www.disboards.com/threads/rofr-thread-april-to-june-2018-please-see-first-post-for-instructions-formatting-tool.3674375/#post-59034110",
@@ -116,18 +120,20 @@ const getMetadata = async(): Promise<Meta[]> => {
     meta.push(m);
   }
   return meta; // snapshot.docs[0].data(); // only 1 record
-}
+};
 
 const getRawHtml = async (url: string): Promise<cheerio.Root> => {
   try {
     const response = await fetch(url, {
       headers: {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
-        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
-        'Accept-Language': 'en-US,en;q=0.5',
-        'Connection': 'keep-alive',
-        'Upgrade-Insecure-Requests': '1',
-      }
+        "User-Agent":
+          "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
+        Accept:
+          "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
+        "Accept-Language": "en-US,en;q=0.5",
+        Connection: "keep-alive",
+        "Upgrade-Insecure-Requests": "1",
+      },
     });
 
     if (!response.ok) {
@@ -140,7 +146,7 @@ const getRawHtml = async (url: string): Promise<cheerio.Root> => {
     console.error(`Error fetching URL ${url}:`, error);
     throw error;
   }
-}
+};
 
 const parseEditDateFromHtml = (
   parentSelector,
@@ -159,9 +165,7 @@ const parseEditDateFromHtml = (
   if (!epoch) {
     const editStr = timeNode.attr("title"); // format: Apr 3, 2018 at 1:51 PM
     if (editStr) {
-      epoch = moment(editStr, "MMM D, YYYY at h:mm A")
-        .unix()
-        .toString();
+      epoch = moment(editStr, "MMM D, YYYY at h:mm A").unix().toString();
     }
   }
   if (!epoch) {
@@ -170,15 +174,13 @@ const parseEditDateFromHtml = (
     if (!epoch) {
       const dateStr = timeNode.attr("title"); // format: Apr 3, 2018 at 1:51 PM
       if (dateStr) {
-        epoch = moment(dateStr, "MMM D, YYYY at h:mm A")
-          .unix()
-          .toString();
+        epoch = moment(dateStr, "MMM D, YYYY at h:mm A").unix().toString();
       }
     }
   }
 
   return epoch;
-}
+};
 
 const parseContractsFromHtml = (
   parentSelector,
@@ -193,19 +195,14 @@ const parseContractsFromHtml = (
 
   const html: string = $(parentSelector + " " + childSelector).html();
 
-  const lines = html.split("<br>").map(l =>
-    cheerio
-      .load(l)
-      .root()
-      .text()
-  );
+  const lines = html.split("<br>").map((l) => cheerio.load(l).root().text());
   const contracts = lines
-    .filter(l => l.indexOf("---") >= 0)
-    .map(l => parseLine(l, maxDate))
-    .filter(l => l !== null);
+    .filter((l) => l.indexOf("---") >= 0)
+    .map((l) => parseLine(l, maxDate))
+    .filter((l) => l !== null);
 
   return contracts;
-}
+};
 
 const parseLine = (line: string, maxDate: moment.Moment): Contract => {
   // NewbieMom---$88-$14839-150-AKV-Apr-0/17, 150/18, 150/19, 150/20- sent 5/7
@@ -259,9 +256,9 @@ const parseLine = (line: string, maxDate: moment.Moment): Contract => {
   contract.dateResolved = dateResolved;
 
   return contract;
-}
+};
 
-const saveChangeDataToFirebase = async (data)=> {
+const saveChangeDataToFirebase = async (data) => {
   let result = true;
   // wanna try to run and save all of these
   for (const d of data) {
@@ -273,7 +270,7 @@ const saveChangeDataToFirebase = async (data)=> {
     result = contractResult && metaResult && result;
   }
   return result;
-}
+};
 
 const saveContractsToFirebase = async (data) => {
   functions.logger.debug("saving contracts: " + data.contracts.length);
@@ -283,14 +280,14 @@ const saveContractsToFirebase = async (data) => {
       .collection("contracts")
       .where("metaId", "==", data.meta.id)
       .get();
-    const dbContracts: any = contractSnapshot.docs.map(d => ({
+    const dbContracts: any = contractSnapshot.docs.map((d) => ({
       found: false,
       id: d.id,
-      ...d.data()
+      ...d.data(),
     }));
     // iterate through new contracts: add/update
     for (const c of data.contracts) {
-      const dbContract = dbContracts.find(d => d.id === c.checksum);
+      const dbContract = dbContracts.find((d) => d.id === c.checksum);
       if (dbContract) {
         dbContract.found = true;
       }
@@ -301,19 +298,16 @@ const saveContractsToFirebase = async (data) => {
         .set({ ...c }, { merge: true });
     }
     // delete any originals with found=false bool
-    for (const d of dbContracts.filter(f => f.found === false)) {
-      await firestore
-        .collection("contracts")
-        .doc(d.id)
-        .delete();
+    for (const d of dbContracts.filter((f) => f.found === false)) {
+      await firestore.collection("contracts").doc(d.id).delete();
     }
   } catch (err) {
     functions.logger.error(err);
     return false;
   }
   return true;
-}
-const saveMetaToFirebase = async(meta: Meta) => {
+};
+const saveMetaToFirebase = async (meta: Meta) => {
   functions.logger.debug("saving meta: " + meta.id);
 
   await firestore
@@ -322,7 +316,7 @@ const saveMetaToFirebase = async(meta: Meta) => {
     .set({ epoch: meta.epoch }, { merge: true });
 
   return true;
-}
+};
 
 if (process.env.NODE_ENV === "test") {
   exports.processDisBoardsData = processDisBoardsData;
