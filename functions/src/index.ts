@@ -53,7 +53,7 @@ exports.hourly_job = onSchedule(scheduleOpts, async (context) => {
 // can't get to work with raw-loader
 // import htmlData from "@/../data/4.2018-raw.html";
 
-async function processDisBoardsData(): Promise<void> {
+const processDisBoardsData = async (): Promise<void> => {
   logger.debug("Processing DisBoard Data!");
 
   try {
@@ -99,14 +99,14 @@ async function processDisBoardsData(): Promise<void> {
       }
     }
     if (changeData.length > 0) {
-      let result = await saveChangeDataToFirebase(changeData);
+      const result = await saveChangeDataToFirebase(changeData);
       logger.debug(`Save changes result: ${result}`);
     }
   } catch (err) {
     logger.error("Error in processDisBoardsData:", err);
     throw err;
   }
-}
+};
 
 const getMetadata = async (): Promise<Meta[]> => {
   // return {
