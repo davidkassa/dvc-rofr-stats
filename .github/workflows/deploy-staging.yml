@@ -30,9 +30,11 @@ jobs:
           cd ./functions && npm ci && cd ..
           npm run test:unit
           npm run build-staging
+      - name: Setup Google Auth
+        uses: "google-github-actions/auth@v2"
+        with:
+          credentials_json: ${{secrets.FIREBASE_SERVICE_ACCOUNT_DEV}}
       - name: Deploy
-        env:
-          GOOGLE_APPLICATION_CREDENTIALS: ${{secrets.FIREBASE_SERVICE_ACCOUNT_DEV}}
         run: |
           npm i -g firebase-tools@latest
           firebase deploy --project staging --json
