@@ -24,7 +24,7 @@ const runtimeOpts = {
 // from running `firebase functions:shell --debug`
 // Ignoring trigger "hourly_job" because the service "pubsub.googleapis.com" is not yet supported.
 if (process.env.NODE_ENV === "TEMP_pubsub") {
-  exports.testFunctionV2 = onRequest(async (req, res) => {
+  exports.testFunction = onRequest(async (req, res) => {
     try {
       logger.info("Starting test function");
       const result = await processDisBoardsData();
@@ -46,7 +46,7 @@ const scheduleOpts: ScheduleOptions = {
 
 // https://firebase.google.com/docs/functions/schedule-functions
 // https://console.cloud.google.com/cloudscheduler
-exports.hourly_jobV2 = onSchedule(scheduleOpts, async (context) => {
+exports.hourly_job = onSchedule(scheduleOpts, async (context) => {
   return processDisBoardsData();
 });
 
