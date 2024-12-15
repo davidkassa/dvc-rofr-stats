@@ -9,13 +9,17 @@ import { URL } from "url";
 import { Contract } from "./contract";
 import { Meta } from "./meta";
 
-// https://github.com/firebase/functions-samples/blob/master/presence-firestore/functions/index.js
-admin.initializeApp();
+// Remove this
+// admin.initializeApp();
+// const firestore = admin.firestore();
 
-// Since this code will be running in the Cloud Functions environment
-// we call initialize Firestore without any arguments because it
-// detects authentication from the environment.
-const firestore = admin.firestore();
+// Replace with this
+import { initializeApp } from 'firebase-admin/app';
+import { getFirestore } from 'firebase-admin/firestore';
+
+initializeApp();
+const firestore = getFirestore();
+
 
 const runtimeOpts = {
   timeoutSeconds: 300,
