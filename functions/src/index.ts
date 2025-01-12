@@ -14,12 +14,11 @@ import { Meta } from "./meta";
 // const firestore = admin.firestore();
 
 // Replace with this
-import { initializeApp } from 'firebase-admin/app';
-import { getFirestore } from 'firebase-admin/firestore';
+import { initializeApp } from "firebase-admin/app";
+import { getFirestore } from "firebase-admin/firestore";
 
 initializeApp();
 const firestore = getFirestore();
-
 
 const runtimeOpts = {
   timeoutSeconds: 300,
@@ -174,8 +173,8 @@ const parseEditDateFromHtml = (
   // timeNode = $(hash + " .messageMeta .DateTime");
   // let timeNode = $(hash + " .editDate .DateTime");
   let timeNode = $(parentSelector + " " + childEditDateSelector);
-  let epoch = timeNode.attr("data-time"); // "epoch";
-  if (!epoch) {
+  let epoch = timeNode.attr("data-timestamp"); // "epoch";
+  if (!epoch || !moment.unix(epoch).isValid()) {
     const editStr = timeNode.attr("title"); // format: Apr 3, 2018 at 1:51 PM
     if (editStr) {
       epoch = moment(editStr, "MMM D, YYYY at h:mm A").unix().toString();
@@ -183,8 +182,8 @@ const parseEditDateFromHtml = (
   }
   if (!epoch) {
     timeNode = $(parentSelector + " " + childPostDateSelector);
-    epoch = timeNode.attr("data-time"); // "epoch";
-    if (!epoch) {
+    epoch = timeNode.attr("data-timestamp"); // "epoch";
+    if (!epoch || !moment.unix(epoch).isValid()) {
       const dateStr = timeNode.attr("title"); // format: Apr 3, 2018 at 1:51 PM
       if (dateStr) {
         epoch = moment(dateStr, "MMM D, YYYY at h:mm A").unix().toString();
