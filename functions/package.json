@@ -20,7 +20,7 @@
   },
   "devDependencies": {
     "@eslint/compat": "^1.2.7",
-    "@eslint/eslintrc": "^3.1.0",
+    "@eslint/eslintrc": "^3.3.1",
     "@eslint/js": "^9.22.0",
     "@types/cheerio": "^0.22.35",
     "@types/node": "^22.13.10",
