@@ -40,7 +40,7 @@
     "jsdom": "^27.0.0",
     "prettier": "^3.6.2",
     "sass": "^1.92.1",
-    "vite": "^6.3.5",
+    "vite": "^7.1.7",
     "vitest": "^3.2.4",
     "vue-template-compiler": "^2.7.16"
   },
