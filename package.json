@@ -25,7 +25,7 @@
     "vue-echarts": "^7.0.3",
     "vue-json-csv": "^1.2.10",
     "vue-multi-select": "^4.6.0",
-    "vue-router": "^3.6.5",
+    "vue-router": "^4.6.0",
     "vuefire": "^2.2.5"
   },
   "devDependencies": {
