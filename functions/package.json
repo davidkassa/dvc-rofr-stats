@@ -32,7 +32,7 @@
     "eslint-plugin-jsdoc": "^59.0.2",
     "eslint-plugin-prefer-arrow": "^1.2.3",
     "eslint-plugin-react": "^7.37.5",
-    "eslint-plugin-unicorn": "^61.0.2",
+    "eslint-plugin-unicorn": "^62.0.0",
     "firebase-functions-test": "^3.4.1",
     "globals": "^16.4.0",
     "typescript": "^5.9.2"
