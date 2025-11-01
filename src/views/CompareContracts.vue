@@ -1,47 +1,47 @@
 <template>
   <div class="data-details">
-    <b-table :data="data" :mobile-cards="true">
-      <b-table-column label="" v-slot="props" :visible="data.length > 0">
+    <o-table :data="data" :mobile-cards="true">
+      <o-table-column label="" v-slot="props" v-if="data.length > 0">
         <b>{{ props.row.name }}</b>
-      </b-table-column>
+      </o-table-column>
 
-      <b-table-column
+      <o-table-column
         label="Selected Contract"
         v-slot="props"
-        :visible="data.length > 0"
+        v-if="data.length > 0"
         numeric
       >
         {{ props.row.selected }}
-      </b-table-column>
+      </o-table-column>
 
-      <b-table-column
+      <o-table-column
         label="All Contracts"
         v-slot="props"
-        :visible="data.length > 0"
+        v-if="data.length > 0"
         numeric
       >
         {{ props.row.all }}
-      </b-table-column>
+      </o-table-column>
 
-      <b-table-column
+      <o-table-column
         label="Same Resort"
         v-slot="props"
-        :visible="data.length > 0"
+        v-if="data.length > 0"
         numeric
       >
         {{ props.row.resort }}
-      </b-table-column>
+      </o-table-column>
 
-      <b-table-column
+      <o-table-column
         label="Same UY"
         v-slot="props"
-        :visible="data.length > 0"
+        v-if="data.length > 0"
         numeric
       >
         {{ props.row.uy }}
-      </b-table-column>
+      </o-table-column>
 
-      <template v-slot:empty>
+      <template #empty>
         <section class="section">
           <div class="has-text-centered">
             <p>
@@ -61,7 +61,7 @@
           </div>
         </section>
       </template>
-    </b-table>
+    </o-table>
     <!-- {{ selected }} -->
   </div>
 </template>
@@ -171,5 +171,24 @@ export default {
 .data-details {
   margin: 1%;
   text-align: left;
+
+  a {
+    color: #61c661 !important;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+.data-details :deep(.o-table) {
+  width: 100%;
+}
+
+.data-details :deep(.o-table__wrapper) {
+  width: 100%;
+}
+
+.data-details :deep(table) {
+  width: 100%;
 }
 </style>

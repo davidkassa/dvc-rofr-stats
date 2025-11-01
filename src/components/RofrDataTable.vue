@@ -1,122 +1,140 @@
 <template>
-  <b-table
-    :selected.sync="selected"
+  <o-table
     :data="data"
-    default-sort="status"
-    focusable
-    @update:selected="$emit('update:selected', selected)"
+    v-model:selected="localSelected"
+    :striped="true"
+    :hoverable="true"
+    :mobile-cards="false"
+    selectable
   >
-    <template>
-      <b-table-column field="status" label="Status" sortable v-slot="props">
-        {{ props.row.status }}
-      </b-table-column>
-      <b-table-column field="user" label="User" sortable v-slot="props">
-        {{ props.row.user }}
-      </b-table-column>
-      <b-table-column
-        field="pricePerPoint"
-        label="Price per Point"
-        numeric
-        sortable
-        v-slot="props"
-      >
-        ${{ props.row.pricePerPoint.toLocaleString("en") }}
-      </b-table-column>
-      <b-table-column
-        field="pricePerPointNormalized"
-        label="Price per Point (Normalized)"
-        numeric
-        sortable
-      >
-        <template v-slot:header="{ column }">
-          <b-tooltip
-            label="Normalized Price includes closing cost fees and a unique algorithm around whether the contract is stripped or loaded. For every point remaining from the previous use year the contract price is reduced ($15). For every point used in the current or next use year the contract price is increased ($17/$19)."
-            multilined
-            is-large
-            dashed
-            animated
-          >
-            {{ column.label }}
-          </b-tooltip>
-        </template>
-        <template v-slot="props">
-          ${{ props.row.pricePerPointNormalized.toLocaleString("en") }}
-        </template>
-      </b-table-column>
-      <b-table-column
-        field="pricePerLifetimePoint"
-        label="Price per Lifetime Point"
-        numeric
-        sortable
-        v-slot="props"
-      >
-        ${{ props.row.pricePerLifetimePoint.toLocaleString("en") }}
-      </b-table-column>
-      <b-table-column
-        field="totalCost"
-        label="Total Cost"
-        numeric
-        sortable
-        v-slot="props"
-      >
-        ${{ props.row.totalCost.toLocaleString("en") }}
-      </b-table-column>
-      <b-table-column
-        field="points"
-        label="Points"
-        numeric
-        sortable
-        v-slot="props"
-      >
-        {{ props.row.points.toLocaleString("en") }}
-      </b-table-column>
-      <b-table-column field="resort" label="Resort" sortable v-slot="props">
-        {{ props.row.resort }}
-      </b-table-column>
-      <b-table-column
-        field="useYear"
-        label="Use Year (UY)"
-        sortable
-        v-slot="props"
-      >
-        {{ props.row.useYear }}
-      </b-table-column>
-      <b-table-column
-        field="availablePoints"
-        label="Available Points"
-        sortable
-        v-slot="props"
-      >
-        {{ props.row.availablePoints }}
-      </b-table-column>
-      <b-table-column field="notes" label="Notes" sortable v-slot="props">
-        {{ props.row.Notes }}
-      </b-table-column>
-      <b-table-column
-        field="dateSent"
-        label="Date Sent"
-        sortable
-        v-slot="props"
-      >
-        {{ props.row.dateSent }}
-      </b-table-column>
-      <b-table-column
-        field="dateResolved"
-        label="Date Resolved"
-        sortable
-        v-slot="props"
-      >
-        {{ props.row.dateResolved }}
-      </b-table-column>
-    </template>
-  </b-table>
+    <o-table-column field="status" label="Status" sortable v-slot="props">
+      {{ props.row.status }}
+    </o-table-column>
+
+    <o-table-column field="user" label="User" sortable v-slot="props">
+      {{ props.row.user }}
+    </o-table-column>
+
+    <o-table-column
+      field="pricePerPoint"
+      label="Price per Point"
+      numeric
+      sortable
+      v-slot="props"
+    >
+      ${{ props.row.pricePerPoint.toLocaleString("en") }}
+    </o-table-column>
+
+    <o-table-column
+      field="pricePerPointNormalized"
+      label="Price per Point (Normalized)"
+      numeric
+      sortable
+      v-slot="props"
+    >
+      ${{ props.row.pricePerPointNormalized.toLocaleString("en") }}
+    </o-table-column>
+
+    <o-table-column
+      field="pricePerLifetimePoint"
+      label="Price per Lifetime Point"
+      numeric
+      sortable
+      v-slot="props"
+    >
+      ${{ props.row.pricePerLifetimePoint.toLocaleString("en") }}
+    </o-table-column>
+
+    <o-table-column
+      field="totalCost"
+      label="Total Cost"
+      numeric
+      sortable
+      v-slot="props"
+    >
+      ${{ props.row.totalCost.toLocaleString("en") }}
+    </o-table-column>
+
+    <o-table-column
+      field="points"
+      label="Points"
+      numeric
+      sortable
+      v-slot="props"
+    >
+      {{ props.row.points.toLocaleString("en") }}
+    </o-table-column>
+
+    <o-table-column field="resort" label="Resort" sortable v-slot="props">
+      {{ props.row.resort }}
+    </o-table-column>
+
+    <o-table-column
+      field="useYear"
+      label="Use Year (UY)"
+      sortable
+      v-slot="props"
+    >
+      {{ props.row.useYear }}
+    </o-table-column>
+
+    <o-table-column
+      field="availablePoints"
+      label="Available Points"
+      sortable
+      v-slot="props"
+    >
+      {{ props.row.availablePoints }}
+    </o-table-column>
+
+    <o-table-column field="notes" label="Notes" sortable v-slot="props">
+      {{ props.row.notes }}
+    </o-table-column>
+
+    <o-table-column
+      field="dateSent"
+      label="Date Sent"
+      sortable
+      v-slot="props"
+    >
+      {{ props.row.dateSent }}
+    </o-table-column>
+
+    <o-table-column
+      field="dateResolved"
+      label="Date Resolved"
+      sortable
+      v-slot="props"
+    >
+      {{ props.row.dateResolved }}
+    </o-table-column>
+  </o-table>
 </template>
 
 <script>
 export default {
   props: ["data", "selected"],
-  data() {
-    return {};
+  computed: {
+    localSelected: {
+      get() {
+        return this.selected;
+      },
+      set(value) {
+        this.$emit("update:selected", value);
+      },
+    },
   },
 };
 </script>
+
+<style>
+/* Highlight selected table row */
+.o-table__tr--selected {
+  background-color: #61c661 !important;
+  color: white !important;
+}
+
+.o-table__tr--selected:hover {
+  background-color: #4db34d !important;
+}
+</style>

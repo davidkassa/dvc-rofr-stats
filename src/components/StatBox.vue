@@ -9,20 +9,20 @@
       <div class="columns is-mobile">
         <div class="column">
           <div class="box-record">
-            <b-icon pack="fas" icon="circle" size="is-small" type="is-passed" />
+            <o-icon pack="fas" icon="circle" size="small" class="icon-passed" />
             Passed:
           </div>
           <div class="box-record">
-            <b-icon
+            <o-icon
               pack="fas"
               icon="circle"
-              size="is-small"
-              type="is-waiting"
+              size="small"
+              class="icon-waiting"
             />
             Waiting:
           </div>
           <div class="box-record">
-            <b-icon pack="fas" icon="circle" size="is-small" type="is-taken" />
+            <o-icon pack="fas" icon="circle" size="small" class="icon-taken" />
             Taken:
           </div>
         </div>
@@ -82,5 +82,23 @@ export default {
     text-align: center;
     margin-bottom: 20px;
   }
+  .box-record {
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+}
+
+.icon-passed {
+  color: #61c661 !important;
+}
+
+.icon-waiting {
+  color: #f8b379 !important;
+}
+
+.icon-taken {
+  color: #f87979 !important;
 }
 </style>

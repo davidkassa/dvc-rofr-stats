@@ -12,18 +12,25 @@
     </div>
     <footer class="footer">
       &copy; {{ new Date().getFullYear() }} David Kassa. Made with
-      <b-icon pack="fab" icon="fort-awesome" size="is-small" /> in Madison,
+      <o-icon pack="fab" icon="fort-awesome" size="small" /> in Madison,
       WI<br />
-      <a href="https://github.com/davidkassa/dvc-rofr-stats" target="_blnk"
-        ><b-icon pack="fab" icon="github" size="is-small" /> View on GitHub</a
+      <a href="https://github.com/davidkassa/dvc-rofr-stats" target="_blank"
+        ><o-icon pack="fab" icon="github" size="small" /> View on GitHub</a
       >
     </footer>
   </div>
 </template>
 
 <style lang="scss">
+* {
+  font-family: "Avenir", Helvetica, Arial, sans-serif;
+}
+
 a {
   color: #61c661;
+  &:hover {
+    text-decoration: underline;
+  }
 }
 
 #app {
@@ -51,6 +58,8 @@ a {
   margin-top: 50px;
   a {
     color: #2c3e50;
+    font-weight: normal;
+    text-decoration: none;
     &:hover {
       color: #61c661;
     }

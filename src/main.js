@@ -1,35 +1,33 @@
-import Vue from "vue";
-import Buefy from "buefy";
-// const Buefy = () => import(/* webpackChunkName: "buefy" */ "buefy");
+import { createApp } from "vue";
+import Oruga from "@oruga-ui/oruga-next";
 import JsonCSV from "vue-json-csv";
-
-import VueAnalytics from "vue-analytics";
-
-import { firestorePlugin } from "vuefire";
+import { VueFire, VueFireFirestoreOptionsAPI } from "vuefire";
+import VueGtag from "vue-gtag-next";
 
 import App from "./App.vue";
 import router from "./router";
-//import "./registerServiceWorker";
+import { firebaseApp } from "./firebase";
 
-//import "buefy/lib/buefy.css";
 import "./global.scss";
 import "@fortawesome/fontawesome-free/scss/fontawesome.scss";
 import "@fortawesome/fontawesome-free/scss/solid.scss";
 import "@fortawesome/fontawesome-free/scss/brands.scss";
 
-Vue.config.productionTip = false;
+const app = createApp(App);
 
-/* eslint-disable no-undef */
-
-Vue.use(Buefy, { defaultIconPack: "fas" });
-Vue.component("downloadCsv", JsonCSV);
-Vue.use(VueAnalytics, {
-  id: import.meta.env.VITE_GOOGLE_ANALYTICS_ID,
-  router,
+app.use(router);
+app.use(Oruga, {
+  iconPack: "fas",
 });
-Vue.use(firestorePlugin);
+app.use(VueFire, {
+  firebaseApp,
+  modules: [VueFireFirestoreOptionsAPI()],
+});
+app.use(VueGtag, {
+  property: {
+    id: import.meta.env.VITE_GOOGLE_ANALYTICS_ID,
+  },
+});
+app.component("downloadCsv", JsonCSV);
 
-new Vue({
-  router,
-  render: (h) => h(App),
-}).$mount("#app");
+app.mount("#app");
