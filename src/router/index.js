@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
-import Home from "../views/Home.vue";
 
-const StatsRoot = () => import(/*  */ "../views/StatsRoot.vue");
+const Home = () => import("../views/Home.vue");
+const StatsRoot = () => import("../views/StatsRoot.vue");
 const CompareContracts = () => import("../views/CompareContracts.vue");
 const ResaleCosts = () => import("../views/ResaleCosts.vue");
 const WaitTimes = () => import("../views/WaitTimes.vue");

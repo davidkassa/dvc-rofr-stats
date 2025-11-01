@@ -31,11 +31,31 @@ export default {
           padding: 5,
           data: ["Passed", "Waiting", "Taken"],
         },
+        grid: {
+          left: 20,
+          right: 20,
+          top: 20,
+          bottom: 50,
+          containLabel: true,
+        },
         series: [
           {
             type: "pie",
+            radius: "60%",
+            center: ["50%", "45%"],
             avoidLabelOverlap: true,
             name: "series",
+            label: {
+              show: true,
+              position: "outer",
+              alignTo: "labelLine",
+              bleedMargin: 5,
+            },
+            labelLine: {
+              show: true,
+              length: 15,
+              length2: 10,
+            },
             data: [
               {
                 value: this.waiting,

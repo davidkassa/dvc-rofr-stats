@@ -282,11 +282,11 @@ export default {
   :deep(.o-chk) {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 8px;
   }
 
   :deep(.o-chk__label) {
-    padding-left: 4px;
+    padding-left: 0px;
   }
 }
 </style>

@@ -21,7 +21,12 @@ app.use(Oruga, {
 });
 app.use(VueFire, {
   firebaseApp,
-  modules: [VueFireFirestoreOptionsAPI()],
+  modules: [
+    VueFireFirestoreOptionsAPI({
+      // Suppress SSR warnings for complex queries
+      reset: false,
+    }),
+  ],
 });
 app.use(VueGtag, {
   property: {

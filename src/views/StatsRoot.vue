@@ -200,15 +200,17 @@ export default {
     };
   },
   firestore() {
+    const contractsQuery = query(
+      collection(db, "contracts"),
+      where(
+        "dateSent",
+        ">=",
+        moment().subtract(3, "months").format(moment.HTML5_FMT.DATE)
+      )
+    );
+
     return {
-      contracts: query(
-        collection(db, "contracts"),
-        where(
-          "dateSent",
-          ">=",
-          moment().subtract(3, "months").format(moment.HTML5_FMT.DATE)
-        )
-      ),
+      contracts: contractsQuery,
       metaStore: collection(db, "meta"),
     };
   },
