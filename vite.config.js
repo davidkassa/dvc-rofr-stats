@@ -9,6 +9,14 @@ export default defineConfig({
     environment: "jsdom",
     globals: true,
   },
+  css: {
+    preprocessorOptions: {
+      scss: {
+        api: "modern-compiler",
+        silenceDeprecations: ["import"],
+      },
+    },
+  },
   resolve: {
     alias: [
       {
