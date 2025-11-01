@@ -2,7 +2,6 @@ import { createApp } from "vue";
 import Oruga from "@oruga-ui/oruga-next";
 import JsonCSV from "vue-json-csv";
 import { VueFire, VueFireFirestoreOptionsAPI } from "vuefire";
-import VueGtag from "vue-gtag-next";
 
 import App from "./App.vue";
 import router from "./router";
@@ -12,6 +11,12 @@ import "./global.scss";
 import "@fortawesome/fontawesome-free/scss/fontawesome.scss";
 import "@fortawesome/fontawesome-free/scss/solid.scss";
 import "@fortawesome/fontawesome-free/scss/brands.scss";
+
+import { configure } from "vue-gtag";
+
+configure({
+  tagId: import.meta.env.VITE_GOOGLE_ANALYTICS_ID,
+});
 
 const app = createApp(App);
 
@@ -27,11 +32,6 @@ app.use(VueFire, {
       reset: false,
     }),
   ],
-});
-app.use(VueGtag, {
-  property: {
-    id: import.meta.env.VITE_GOOGLE_ANALYTICS_ID,
-  },
 });
 app.component("downloadCsv", JsonCSV);
 
