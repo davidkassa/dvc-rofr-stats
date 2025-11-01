@@ -39,12 +39,9 @@ export default defineConfig({
           if (id.includes("node_modules/firebase")) {
             return "firebase";
           }
-          // Split ECharts core and components
-          if (id.includes("node_modules/echarts")) {
+          // Keep ECharts and vue-echarts together to avoid initialization issues
+          if (id.includes("node_modules/echarts") || id.includes("node_modules/vue-echarts")) {
             return "echarts";
-          }
-          if (id.includes("node_modules/vue-echarts")) {
-            return "vue-echarts";
           }
           // Split Oruga UI
           if (id.includes("node_modules/@oruga-ui")) {
