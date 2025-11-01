@@ -40,11 +40,13 @@
               </div>
             </div>
             <div class="filter-options">
-              <o-field v-for="option in statusOptions" :key="option.value">
-                <o-checkbox v-model="statusValues" :native-value="option.value" @click.native.stop>
-                  {{ option.label }}
-                </o-checkbox>
-              </o-field>
+              <div v-for="option in statusOptions" :key="option.value" @click.stop>
+                <o-field>
+                  <o-checkbox v-model="statusValues" :native-value="option.value">
+                    {{ option.label }}
+                  </o-checkbox>
+                </o-field>
+              </div>
             </div>
           </div>
 
@@ -56,11 +58,13 @@
               </div>
             </div>
             <div class="filter-options">
-              <o-field v-for="option in resortOptions" :key="option.value">
-                <o-checkbox v-model="resortValues" :native-value="option.value" @click.native.stop>
-                  {{ option.label }}
-                </o-checkbox>
-              </o-field>
+              <div v-for="option in resortOptions" :key="option.value" @click.stop>
+                <o-field>
+                  <o-checkbox v-model="resortValues" :native-value="option.value">
+                    {{ option.label }}
+                  </o-checkbox>
+                </o-field>
+              </div>
             </div>
           </div>
 
@@ -72,11 +76,13 @@
               </div>
             </div>
             <div class="filter-options">
-              <o-field v-for="option in useYearOptions" :key="option.value">
-                <o-checkbox v-model="useYearValues" :native-value="option.value" @click.native.stop>
-                  {{ option.label }}
-                </o-checkbox>
-              </o-field>
+              <div v-for="option in useYearOptions" :key="option.value" @click.stop>
+                <o-field>
+                  <o-checkbox v-model="useYearValues" :native-value="option.value">
+                    {{ option.label }}
+                  </o-checkbox>
+                </o-field>
+              </div>
             </div>
           </div>
         </div>
