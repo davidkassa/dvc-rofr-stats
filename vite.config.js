@@ -32,6 +32,8 @@ export default defineConfig({
     ],
   },
   build: {
+    // Disable modulepreload to avoid CORS issues with crossorigin attribute
+    modulePreload: false,
     rollupOptions: {
       output: {
         manualChunks(id) {
