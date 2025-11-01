@@ -161,11 +161,11 @@ const getRawHtml = async (url: string): Promise<cheerio.Root> => {
 };
 
 const parseEditDateFromHtml = (
-  parentSelector,
-  childPostDateSelector,
-  childEditDateSelector,
-  $
-) => {
+  parentSelector: string,
+  childPostDateSelector: string,
+  childEditDateSelector: string,
+  $: cheerio.Root
+): string => {
   // https://www.disboa......#post-59034110
   // id=post-59034110
   // div class=editDate class=DateTime data-time data-diff, epoch
@@ -195,10 +195,10 @@ const parseEditDateFromHtml = (
 };
 
 const parseContractsFromHtml = (
-  parentSelector,
-  childSelector,
-  $,
-  maxDate
+  parentSelector: string,
+  childSelector: string,
+  $: cheerio.Root,
+  maxDate: moment.Moment
 ): Contract[] => {
   // https://www.disboa......#post-59034110
   // id=post-59034110
@@ -270,7 +270,9 @@ const parseLine = (line: string, maxDate: moment.Moment): Contract => {
   return contract;
 };
 
-const saveChangeDataToFirebase = async (data) => {
+const saveChangeDataToFirebase = async (
+  data: Array<{ meta: Meta; contracts: Contract[] }>
+): Promise<boolean> => {
   let result = true;
   // wanna try to run and save all of these
   for (const d of data) {
@@ -284,7 +286,9 @@ const saveChangeDataToFirebase = async (data) => {
   return result;
 };
 
-const saveContractsToFirebase = async (data) => {
+const saveContractsToFirebase = async (
+  data: { meta: Meta; contracts: Contract[] }
+): Promise<boolean> => {
   logger.debug("saving contracts: " + data.contracts.length);
   // get contracts from DB, wrap with found bool
   try {
@@ -319,7 +323,7 @@ const saveContractsToFirebase = async (data) => {
   }
   return true;
 };
-const saveMetaToFirebase = async (meta: Meta) => {
+const saveMetaToFirebase = async (meta: Meta): Promise<boolean> => {
   logger.debug("saving meta: " + meta.id);
 
   await firestore

@@ -125,7 +125,7 @@ export default [
 
       "@typescript-eslint/type-annotation-spacing": "off",
       "@typescript-eslint/typedef": "off",
-      "@typescript-eslint/unified-signatures": "warn",
+      "@typescript-eslint/unified-signatures": "off",
       "arrow-parens": ["off", "always"],
       "brace-style": ["off", "off"],
       "comma-dangle": "off",
