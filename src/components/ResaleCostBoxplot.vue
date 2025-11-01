@@ -7,9 +7,60 @@ import { use } from "echarts/core";
 import { CanvasRenderer } from "echarts/renderers";
 import { BoxplotChart, ScatterChart } from "echarts/charts";
 import { GridComponent, TooltipComponent } from "echarts/components";
-import { prepareBoxplotData } from "echarts/dist/extension/dataTool";
 import VChart from "vue-echarts";
 use([CanvasRenderer, BoxplotChart, GridComponent,TooltipComponent, ScatterChart]);
+
+// Implement prepareBoxplotData function
+function prepareBoxplotData(rawData) {
+  const boxData = [];
+  const outliers = [];
+
+  rawData.forEach((dataItem, dataIndex) => {
+    if (!dataItem || dataItem.length === 0) {
+      boxData.push([0, 0, 0, 0, 0]);
+      return;
+    }
+
+    const sorted = dataItem.slice().sort((a, b) => a - b);
+    const len = sorted.length;
+
+    const Q1 = sorted[Math.floor(len * 0.25)];
+    const Q2 = sorted[Math.floor(len * 0.5)];
+    const Q3 = sorted[Math.floor(len * 0.75)];
+    const IQR = Q3 - Q1;
+    const lowerBound = Q1 - 1.5 * IQR;
+    const upperBound = Q3 + 1.5 * IQR;
+
+    // Find min and max within bounds
+    let min = sorted[0];
+    let max = sorted[len - 1];
+
+    for (let i = 0; i < len; i++) {
+      if (sorted[i] >= lowerBound) {
+        min = sorted[i];
+        break;
+      }
+    }
+
+    for (let i = len - 1; i >= 0; i--) {
+      if (sorted[i] <= upperBound) {
+        max = sorted[i];
+        break;
+      }
+    }
+
+    boxData.push([min, Q1, Q2, Q3, max]);
+
+    // Collect outliers
+    sorted.forEach(value => {
+      if (value < lowerBound || value > upperBound) {
+        outliers.push([dataIndex, value]);
+      }
+    });
+  });
+
+  return { boxData, outliers };
+}
 
 export default {
   components: {

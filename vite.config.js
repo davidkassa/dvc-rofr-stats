@@ -35,10 +35,6 @@ export default defineConfig({
     rollupOptions: {
       output: {
         manualChunks(id) {
-          // Split Firebase into its own chunk
-          if (id.includes("node_modules/firebase")) {
-            return "firebase";
-          }
           // Keep ECharts and vue-echarts together to avoid initialization issues
           if (id.includes("node_modules/echarts") || id.includes("node_modules/vue-echarts")) {
             return "echarts";
@@ -51,7 +47,7 @@ export default defineConfig({
           if (id.includes("node_modules/moment")) {
             return "moment";
           }
-          // Split other vendor code
+          // Keep Firebase with vendor to avoid circular dependency issues
           if (id.includes("node_modules")) {
             return "vendor";
           }

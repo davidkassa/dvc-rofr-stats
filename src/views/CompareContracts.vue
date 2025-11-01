@@ -1,44 +1,46 @@
 <template>
   <div class="data-details">
-    <o-table :data="data" :mobile-cards="true">
-      <o-table-column label="" v-slot="props" v-if="data.length > 0">
-        <b>{{ props.row.name }}</b>
+    <o-table :data="data" :mobile-cards="true" :show-header="data.length > 0">
+      <o-table-column label="">
+        <template v-slot="props">
+          <b>{{ props.row.name }}</b>
+        </template>
       </o-table-column>
 
       <o-table-column
         label="Selected Contract"
-        v-slot="props"
-        v-if="data.length > 0"
         numeric
       >
-        {{ props.row.selected }}
+        <template v-slot="props">
+          {{ props.row.selected }}
+        </template>
       </o-table-column>
 
       <o-table-column
         label="All Contracts"
-        v-slot="props"
-        v-if="data.length > 0"
         numeric
       >
-        {{ props.row.all }}
+        <template v-slot="props">
+          {{ props.row.all }}
+        </template>
       </o-table-column>
 
       <o-table-column
         label="Same Resort"
-        v-slot="props"
-        v-if="data.length > 0"
         numeric
       >
-        {{ props.row.resort }}
+        <template v-slot="props">
+          {{ props.row.resort }}
+        </template>
       </o-table-column>
 
       <o-table-column
         label="Same UY"
-        v-slot="props"
-        v-if="data.length > 0"
         numeric
       >
-        {{ props.row.uy }}
+        <template v-slot="props">
+          {{ props.row.uy }}
+        </template>
       </o-table-column>
 
       <template #empty>
