@@ -27,7 +27,7 @@
 }
 
 a {
-  color: #61c661;
+  color: var(--color-passed);
   &:hover {
     text-decoration: underline;
   }
@@ -38,18 +38,18 @@ a {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+  color: var(--color-text-primary);
 }
 #nav {
   padding: 30px;
   a {
     font-weight: bold;
-    color: #61c661;
+    color: var(--color-passed);
     &:hover {
       text-decoration: underline;
     }
     &.router-link-exact-active {
-      color: #2c3e50;
+      color: var(--color-text-primary);
       text-decoration: none;
     }
   }
@@ -57,11 +57,11 @@ a {
 .footer {
   margin-top: 50px;
   a {
-    color: #2c3e50;
+    color: var(--color-text-primary);
     font-weight: normal;
     text-decoration: none;
     &:hover {
-      color: #61c661;
+      color: var(--color-passed);
     }
   }
 }

@@ -2,21 +2,46 @@
 $primary: #61c661;
 $link: $primary;
 
-// Import Bulma
+// Import Bulma with dark mode support
 @import "bulma/bulma.scss";
+@import "bulma/sass/themes/dark.scss";
+
+// CSS Variables for light and dark mode support
+:root {
+  --color-passed: #61c661;
+  --color-waiting: #f8b379;
+  --color-taken: #f87979;
+  --color-border: #e0e0e0;
+  --color-bg-secondary: #f5f5f5;
+  --color-text-primary: #2c3e50;
+  --color-shadow: rgba(0, 0, 0, 0.25);
+}
+
+// Dark mode colors
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-passed: #6fd46f;
+    --color-waiting: #ffb366;
+    --color-taken: #ff8585;
+    --color-border: #4a4a4a;
+    --color-bg-secondary: #2a2a2a;
+    --color-text-primary: #e0e0e0;
+    --color-shadow: rgba(255, 255, 255, 0.1);
+  }
+}
 
 // Custom colors for status
 .has-background-passed {
-  background-color: #61c661 !important;
+  background-color: var(--color-passed) !important;
   color: #fff !important;
 }
 
 .has-background-waiting {
-  background-color: #f8b379 !important;
-  color: rgba(0, 0, 0, 0.7) !important;
+  background-color: var(--color-waiting) !important;
+  color: #fff !important;
 }
 
 .has-background-taken {
-  background-color: #f87979 !important;
+  background-color: var(--color-taken) !important;
   color: #fff !important;
 }

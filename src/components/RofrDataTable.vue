@@ -147,11 +147,11 @@ export default {
 <style>
 /* Highlight selected table row */
 .o-table__tr--selected {
-  background-color: #61c661 !important;
+  background-color: var(--color-passed) !important;
   color: white !important;
 }
 
 .o-table__tr--selected:hover {
-  background-color: #4db34d !important;
+  filter: brightness(0.85);
 }
 </style>

@@ -197,8 +197,8 @@ export default {
   padding: 0 !important;
   min-width: 280px;
   max-width: 320px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
-  background: white;
+  box-shadow: 0 4px 16px var(--color-shadow);
+  background: var(--bulma-scheme-main, white);
 }
 
 .filter-container :deep(.o-drop__menu) {
@@ -207,8 +207,8 @@ export default {
 }
 
 .filter-tabs {
-  border-bottom: 1px solid #e0e0e0;
-  background-color: #f5f5f5;
+  border-bottom: 1px solid var(--color-border);
+  background-color: var(--color-bg-secondary);
 
   .tabs {
     display: flex;
@@ -221,19 +221,19 @@ export default {
       text-align: center;
       cursor: pointer;
       border-bottom: 2px solid transparent;
-      color: #4a4a4a;
+      color: var(--color-text-primary);
       font-size: 13px;
       transition: all 0.2s;
 
       &:hover {
-        background-color: #ececec;
+        background-color: var(--bulma-scheme-main-bis, #ececec);
         text-decoration: none;
       }
 
       &.is-active {
-        color: #61c661;
-        border-bottom-color: #61c661;
-        background-color: white;
+        color: var(--color-passed);
+        border-bottom-color: var(--color-passed);
+        background-color: var(--bulma-scheme-main, white);
         font-weight: 600;
       }
     }
@@ -261,7 +261,7 @@ export default {
 
   a {
     cursor: pointer;
-    color: #61c661;
+    color: var(--color-passed);
     padding: 0 4px;
 
     &:hover {
@@ -273,20 +273,19 @@ export default {
 .filter-options {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 4px;
 
   :deep(.o-field) {
     margin-bottom: 0;
   }
 
-  :deep(.o-chk) {
+  :deep(.o-checkbox) {
     display: flex;
     align-items: center;
-    gap: 8px;
   }
 
-  :deep(.o-chk__label) {
-    padding-left: 0px;
+  :deep(.o-checkbox__label) {
+    padding-left: 4px;
   }
 }
 </style>

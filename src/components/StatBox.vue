@@ -71,7 +71,7 @@ export default {
   height: 100%;
 }
 .statbox {
-  border: 1px solid black;
+  border: 1px solid var(--color-border);
   border-radius: 25px;
   width: 200px;
   height: 200px;
@@ -91,14 +91,14 @@ export default {
 }
 
 .icon-passed {
-  color: #61c661 !important;
+  color: var(--color-passed) !important;
 }
 
 .icon-waiting {
-  color: #f8b379 !important;
+  color: var(--color-waiting) !important;
 }
 
 .icon-taken {
-  color: #f87979 !important;
+  color: var(--color-taken) !important;
 }
 </style>
