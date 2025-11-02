@@ -1,6 +1,6 @@
 <template>
   <div class="filter-container">
-    <o-dropdown aria-role="list" position="bottom-left" :mobile-modal="false" :inline="false">
+    <o-dropdown aria-role="list" position="bottom-left" :mobile-modal="false" :inline="false" teleport>
       <template #trigger>
         <o-button icon-left="filter" size="small">
           Filter by Status, Resort, and UY ({{ totalSelected }}/{{ totalOptions }})
@@ -202,8 +202,7 @@ export default {
 }
 
 .filter-container :deep(.o-drop__menu) {
-  position: absolute;
-  z-index: 1000;
+  z-index: 9999;
 }
 
 .filter-tabs {
