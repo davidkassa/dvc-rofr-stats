@@ -18,7 +18,7 @@
     "@vueform/multiselect": "^2.6.11",
     "bulma": "^1.0.4",
     "echarts": "^6.0.0",
-    "firebase": "^12.3.0",
+    "firebase": "^12.6.0",
     "moment": "^2.30.1",
     "moving-average": "^1.0.1",
     "register-service-worker": "^1.7.2",
