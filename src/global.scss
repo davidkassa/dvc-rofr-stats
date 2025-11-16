@@ -1,14 +1,178 @@
 // Set your colors before importing Bulma
 $primary: #61c661;
-$link: $primary;
 
-// Import Bulma with dark mode support
+// Import Bulma
 @import "bulma/bulma.scss";
-@import "bulma/sass/themes/dark.scss";
+
+// Import Oruga Bulma theme
+@import "@oruga-ui/theme-bulma/style.scss";
+
+
+// Global focus/accessibility outline color
+*:focus,
+*:focus-visible {
+  outline-color: $primary !important;
+}
+
+button:focus,
+.button:focus,
+select:focus,
+input:focus,
+a:focus {
+  outline-color: $primary !important;
+  border-color: $primary !important;
+  box-shadow: 0 0 0 0.125em rgba($primary, 0.25) !important;
+}
+
+// Checkbox styling - use primary green
+.checkbox input[type="checkbox"]:checked,
+input[type="checkbox"]:checked {
+  background-color: $primary !important;
+  border-color: $primary !important;
+}
+
+.checkbox input[type="checkbox"]:checked + .check,
+.check:checked {
+  background-color: $primary !important;
+  border-color: $primary !important;
+}
+
+// Oruga checkbox
+.o-checkbox input[type="checkbox"]:checked {
+  background-color: $primary !important;
+  border-color: $primary !important;
+}
+
+// Filter dropdown checkbox styling
+.filter-dropdown {
+  .o-field,
+  .field {
+    padding: 0 !important;
+    height: auto !important;
+    min-height: 0 !important;
+  }
+
+  .control {
+    padding: 0 !important;
+    height: auto !important;
+    min-height: 0 !important;
+  }
+
+  .checkbox {
+    display: flex !important;
+    align-items: flex-start !important;
+    padding: 2px 0 !important;
+    margin: 0 !important;
+    height: auto !important;
+    min-height: 24px !important;
+  }
+
+  .control-label {
+    padding: 0 0 0 6px !important;
+    margin: 0 !important;
+    line-height: 1.3 !important;
+    white-space: nowrap !important;
+  }
+
+  .check {
+//    margin: 2px 0 0 0 !important;
+    flex-shrink: 0 !important;
+  }
+}
+
+// Override Oruga table styles for proper theming
+.table-wrapper {
+  // Mobile card styling - only selected should be green
+  @media screen and (max-width: 768px) {
+    .table-inner.is-mobile {
+      tbody tr:not(.detail):not(.is-empty):not(.table-footer) {
+        background-color: white !important;
+        color: #363636 !important;
+
+        td {
+          color: #363636 !important;
+          border-bottom: 1px solid #dbdbdb !important;
+
+          &::before {
+            color: #363636 !important;
+            font-weight: 600 !important;
+          }
+
+          &:last-child {
+            border-bottom: none !important;
+          }
+        }
+
+        // Only selected row should be green
+        &.is-selected {
+          background-color: $primary !important;
+          color: white !important;
+
+          td {
+            color: white !important;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3) !important;
+
+            &::before {
+              color: white !important;
+            }
+          }
+        }
+
+        // Focus state for accessibility
+        &:focus,
+        &:focus-visible {
+          outline: 2px solid $primary !important;
+          outline-offset: 2px !important;
+        }
+      }
+    }
+
+    .table-mobile-sort {
+      padding: 10px 15px !important;
+      background-color: white !important;
+      border: none !important;
+      margin-bottom: 10px !important;
+
+      .button {
+        background-color: $primary !important;
+        color: white !important;
+        border-color: $primary !important;
+
+        .icon {
+          color: white !important;
+        }
+      }
+
+      select:focus {
+        border-color: $primary !important;
+        box-shadow: 0 0 0 0.125em rgba($primary, 0.25) !important;
+      }
+    }
+  }
+
+  // Desktop table - selected rows
+  .table tr.is-selected {
+    background-color: $primary !important;
+    color: white !important;
+
+    td {
+      color: white !important;
+      border-color: $primary !important;
+    }
+  }
+
+  // Focus outline should be green
+  .table:focus,
+  .table tr:focus {
+    outline: 2px solid $primary !important;
+    outline-offset: -2px !important;
+  }
+}
 
 // CSS Variables for light and dark mode support
 :root {
-  --color-passed: #61c661;
+  --primary: #61c661;
+  --color-passed: var(--primary);
   --color-waiting: #f8b379;
   --color-taken: #f87979;
   --color-border: #e0e0e0;
@@ -20,7 +184,8 @@ $link: $primary;
 // Dark mode colors
 @media (prefers-color-scheme: dark) {
   :root {
-    --color-passed: #6fd46f;
+    --primary: #6fd46f;
+    --color-passed: var(--primary);
     --color-waiting: #ffb366;
     --color-taken: #ff8585;
     --color-border: #4a4a4a;

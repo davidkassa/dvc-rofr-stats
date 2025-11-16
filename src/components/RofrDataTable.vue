@@ -4,7 +4,8 @@
     v-model:selected="localSelected"
     :striped="true"
     :hoverable="true"
-    :mobile-cards="false"
+    :mobile-cards="true"
+    :default-sort="['dateResolved', 'desc']"
     selectable
   >
     <o-table-column field="status" label="Status" sortable>
@@ -145,13 +146,5 @@ export default {
 </script>
 
 <style>
-/* Highlight selected table row */
-.o-table__tr--selected {
-  background-color: var(--color-passed) !important;
-  color: white !important;
-}
-
-.o-table__tr--selected:hover {
-  filter: brightness(0.85);
-}
+/* Component-specific overrides if needed */
 </style>

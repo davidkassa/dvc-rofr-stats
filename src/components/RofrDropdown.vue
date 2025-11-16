@@ -195,14 +195,16 @@ export default {
 
 .filter-dropdown {
   padding: 0 !important;
-  min-width: 280px;
-  max-width: 320px;
+  min-width: 320px;
+  width: max-content !important;
   box-shadow: 0 4px 16px var(--color-shadow);
   background: var(--bulma-scheme-main, white);
 }
 
 .filter-container :deep(.o-drop__menu) {
   z-index: 9999;
+  width: max-content !important;
+  max-width: none !important;
 }
 
 .filter-tabs {
@@ -240,12 +242,13 @@ export default {
 }
 
 .filter-content {
-  max-height: 350px;
+  max-height: 510px;
   overflow-y: auto;
+  padding: 10px 0;
 }
 
 .filter-section {
-  padding: 15px;
+  padding: 0 15px;
 }
 
 .filter-header {
@@ -272,19 +275,57 @@ export default {
 .filter-options {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 2px;
 
   :deep(.o-field) {
-    margin-bottom: 0;
+    margin-bottom: 0 !important;
+    height: auto !important;
+    min-height: 24px !important;
+    padding: 2px 0 !important;
+    --bulma-control-padding-vertical: 0 !important;
+    --bulma-control-padding-horizontal: 0 !important;
   }
 
   :deep(.o-checkbox) {
-    display: flex;
-    align-items: center;
+    display: flex !important;
+    align-items: flex-start !important;
+    line-height: 1.2 !important;
+    padding: 0 !important;
+    height: auto !important;
+    min-height: 24px !important;
+    white-space: nowrap !important;
   }
 
   :deep(.o-checkbox__label) {
-    padding-left: 4px;
+    padding-left: 4px !important;
+    line-height: 1.2 !important;
+    white-space: nowrap !important;
+  }
+
+  :deep(.field) {
+    margin-bottom: 0 !important;
+    height: auto !important;
+    min-height: 24px !important;
+  }
+
+  :deep(.control) {
+    height: auto !important;
+    min-height: 24px !important;
+    display: flex !important;
+    align-items: flex-start !important;
+    padding: 0 !important;
+  }
+
+  // Allow wrapping on smaller screens
+  @media screen and (max-width: 768px) {
+    :deep(.o-checkbox) {
+      white-space: normal !important;
+      height: auto !important;
+    }
+
+    :deep(.o-checkbox__label) {
+      white-space: normal !important;
+    }
   }
 }
 </style>

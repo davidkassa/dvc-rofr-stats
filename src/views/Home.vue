@@ -43,7 +43,7 @@ p {
 }
 
 a {
-  color: #61c661;
+  color: var(--primary);
   &:hover {
     text-decoration: underline;
   }

@@ -175,7 +175,7 @@ export default {
   text-align: left;
 
   a {
-    color: #61c661 !important;
+    color: var(--primary) !important;
     &:hover {
       text-decoration: underline;
     }

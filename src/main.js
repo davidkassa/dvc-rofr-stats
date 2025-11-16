@@ -1,5 +1,7 @@
 import { createApp } from "vue";
 import Oruga from "@oruga-ui/oruga-next";
+import { bulmaConfig } from "@oruga-ui/theme-bulma";
+
 import JsonCSV from "vue-json-csv";
 import { VueFire, VueFireFirestoreOptionsAPI } from "vuefire";
 
@@ -22,6 +24,7 @@ const app = createApp(App);
 
 app.use(router);
 app.use(Oruga, {
+  ...bulmaConfig,
   iconPack: "fas",
 });
 app.use(VueFire, {

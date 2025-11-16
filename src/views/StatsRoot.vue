@@ -10,8 +10,8 @@
       :taken-contracts="takenContracts"
     />
     <div class="data-details">
-      <div class="columns">
-        <div class="column has-text-centered-mobile has-text-left-tablet">
+      <div class="columns is-multiline">
+        <div class="column has-text-centered-mobile has-text-left-tablet is-flex is-flex-wrap-nowrap">
           <rofr-dropdown
             class="is-pulled-left mr-1"
             :resorts="resortData"
@@ -33,7 +33,7 @@
           <!-- pass data to child to disable values -->
           <!-- <rofr-dropdown :data=contractData /> -->
         </div>
-        <div class="column has-text-centered-mobile has-text-right-tablet">
+        <div class="column has-text-centered-mobile has-text-right-tablet is-full-mobile">
           <a
             v-show="Object.keys(meta).length !== 0"
             :href="meta.url"
@@ -392,7 +392,7 @@ export default {
   margin: 1%;
 
   a {
-    color: #61c661 !important;
+    color: var(--primary) !important;
     &:hover {
       text-decoration: underline;
     }
