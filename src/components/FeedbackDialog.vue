@@ -3,32 +3,64 @@
 </template>
 
 <script>
+import { useOruga } from "@oruga-ui/oruga-next";
+
+const FeedbackIframe = {
+  template: `
+    <div class="feedback-iframe-container">
+      <iframe
+        src="https://docs.google.com/forms/d/e/1FAIpQLSfQCt28Gxr5VfS_bi0vjN1FSRk2Q4XLOXkKU7vWOasFF3bE3Q/viewform?embedded=true"
+        frameborder="0"
+        marginheight="0"
+        marginwidth="0">
+        Loading...
+      </iframe>
+    </div>
+  `,
+};
+
 export default {
   props: {
     text: String,
   },
-  methods: {
-    showFeedbackDialog() {
-      this.$modal.open({
-        parent: this,
-        content:
-          '<iframe src="https://docs.google.com/forms/d/e/1FAIpQLSfQCt28Gxr5VfS_bi0vjN1FSRk2Q4XLOXkKU7vWOasFF3bE3Q/viewform?embedded=true" width="100%" height="100%" frameborder="0" marginheight="0" marginwidth="0">Loading...</iframe>',
+  setup() {
+    const oruga = useOruga();
+
+    const showFeedbackDialog = () => {
+      oruga.modal.open({
+        component: FeedbackIframe,
+        width: "90vw",
+        rootClass: "feedback-modal",
       });
-    },
+    };
+
+    return {
+      showFeedbackDialog,
+    };
   },
 };
 </script>
 
 <style lang="scss">
-.modal-card-body {
-  padding: 0;
-}
-// .modal,
-// .modal-content {
-//   --webkit-overflow-scrolling: touch;
-//   overflow-y: scroll;
-// }
-.modal-content div {
-  height: 1200px;
+.feedback-modal {
+  .modal-content {
+    width: 90vw !important;
+    max-width: 750px !important;
+    height: 85vh !important;
+  }
+
+  .feedback-iframe-container {
+    width: 100%;
+    height: 85vh;
+    min-height: 600px;
+    background: white;
+
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+    }
+  }
 }
 </style>

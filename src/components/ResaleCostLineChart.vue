@@ -23,24 +23,60 @@ export default {
     return {};
   },
   computed: {
+    isDarkMode() {
+      return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    },
+    textColor() {
+      return this.isDarkMode ? '#e0e0e0' : '#2c3e50';
+    },
     option: function () {
+      const passedColor = this.getColorFromCSS('--color-passed');
+      const waitingColor = this.getColorFromCSS('--color-waiting');
+      const takenColor = this.getColorFromCSS('--color-taken');
+
       return {
+        backgroundColor: 'transparent',
+        textStyle: {
+          color: this.textColor,
+        },
         tooltip: {
           trigger: "axis",
+          backgroundColor: this.isDarkMode ? 'rgba(50, 50, 50, 0.9)' : 'rgba(255, 255, 255, 0.9)',
+          borderColor: this.isDarkMode ? '#4a4a4a' : '#ccc',
+          textStyle: {
+            color: this.textColor,
+          },
         },
         legend: {
           data: ["Passed", "Waiting", "Taken"],
+          textStyle: {
+            color: this.textColor,
+          },
         },
         xAxis: {
           type: "time",
           axisLabel: {
             hideOverlap: true,
+            color: this.textColor,
+          },
+          axisLine: {
+            lineStyle: {
+              color: this.isDarkMode ? '#4a4a4a' : '#e0e0e0',
+            },
           },
           boundaryGap: false,
         },
         yAxis: {
           type: "value",
           boundaryGap: false,
+          axisLabel: {
+            color: this.textColor,
+          },
+          axisLine: {
+            lineStyle: {
+              color: this.isDarkMode ? '#4a4a4a' : '#e0e0e0',
+            },
+          },
           splitLine: {
             show: false,
           },
@@ -51,22 +87,22 @@ export default {
           {
             name: "Passed",
             type: "line",
-            lineStyle: { color: "#61c661" },
-            itemStyle: { color: "#61c661", borderColor: "#3CAA3C" },
+            lineStyle: { color: passedColor },
+            itemStyle: { color: passedColor, borderColor: this.darkenColor(passedColor) },
             data: this.passedPricesPerPointByDate,
           },
           {
             name: "Waiting",
             type: "line",
-            lineStyle: { color: "#f8b379" },
-            itemStyle: { color: "#f8b379", borderColor: "#D4894B" },
+            lineStyle: { color: waitingColor },
+            itemStyle: { color: waitingColor, borderColor: this.darkenColor(waitingColor) },
             data: this.waitingPricesPerPointByDate,
           },
           {
             name: "Taken",
             type: "line",
-            lineStyle: { color: "#f87979" },
-            itemStyle: { color: "#f87979", borderColor: "#D44B4B" },
+            lineStyle: { color: takenColor },
+            itemStyle: { color: takenColor, borderColor: this.darkenColor(takenColor) },
             data: this.takenPricesPerPointByDate,
           },
         ],
@@ -83,6 +119,18 @@ export default {
     },
   },
   methods: {
+    getColorFromCSS(cssVariable) {
+      return getComputedStyle(document.documentElement)
+        .getPropertyValue(cssVariable)
+        .trim();
+    },
+    darkenColor(color) {
+      const hex = color.replace('#', '');
+      const r = Math.max(0, parseInt(hex.substr(0, 2), 16) - 40);
+      const g = Math.max(0, parseInt(hex.substr(2, 2), 16) - 40);
+      const b = Math.max(0, parseInt(hex.substr(4, 2), 16) - 40);
+      return '#' + [r, g, b].map(x => x.toString(16).padStart(2, '0')).join('');
+    },
     getMovingAverageOfPricesPerPointByDate(status) {
       let prices = this.getPricesPerPointByDate(status);
       let movingAverage = [];

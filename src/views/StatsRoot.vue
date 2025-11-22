@@ -10,8 +10,8 @@
       :taken-contracts="takenContracts"
     />
     <div class="data-details">
-      <div class="columns">
-        <div class="column has-text-centered-mobile has-text-left-tablet">
+      <div class="columns is-multiline">
+        <div class="column has-text-centered-mobile has-text-left-tablet is-flex is-flex-wrap-nowrap">
           <rofr-dropdown
             class="is-pulled-left mr-1"
             :resorts="resortData"
@@ -26,23 +26,23 @@
             :labels="csvLabels"
             name="DVC_Stats.csv"
           >
-            <b-button icon-left="file-excel" size="is-small">
+            <o-button icon-left="file-excel" size="small">
               Download Data
-            </b-button>
+            </o-button>
           </download-csv>
           <!-- pass data to child to disable values -->
           <!-- <rofr-dropdown :data=contractData /> -->
         </div>
-        <div class="column has-text-centered-mobile has-text-right-tablet">
+        <div class="column has-text-centered-mobile has-text-right-tablet is-full-mobile">
           <a
             v-show="Object.keys(meta).length !== 0"
             :href="meta.url"
             target="_blank"
-            >{{ meta.text }} Last Updated: {{ meta.epoch | moment }}</a
+            >{{ meta.text }} Last Updated: {{ formatMoment(meta.epoch) }}</a
           >
         </div>
       </div>
-      <rofr-data-table :selected.sync="selected" :data="contractData" />
+      <rofr-data-table v-model:selected="selected" :data="contractData" />
     </div>
   </div>
 </template>
@@ -51,17 +51,13 @@
 import RofrDataTable from "@/components/RofrDataTable.vue";
 import RofrDropdown from "@/components/RofrDropdown.vue";
 import { db } from "../firebase";
+import { collection, query, where } from "firebase/firestore";
 import moment from "moment";
 
 export default {
   components: {
     RofrDataTable,
     RofrDropdown,
-  },
-  filters: {
-    moment: function (date) {
-      return moment.unix(Number(date)).format("ddd, MMM D LT"); //.format('MMMM Do YYYY, h:mm:ss a');
-    },
   },
   data() {
     return {
@@ -204,15 +200,18 @@ export default {
     };
   },
   firestore() {
+    const contractsQuery = query(
+      collection(db, "contracts"),
+      where(
+        "dateSent",
+        ">=",
+        moment().subtract(3, "months").format(moment.HTML5_FMT.DATE)
+      )
+    );
+
     return {
-      contracts: db
-        .collection("contracts")
-        .where(
-          "dateSent",
-          ">=",
-          moment().subtract(3, "months").format(moment.HTML5_FMT.DATE)
-        ),
-      metaStore: db.collection("meta"),
+      contracts: contractsQuery,
+      metaStore: collection(db, "meta"),
     };
   },
   computed: {
@@ -364,6 +363,9 @@ export default {
     },
   },
   methods: {
+    formatMoment(date) {
+      return moment.unix(Number(date)).format("ddd, MMM D LT");
+    },
     updateStatusFilter: function (statusFilter) {
       //console.log("Status Filter Changed:\n" + JSON.stringify(statusFilter) + "\n");
       this.statusFilter = statusFilter;
@@ -388,5 +390,12 @@ export default {
 <style scoped lang="scss">
 .data-details {
   margin: 1%;
+
+  a {
+    color: var(--primary) !important;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
 }
 </style>

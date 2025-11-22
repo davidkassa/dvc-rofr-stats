@@ -1,34 +1,212 @@
-// Import Bulma's core
-@import "~bulma/sass/utilities/_all.sass";
-
-// Set your colors
+// Set your colors before importing Bulma
 $primary: #61c661;
-$primary-invert: findColorInvert($primary);
 
-$passed: #61c661;
-$passed-invert: findColorInvert($passed);
+// Import Bulma
+@import "bulma/bulma.scss";
 
-// Setup $colors to use as bulma classes (e.g. 'is-twitter')
-$colors: (
-  "white": ($white, $black),
-  "black": ($black, $white),
-  "light": ($light, $light-invert),
-  "dark": ($dark, $dark-invert),
-  "primary": ($primary, $primary-invert),
-  "info": ($info, $info-invert),
-  "success": ($success, $success-invert),
-  "warning": ($warning, $warning-invert),
-  "danger": ($danger, $danger-invert),
-  "passed": ($passed, $passed-invert),
-  "waiting": (#f8b379, findColorInvert(#f8b379)),
-  "taken": (#f87979, findColorInvert(#f87979))
-);
+// Import Oruga Bulma theme
+@import "@oruga-ui/theme-bulma/style.scss";
 
-// Links
-$link: $primary;
-$link-invert: $primary-invert;
-$link-focus-border: $primary;
 
-// Import Bulma and Buefy styles
-@import "~bulma/bulma.sass";
-@import "~buefy/src/scss/buefy.scss";
+// Global focus/accessibility outline color
+*:focus,
+*:focus-visible {
+  outline-color: $primary !important;
+}
+
+button:focus,
+.button:focus,
+select:focus,
+input:focus,
+a:focus {
+  outline-color: $primary !important;
+  border-color: $primary !important;
+  box-shadow: 0 0 0 0.125em rgba($primary, 0.25) !important;
+}
+
+// Checkbox styling - use primary green
+.checkbox input[type="checkbox"]:checked,
+input[type="checkbox"]:checked {
+  background-color: $primary !important;
+  border-color: $primary !important;
+}
+
+.checkbox input[type="checkbox"]:checked + .check,
+.check:checked {
+  background-color: $primary !important;
+  border-color: $primary !important;
+}
+
+// Oruga checkbox
+.o-checkbox input[type="checkbox"]:checked {
+  background-color: $primary !important;
+  border-color: $primary !important;
+}
+
+// Filter dropdown checkbox styling
+.filter-dropdown {
+  .o-field,
+  .field {
+    padding: 0 !important;
+    height: auto !important;
+    min-height: 0 !important;
+  }
+
+  .control {
+    padding: 0 !important;
+    height: auto !important;
+    min-height: 0 !important;
+  }
+
+  .checkbox {
+    display: flex !important;
+    align-items: flex-start !important;
+    padding: 2px 0 !important;
+    margin: 0 !important;
+    height: auto !important;
+    min-height: 24px !important;
+  }
+
+  .control-label {
+    padding: 0 0 0 6px !important;
+    margin: 0 !important;
+    line-height: 1.3 !important;
+    white-space: nowrap !important;
+  }
+
+  .check {
+//    margin: 2px 0 0 0 !important;
+    flex-shrink: 0 !important;
+  }
+}
+
+// Override Oruga table styles for proper theming
+.table-wrapper {
+  // Mobile card styling - only selected should be green
+  @media screen and (max-width: 768px) {
+    .table-inner.is-mobile {
+      tbody tr:not(.detail):not(.is-empty):not(.table-footer) {
+        background-color: white !important;
+        color: #363636 !important;
+
+        td {
+          color: #363636 !important;
+          border-bottom: 1px solid #dbdbdb !important;
+
+          &::before {
+            color: #363636 !important;
+            font-weight: 600 !important;
+          }
+
+          &:last-child {
+            border-bottom: none !important;
+          }
+        }
+
+        // Only selected row should be green
+        &.is-selected {
+          background-color: $primary !important;
+          color: white !important;
+
+          td {
+            color: white !important;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3) !important;
+
+            &::before {
+              color: white !important;
+            }
+          }
+        }
+
+        // Focus state for accessibility
+        &:focus,
+        &:focus-visible {
+          outline: 2px solid $primary !important;
+          outline-offset: 2px !important;
+        }
+      }
+    }
+
+    .table-mobile-sort {
+      padding: 10px 15px !important;
+      background-color: white !important;
+      border: none !important;
+      margin-bottom: 10px !important;
+
+      .button {
+        background-color: $primary !important;
+        color: white !important;
+        border-color: $primary !important;
+
+        .icon {
+          color: white !important;
+        }
+      }
+
+      select:focus {
+        border-color: $primary !important;
+        box-shadow: 0 0 0 0.125em rgba($primary, 0.25) !important;
+      }
+    }
+  }
+
+  // Desktop table - selected rows
+  .table tr.is-selected {
+    background-color: $primary !important;
+    color: white !important;
+
+    td {
+      color: white !important;
+      border-color: $primary !important;
+    }
+  }
+
+  // Focus outline should be green
+  .table:focus,
+  .table tr:focus {
+    outline: 2px solid $primary !important;
+    outline-offset: -2px !important;
+  }
+}
+
+// CSS Variables for light and dark mode support
+:root {
+  --primary: #61c661;
+  --color-passed: var(--primary);
+  --color-waiting: #f8b379;
+  --color-taken: #f87979;
+  --color-border: #e0e0e0;
+  --color-bg-secondary: #f5f5f5;
+  --color-text-primary: #2c3e50;
+  --color-shadow: rgba(0, 0, 0, 0.25);
+}
+
+// Dark mode colors
+@media (prefers-color-scheme: dark) {
+  :root {
+    --primary: #6fd46f;
+    --color-passed: var(--primary);
+    --color-waiting: #ffb366;
+    --color-taken: #ff8585;
+    --color-border: #4a4a4a;
+    --color-bg-secondary: #2a2a2a;
+    --color-text-primary: #e0e0e0;
+    --color-shadow: rgba(255, 255, 255, 0.1);
+  }
+}
+
+// Custom colors for status
+.has-background-passed {
+  background-color: var(--color-passed) !important;
+  color: #fff !important;
+}
+
+.has-background-waiting {
+  background-color: var(--color-waiting) !important;
+  color: #fff !important;
+}
+
+.has-background-taken {
+  background-color: var(--color-taken) !important;
+  color: #fff !important;
+}

@@ -1,47 +1,49 @@
 <template>
   <div class="data-details">
-    <b-table :data="data" :mobile-cards="true">
-      <b-table-column label="" v-slot="props" :visible="data.length > 0">
-        <b>{{ props.row.name }}</b>
-      </b-table-column>
+    <o-table :data="data" :mobile-cards="true" :show-header="data.length > 0">
+      <o-table-column label="">
+        <template v-slot="props">
+          <b>{{ props.row.name }}</b>
+        </template>
+      </o-table-column>
 
-      <b-table-column
+      <o-table-column
         label="Selected Contract"
-        v-slot="props"
-        :visible="data.length > 0"
         numeric
       >
-        {{ props.row.selected }}
-      </b-table-column>
+        <template v-slot="props">
+          {{ props.row.selected }}
+        </template>
+      </o-table-column>
 
-      <b-table-column
+      <o-table-column
         label="All Contracts"
-        v-slot="props"
-        :visible="data.length > 0"
         numeric
       >
-        {{ props.row.all }}
-      </b-table-column>
+        <template v-slot="props">
+          {{ props.row.all }}
+        </template>
+      </o-table-column>
 
-      <b-table-column
+      <o-table-column
         label="Same Resort"
-        v-slot="props"
-        :visible="data.length > 0"
         numeric
       >
-        {{ props.row.resort }}
-      </b-table-column>
+        <template v-slot="props">
+          {{ props.row.resort }}
+        </template>
+      </o-table-column>
 
-      <b-table-column
+      <o-table-column
         label="Same UY"
-        v-slot="props"
-        :visible="data.length > 0"
         numeric
       >
-        {{ props.row.uy }}
-      </b-table-column>
+        <template v-slot="props">
+          {{ props.row.uy }}
+        </template>
+      </o-table-column>
 
-      <template v-slot:empty>
+      <template #empty>
         <section class="section">
           <div class="has-text-centered">
             <p>
@@ -61,7 +63,7 @@
           </div>
         </section>
       </template>
-    </b-table>
+    </o-table>
     <!-- {{ selected }} -->
   </div>
 </template>
@@ -171,5 +173,24 @@ export default {
 .data-details {
   margin: 1%;
   text-align: left;
+
+  a {
+    color: var(--primary) !important;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+.data-details :deep(.o-table) {
+  width: 100%;
+}
+
+.data-details :deep(.o-table__wrapper) {
+  width: 100%;
+}
+
+.data-details :deep(table) {
+  width: 100%;
 }
 </style>

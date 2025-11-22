@@ -1,5 +1,4 @@
 import * as cheerio from "cheerio";
-import * as admin from "firebase-admin";
 import { logger } from "firebase-functions/v2";
 import { onRequest } from "firebase-functions/v2/https";
 import { onSchedule, ScheduleOptions } from "firebase-functions/v2/scheduler";
@@ -9,16 +8,11 @@ import { URL } from "url";
 import { Contract } from "./contract";
 import { Meta } from "./meta";
 
-// Remove this
-// admin.initializeApp();
-// const firestore = admin.firestore();
-
-// Replace with this
 import { initializeApp } from "firebase-admin/app";
 import { getFirestore } from "firebase-admin/firestore";
 
 initializeApp();
-const firestore = getFirestore();
+const db = getFirestore();
 
 const runtimeOpts = {
   timeoutSeconds: 300,
@@ -117,13 +111,13 @@ const getMetadata = async (): Promise<Meta[]> => {
   //     "https://www.disboards.com/threads/rofr-thread-april-to-june-2018-please-see-first-post-for-instructions-formatting-tool.3674375/#post-59034110",
   //   epoch: "1527551590"
   // };
-  const snapshot = await firestore.collection("meta").get();
+  const snapshot = await db.collection("meta").get();
   // Object.keys(s.val() || {}) .map(k => s.val()[k]);
   const meta: Meta[] = [];
-  for (const doc of snapshot.docs) {
-    const data = doc.data();
+  for (const docSnapshot of snapshot.docs) {
+    const data = docSnapshot.data();
     const m = new Meta();
-    m.id = doc.id;
+    m.id = docSnapshot.id;
     m.active = data.active;
     m.epoch = data.epoch;
     m.text = data.text;
@@ -161,11 +155,11 @@ const getRawHtml = async (url: string): Promise<cheerio.Root> => {
 };
 
 const parseEditDateFromHtml = (
-  parentSelector,
-  childPostDateSelector,
-  childEditDateSelector,
-  $
-) => {
+  parentSelector: string,
+  childPostDateSelector: string,
+  childEditDateSelector: string,
+  $: cheerio.Root
+): string | undefined => {
   // https://www.disboa......#post-59034110
   // id=post-59034110
   // div class=editDate class=DateTime data-time data-diff, epoch
@@ -174,7 +168,7 @@ const parseEditDateFromHtml = (
   // let timeNode = $(hash + " .editDate .DateTime");
   let timeNode = $(parentSelector + " " + childEditDateSelector);
   let epoch = timeNode.attr("data-timestamp"); // "epoch";
-  if (!epoch || !moment.unix(epoch).isValid()) {
+  if (!epoch || !moment.unix(Number(epoch)).isValid()) {
     const editStr = timeNode.attr("title"); // format: Apr 3, 2018 at 1:51 PM
     if (editStr) {
       epoch = moment(editStr, "MMM D, YYYY at h:mm A").unix().toString();
@@ -183,7 +177,7 @@ const parseEditDateFromHtml = (
   if (!epoch) {
     timeNode = $(parentSelector + " " + childPostDateSelector);
     epoch = timeNode.attr("data-timestamp"); // "epoch";
-    if (!epoch || !moment.unix(epoch).isValid()) {
+    if (!epoch || !moment.unix(Number(epoch)).isValid()) {
       const dateStr = timeNode.attr("title"); // format: Apr 3, 2018 at 1:51 PM
       if (dateStr) {
         epoch = moment(dateStr, "MMM D, YYYY at h:mm A").unix().toString();
@@ -195,10 +189,10 @@ const parseEditDateFromHtml = (
 };
 
 const parseContractsFromHtml = (
-  parentSelector,
-  childSelector,
-  $,
-  maxDate
+  parentSelector: string,
+  childSelector: string,
+  $: cheerio.Root,
+  maxDate: moment.Moment
 ): Contract[] => {
   // https://www.disboa......#post-59034110
   // id=post-59034110
@@ -270,7 +264,9 @@ const parseLine = (line: string, maxDate: moment.Moment): Contract => {
   return contract;
 };
 
-const saveChangeDataToFirebase = async (data) => {
+const saveChangeDataToFirebase = async (
+  data: Array<{ meta: Meta; contracts: Contract[] }>
+): Promise<boolean> => {
   let result = true;
   // wanna try to run and save all of these
   for (const d of data) {
@@ -284,11 +280,13 @@ const saveChangeDataToFirebase = async (data) => {
   return result;
 };
 
-const saveContractsToFirebase = async (data) => {
+const saveContractsToFirebase = async (
+  data: { meta: Meta; contracts: Contract[] }
+): Promise<boolean> => {
   logger.debug("saving contracts: " + data.contracts.length);
   // get contracts from DB, wrap with found bool
   try {
-    const contractSnapshot = await firestore
+    const contractSnapshot = await db
       .collection("contracts")
       .where("metaId", "==", data.meta.id)
       .get();
@@ -304,14 +302,14 @@ const saveContractsToFirebase = async (data) => {
         dbContract.found = true;
       }
 
-      await firestore
+      await db
         .collection("contracts")
         .doc(c.checksum)
         .set({ ...c }, { merge: true });
     }
     // delete any originals with found=false bool
     for (const d of dbContracts.filter((f) => f.found === false)) {
-      await firestore.collection("contracts").doc(d.id).delete();
+      await db.collection("contracts").doc(d.id).delete();
     }
   } catch (err) {
     logger.error(err);
@@ -319,10 +317,10 @@ const saveContractsToFirebase = async (data) => {
   }
   return true;
 };
-const saveMetaToFirebase = async (meta: Meta) => {
+const saveMetaToFirebase = async (meta: Meta): Promise<boolean> => {
   logger.debug("saving meta: " + meta.id);
 
-  await firestore
+  await db
     .collection("meta")
     .doc(meta.id)
     .set({ epoch: meta.epoch }, { merge: true });
