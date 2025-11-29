@@ -41,4 +41,11 @@ p {
   text-align: center;
   margin: 0 auto;
 }
+
+a {
+  color: var(--primary);
+  &:hover {
+    text-decoration: underline;
+  }
+}
 </style>

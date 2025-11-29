@@ -1,22 +1,98 @@
 <template>
-  <div>
-    <vueMultiSelect
-      v-model="values"
-      search
-      :options="options"
-      :filters="filters"
-      :btn-label="btnLabel"
-      :select-options="data"
-      @selectionChanged="updateValues"
-    />
+  <div class="filter-container">
+    <o-dropdown aria-role="list" position="bottom-left" :mobile-modal="false" :inline="false" teleport>
+      <template #trigger>
+        <o-button icon-left="filter" size="small">
+          Filter by Status, Resort, and UY ({{ totalSelected }}/{{ totalOptions }})
+        </o-button>
+      </template>
+
+      <o-dropdown-item aria-role="listitem" custom class="filter-dropdown" @click.stop>
+        <div class="filter-tabs">
+          <div class="tabs">
+            <a
+              :class="{ 'is-active': activeTab === 'status' }"
+              @click.stop="activeTab = 'status'"
+            >
+              Status
+            </a>
+            <a
+              :class="{ 'is-active': activeTab === 'resort' }"
+              @click.stop="activeTab = 'resort'"
+            >
+              Resort
+            </a>
+            <a
+              :class="{ 'is-active': activeTab === 'useYear' }"
+              @click.stop="activeTab = 'useYear'"
+            >
+              Use Year
+            </a>
+          </div>
+        </div>
+
+        <div class="filter-content">
+          <div v-show="activeTab === 'status'" class="filter-section">
+            <div class="filter-header">
+              <div class="filter-actions">
+                <a @click.prevent.stop="selectAllStatus">Select All</a> |
+                <a @click.prevent.stop="deselectAllStatus">Clear</a>
+              </div>
+            </div>
+            <div class="filter-options">
+              <div v-for="option in statusOptions" :key="option.value" @click.stop>
+                <o-field>
+                  <o-checkbox v-model="statusValues" :native-value="option.value">
+                    {{ option.label }}
+                  </o-checkbox>
+                </o-field>
+              </div>
+            </div>
+          </div>
+
+          <div v-show="activeTab === 'resort'" class="filter-section">
+            <div class="filter-header">
+              <div class="filter-actions">
+                <a @click.prevent.stop="selectAllResorts">Select All</a> |
+                <a @click.prevent.stop="deselectAllResorts">Clear</a>
+              </div>
+            </div>
+            <div class="filter-options">
+              <div v-for="option in resortOptions" :key="option.value" @click.stop>
+                <o-field>
+                  <o-checkbox v-model="resortValues" :native-value="option.value">
+                    {{ option.label }}
+                  </o-checkbox>
+                </o-field>
+              </div>
+            </div>
+          </div>
+
+          <div v-show="activeTab === 'useYear'" class="filter-section">
+            <div class="filter-header">
+              <div class="filter-actions">
+                <a @click.prevent.stop="selectAllUseYears">Select All</a> |
+                <a @click.prevent.stop="deselectAllUseYears">Clear</a>
+              </div>
+            </div>
+            <div class="filter-options">
+              <div v-for="option in useYearOptions" :key="option.value" @click.stop>
+                <o-field>
+                  <o-checkbox v-model="useYearValues" :native-value="option.value">
+                    {{ option.label }}
+                  </o-checkbox>
+                </o-field>
+              </div>
+            </div>
+          </div>
+        </div>
+      </o-dropdown-item>
+    </o-dropdown>
   </div>
 </template>
 
 <script>
-import vueMultiSelect from "vue-multi-select";
-import "vue-multi-select/dist/lib/vue-multi-select.css";
 export default {
-  components: { vueMultiSelect },
   props: {
     resorts: { required: true },
     statusEventName: { type: String, default: "statusFilterChanged" },
@@ -24,197 +100,232 @@ export default {
     useYearEventName: { type: String, default: "useYearFilterChanged" },
   },
   data() {
-    let listData = [
-      {
-        name: "Status",
-        list: [
-          {
-            name: "Passed",
-            value: "Passed",
-            category: "Status",
-          },
-          {
-            name: "Waiting",
-            value: "Waiting",
-            category: "Status",
-          },
-          {
-            name: "Taken",
-            value: "Taken",
-            category: "Status",
-          },
-        ],
-      },
-      {
-        name: "Resort",
-        list: this.resorts.map((r) => {
-          return { category: "Resort", ...r };
-        }),
-      },
-      {
-        name: "Use Year",
-        list: [
-          {
-            name: "January",
-            value: "Jan",
-            category: "UseYear",
-          },
-          {
-            name: "February",
-            value: "Feb",
-            category: "UseYear",
-          },
-          {
-            name: "March",
-            value: "Mar",
-            category: "UseYear",
-          },
-          {
-            name: "April",
-            value: "Apr",
-            category: "UseYear",
-          },
-          { name: "May", value: "May", category: "UseYear" },
-          { name: "June", value: "Jun", category: "UseYear" },
-          { name: "July", value: "Jul", category: "UseYear" },
-          {
-            name: "August",
-            value: "Aug",
-            category: "UseYear",
-          },
-          {
-            name: "September",
-            value: "Sep",
-            category: "UseYear",
-          },
-          {
-            name: "October",
-            value: "Oct",
-            category: "UseYear",
-          },
-          {
-            name: "November",
-            value: "Nov",
-            category: "UseYear",
-          },
-          {
-            name: "December",
-            value: "Dec",
-            category: "UseYear",
-          },
-        ],
-      },
+    const statusOptions = [
+      { label: "Passed", value: "Passed" },
+      { label: "Waiting", value: "Waiting" },
+      { label: "Taken", value: "Taken" },
     ];
+
+    const resortOptions = this.resorts.map((r) => ({
+      label: r.name,
+      value: r.value,
+    }));
+
+    const useYearOptions = [
+      { label: "January", value: "Jan" },
+      { label: "February", value: "Feb" },
+      { label: "March", value: "Mar" },
+      { label: "April", value: "Apr" },
+      { label: "May", value: "May" },
+      { label: "June", value: "Jun" },
+      { label: "July", value: "Jul" },
+      { label: "August", value: "Aug" },
+      { label: "September", value: "Sep" },
+      { label: "October", value: "Oct" },
+      { label: "November", value: "Nov" },
+      { label: "December", value: "Dec" },
+    ];
+
     return {
-      btnLabel: (values) =>
-        `Filter by Status, Resort, and UY (${values.length})`,
-      name: "",
-      values: listData.flatMap((d) => d.list),
-      data: listData,
-      filters: [
-        // TODO - filter Resort on WDW, MK, Epcot, AK, D. Springs
-        {
-          nameAll: "Select All",
-          nameNotAll: "Deselect All",
-          func: () => {
-            return true;
-          },
-        },
-        // {
-        //   nameAll: "select <= 10",
-        //   nameNotAll: "Deselect <= 10",
-        //   func: elem => {
-        //     if (elem.name <= 10) {
-        //       return true;
-        //     }
-        //     return false;
-        //   }
-        // },
-        // {
-        //   nameAll: "Select contains 2",
-        //   nameNotAll: "Deselect contains 2",
-        //   func: elem => {
-        //     if (elem.name.indexOf("2") !== -1) {
-        //       return true;
-        //     }
-        //     return false;
-        //   }
-        // }
-      ],
-      options: {
-        multi: true,
-        groups: true,
-        cssSelected: (option) =>
-          option["selected"] ? { "font-weight": "bold" } : "",
-      },
-      selectedStatuses: [],
-      selectedResorts: [],
-      selectedUseYears: [],
+      activeTab: 'status',
+      statusOptions,
+      resortOptions,
+      useYearOptions,
+      statusValues: statusOptions.map(o => o.value),
+      resortValues: resortOptions.map(o => o.value),
+      useYearValues: useYearOptions.map(o => o.value),
     };
   },
   computed: {
-    // selectedStatuses: {
-    //   get: function() {
-    //     return this.values.filter(s => s.category == "Status" && s.selected);
-    //   },
-    //   set: function(statuses) {
-    //   }
-    // }
+    totalSelected() {
+      return this.statusValues.length + this.resortValues.length + this.useYearValues.length;
+    },
+    totalOptions() {
+      return this.statusOptions.length + this.resortOptions.length + this.useYearOptions.length;
+    },
+  },
+  watch: {
+    statusValues: {
+      handler(newValues) {
+        this.$emit(this.statusEventName, newValues);
+      },
+      immediate: true,
+    },
+    resortValues: {
+      handler(newValues) {
+        this.$emit(this.resortEventName, newValues);
+      },
+      immediate: true,
+    },
+    useYearValues: {
+      handler(newValues) {
+        this.$emit(this.useYearEventName, newValues);
+      },
+      immediate: true,
+    },
   },
   methods: {
-    updateValues(values) {
-      this.values = values;
-      this.updateSelectedStatuses(
-        this.values.filter((s) => s.category == "Status")
-      );
-      this.updateSelectedResorts(
-        this.values.filter((s) => s.category == "Resort")
-      );
-      this.updateSelectedUseYears(
-        this.values.filter((s) => s.category == "UseYear")
-      );
+    selectAllStatus() {
+      this.statusValues = this.statusOptions.map(o => o.value);
     },
-    updateSelectedStatuses(statuses) {
-      if (this.selectedStatuses.length != statuses.length) {
-        this.selectedStatuses = statuses;
-        this.$emit(
-          this.statusEventName,
-          this.selectedStatuses.map((s) => s.value)
-        );
-      }
+    deselectAllStatus() {
+      this.statusValues = [];
     },
-    updateSelectedResorts(resorts) {
-      if (this.selectedResorts.length != resorts.length) {
-        this.selectedResorts = resorts;
-        this.$emit(
-          this.resortEventName,
-          this.selectedResorts.map((s) => s.value)
-        );
-      }
+    selectAllResorts() {
+      this.resortValues = this.resortOptions.map(o => o.value);
     },
-    updateSelectedUseYears(useYears) {
-      if (this.selectedUseYears.length != useYears.length) {
-        this.selectedUseYears = useYears;
-        this.$emit(
-          this.useYearEventName,
-          this.selectedUseYears.map((s) => s.value)
-        );
-      }
+    deselectAllResorts() {
+      this.resortValues = [];
+    },
+    selectAllUseYears() {
+      this.useYearValues = this.useYearOptions.map(o => o.value);
+    },
+    deselectAllUseYears() {
+      this.useYearValues = [];
     },
   },
 };
 </script>
 
 <style scoped lang="scss">
-.select:not(.is-multiple)::after,
-.select:not(.is-multiple):not(.is-loading)::after,
-.navbar-link::after {
-  content: none;
+.filter-container {
+  display: inline-block;
+  position: relative;
 }
-</style>
-<style lang="scss">
-.select .checkBoxContainer {
-  // does not work in Firefox
-  overflow-y: overlay !important;
+
+.filter-dropdown {
+  padding: 0 !important;
+  min-width: 320px;
+  width: max-content !important;
+  box-shadow: 0 4px 16px var(--color-shadow);
+  background: var(--bulma-scheme-main, white);
+}
+
+.filter-container :deep(.o-drop__menu) {
+  z-index: 9999;
+  width: max-content !important;
+  max-width: none !important;
+}
+
+.filter-tabs {
+  border-bottom: 1px solid var(--color-border);
+  background-color: var(--color-bg-secondary);
+
+  .tabs {
+    display: flex;
+    margin: 0;
+    padding: 0;
+
+    a {
+      flex: 1;
+      padding: 10px;
+      text-align: center;
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      color: var(--color-text-primary);
+      font-size: 13px;
+      transition: all 0.2s;
+
+      &:hover {
+        background-color: var(--bulma-scheme-main-bis, #ececec);
+        text-decoration: none;
+      }
+
+      &.is-active {
+        color: var(--color-passed);
+        border-bottom-color: var(--color-passed);
+        background-color: var(--bulma-scheme-main, white);
+        font-weight: 600;
+      }
+    }
+  }
+}
+
+.filter-content {
+  max-height: 510px;
+  overflow-y: auto;
+  padding: 10px 0;
+}
+
+.filter-section {
+  padding: 0 15px;
+}
+
+.filter-header {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.filter-actions {
+  font-size: 12px;
+
+  a {
+    cursor: pointer;
+    color: var(--color-passed);
+    padding: 0 4px;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+.filter-options {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+
+  :deep(.o-field) {
+    margin-bottom: 0 !important;
+    height: auto !important;
+    min-height: 24px !important;
+    padding: 2px 0 !important;
+    --bulma-control-padding-vertical: 0 !important;
+    --bulma-control-padding-horizontal: 0 !important;
+  }
+
+  :deep(.o-checkbox) {
+    display: flex !important;
+    align-items: flex-start !important;
+    line-height: 1.2 !important;
+    padding: 0 !important;
+    height: auto !important;
+    min-height: 24px !important;
+    white-space: nowrap !important;
+  }
+
+  :deep(.o-checkbox__label) {
+    padding-left: 4px !important;
+    line-height: 1.2 !important;
+    white-space: nowrap !important;
+  }
+
+  :deep(.field) {
+    margin-bottom: 0 !important;
+    height: auto !important;
+    min-height: 24px !important;
+  }
+
+  :deep(.control) {
+    height: auto !important;
+    min-height: 24px !important;
+    display: flex !important;
+    align-items: flex-start !important;
+    padding: 0 !important;
+  }
+
+  // Allow wrapping on smaller screens
+  @media screen and (max-width: 768px) {
+    :deep(.o-checkbox) {
+      white-space: normal !important;
+      height: auto !important;
+    }
+
+    :deep(.o-checkbox__label) {
+      white-space: normal !important;
+    }
+  }
 }
 </style>

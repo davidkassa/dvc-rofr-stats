@@ -1,26 +1,19 @@
-import Vue from "vue";
-import VueRouter from "vue-router";
-import Home from "../views/Home.vue";
-// import About from "./views/About.vue";
-const StatsRoot = () => import(/*  */ "../views/StatsRoot.vue");
+import { createRouter, createWebHistory } from "vue-router";
+
+const Home = () => import("../views/Home.vue");
+const StatsRoot = () => import("../views/StatsRoot.vue");
 const CompareContracts = () => import("../views/CompareContracts.vue");
 const ResaleCosts = () => import("../views/ResaleCosts.vue");
 const WaitTimes = () => import("../views/WaitTimes.vue");
 
-Vue.use(VueRouter);
-
-export default new VueRouter({
+const router = createRouter({
+  history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: "/",
       name: "home",
       component: Home,
     },
-    // {
-    //   path: "/about",
-    //   name: "about",
-    //   component: About
-    // },
     {
       path: "/stats",
       redirect: "/",
@@ -45,3 +38,5 @@ export default new VueRouter({
     },
   ],
 });
+
+export default router;
