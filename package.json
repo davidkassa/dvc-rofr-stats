@@ -37,7 +37,7 @@
     "autoprefixer": "^10.4.23",
     "cheerio": "^1.1.2",
     "eslint": "^9.39.2",
-    "eslint-plugin-prettier": "^5.5.3",
+    "eslint-plugin-prettier": "^5.5.5",
     "eslint-plugin-vue": "^10.6.2",
     "jsdom": "^27.4.0",
     "prettier": "^3.7.4",
