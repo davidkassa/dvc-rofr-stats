@@ -13,7 +13,7 @@
     "test:firebase": "set GOOGLE_APPLICATION_CREDENTIALS=../service-key-dev.json.local& npm run shell --prefix functions"
   },
   "dependencies": {
-    "@fortawesome/fontawesome-free": "^7.0.1",
+    "@fortawesome/fontawesome-free": "^7.2.0",
     "@oruga-ui/oruga-next": "^0.12.6",
     "@oruga-ui/theme-bulma": "^0.8.3",
     "@vueform/multiselect": "^2.6.11",
