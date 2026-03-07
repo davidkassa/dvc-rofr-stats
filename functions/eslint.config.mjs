@@ -1,8 +1,6 @@
-import _import from "eslint-plugin-import";
 import jsdoc from "eslint-plugin-jsdoc";
 import preferArrow from "eslint-plugin-prefer-arrow";
 import unicorn from "eslint-plugin-unicorn";
-import react from "eslint-plugin-react";
 import typescriptEslint from "@typescript-eslint/eslint-plugin";
 import { fixupPluginRules } from "@eslint/compat";
 import globals from "globals";
@@ -25,11 +23,9 @@ export default [
   {
     files: ["**/*.ts"],
     plugins: {
-      import: fixupPluginRules(_import),
       jsdoc,
       "prefer-arrow": preferArrow,
       unicorn,
-      react,
       "@typescript-eslint": typescriptEslint,
     },
 
@@ -150,10 +146,6 @@ export default [
       ],
 
       "id-match": "error",
-      "import/no-deprecated": "warn",
-      "import/no-extraneous-dependencies": "error",
-      "import/no-internal-modules": "error",
-      "import/no-unassigned-import": "warn",
       indent: "off",
       "jsdoc/check-alignment": "error",
       "jsdoc/check-indentation": "error",
