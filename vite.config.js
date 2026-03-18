@@ -16,6 +16,10 @@ export default defineConfig({
         silenceDeprecations: ["import", "if-function"],
       },
     },
+    lightningcss: {
+      // Allow invalid media queries (e.g. var() in media queries from Bulma)
+      errorRecovery: true,
+    },
   },
   resolve: {
     alias: [
@@ -30,9 +34,6 @@ export default defineConfig({
     ],
   },
   build: {
-    // Use esbuild for CSS minification — lightningcss rejects invalid
-    // `var()` inside media queries emitted by Bulma/Oruga dependencies
-    cssMinify: "esbuild",
     // Disable modulepreload to avoid CORS issues with crossorigin attribute
     modulePreload: false,
     rollupOptions: {
