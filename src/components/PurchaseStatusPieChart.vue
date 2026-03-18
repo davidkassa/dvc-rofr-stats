@@ -61,7 +61,7 @@ export default {
           right: 20,
           top: 20,
           bottom: 50,
-          containLabel: true,
+          outerBoundsMode: "same",
         },
         series: [
           {
