@@ -24,14 +24,15 @@ export default defineConfig({
         replacement: path.resolve(__dirname, "./src"),
       },
       {
-        find: /^~.+/,
-        replacement: (val) => {
-          return val.replace(/^~/, "node_modules/");
-        },
+        find: /^~/,
+        replacement: "node_modules/",
       },
     ],
   },
   build: {
+    // Use esbuild for CSS minification — lightningcss rejects invalid
+    // `var()` inside media queries emitted by Bulma/Oruga dependencies
+    cssMinify: "esbuild",
     // Disable modulepreload to avoid CORS issues with crossorigin attribute
     modulePreload: false,
     rollupOptions: {
