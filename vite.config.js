@@ -13,8 +13,12 @@ export default defineConfig({
     preprocessorOptions: {
       scss: {
         api: "modern-compiler",
-        silenceDeprecations: ["import"],
+        silenceDeprecations: ["import", "if-function"],
       },
+    },
+    lightningcss: {
+      // Allow invalid media queries (e.g. var() in media queries from Bulma)
+      errorRecovery: true,
     },
   },
   resolve: {
@@ -24,10 +28,8 @@ export default defineConfig({
         replacement: path.resolve(__dirname, "./src"),
       },
       {
-        find: /^~.+/,
-        replacement: (val) => {
-          return val.replace(/^~/, "node_modules/");
-        },
+        find: /^~/,
+        replacement: "node_modules/",
       },
     ],
   },

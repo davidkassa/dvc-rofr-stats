@@ -14,8 +14,8 @@
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^7.2.0",
-    "@oruga-ui/oruga-next": "^0.12.6",
-    "@oruga-ui/theme-bulma": "^0.8.3",
+    "@oruga-ui/oruga-next": "^0.13.1",
+    "@oruga-ui/theme-bulma": "^0.9.0",
     "@vueform/multiselect": "^2.6.11",
     "bulma": "^1.0.4",
     "echarts": "^6.0.0",
@@ -23,7 +23,7 @@
     "moment": "^2.30.1",
     "moving-average": "^1.0.1",
     "register-service-worker": "^1.7.2",
-    "vue": "^3.5.29",
+    "vue": "^3.5.30",
     "vue-echarts": "^8.0.1",
     "vue-gtag": "^3.7.0",
     "vue-json-csv": "^2.1.0",
@@ -31,7 +31,7 @@
     "vuefire": "^3.1.24"
   },
   "devDependencies": {
-    "@vitejs/plugin-vue": "^6.0.4",
+    "@vitejs/plugin-vue": "^6.0.5",
     "@vue/eslint-config-prettier": "^10.2.0",
     "@vue/test-utils": "^2.4.6",
     "autoprefixer": "^10.4.27",
@@ -39,11 +39,11 @@
     "eslint": "^10.0.3",
     "eslint-plugin-prettier": "^5.5.5",
     "eslint-plugin-vue": "^10.8.0",
-    "jsdom": "^28.1.0",
+    "jsdom": "^29.0.0",
     "prettier": "^3.8.1",
-    "sass": "^1.97.3",
-    "vite": "^7.3.1",
-    "vitest": "^4.0.18"
+    "sass": "^1.98.0",
+    "vite": "^8.0.0",
+    "vitest": "^4.1.0"
   },
   "browserslist": [
     "> 1%",
