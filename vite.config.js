@@ -13,7 +13,7 @@ export default defineConfig({
     preprocessorOptions: {
       scss: {
         api: "modern-compiler",
-        silenceDeprecations: ["import"],
+        silenceDeprecations: ["import", "if-function"],
       },
     },
   },
