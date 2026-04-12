@@ -23,7 +23,7 @@ jobs:
       - name: Update Browserslist database
         run: npx update-browserslist-db@latest
       - name: Create PR if there are changes
-        uses: peter-evans/create-pull-request@v7
+        uses: peter-evans/create-pull-request@v8
         with:
           branch: browserslist-update
           base: develop
