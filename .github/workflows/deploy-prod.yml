@@ -21,7 +21,6 @@ jobs:
       - name: Setup Node.js environment
         uses: actions/setup-node@v6
         with:
-          # Version Spec of the version to use.  Examples: 12.x, 10.15.1, >=10.15.0
           node-version: 22
           cache: "npm"
       - name: Build
@@ -35,6 +34,4 @@ jobs:
         with:
           credentials_json: "${{secrets.FIREBASE_SERVICE_ACCOUNT_PROD}}"
       - name: Deploy
-        run: |
-          npm i -g firebase-tools@latest
-          firebase deploy --project prod --json
+        run: npx firebase-tools@latest deploy --project prod --non-interactive --force --json
