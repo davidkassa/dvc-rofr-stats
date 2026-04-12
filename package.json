@@ -6,7 +6,7 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "lint": "npm run lint --prefix functions && eslint --ext .js,.vue --ignore-path .gitignore --fix src",
+    "lint": "npm run lint --prefix functions && eslint --fix src",
     "test:unit": "npm run build --prefix functions && vitest run",
     "test:unit:watch": "npm run build --prefix functions && vitest",
     "build-staging": "vite build --mode staging",

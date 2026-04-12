@@ -12,8 +12,7 @@
     </div>
     <footer class="footer">
       &copy; {{ new Date().getFullYear() }} David Kassa. Made with
-      <o-icon pack="fab" icon="fort-awesome" size="small" /> in Madison,
-      WI<br />
+      <o-icon pack="fab" icon="fort-awesome" size="small" /> in Madison, WI<br />
       <a href="https://github.com/davidkassa/dvc-rofr-stats" target="_blank"
         ><o-icon pack="fab" icon="github" size="small" /> View on GitHub</a
       >

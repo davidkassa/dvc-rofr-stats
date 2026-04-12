@@ -11,7 +11,9 @@
     />
     <div class="data-details">
       <div class="columns is-multiline">
-        <div class="column has-text-centered-mobile has-text-left-tablet is-flex is-flex-wrap-nowrap">
+        <div
+          class="column has-text-centered-mobile has-text-left-tablet is-flex is-flex-wrap-nowrap"
+        >
           <rofr-dropdown
             class="is-pulled-left mr-1"
             :resorts="resortData"
@@ -33,7 +35,9 @@
           <!-- pass data to child to disable values -->
           <!-- <rofr-dropdown :data=contractData /> -->
         </div>
-        <div class="column has-text-centered-mobile has-text-right-tablet is-full-mobile">
+        <div
+          class="column has-text-centered-mobile has-text-right-tablet is-full-mobile"
+        >
           <a
             v-show="Object.keys(meta).length !== 0"
             :href="meta.url"
@@ -205,8 +209,8 @@ export default {
       where(
         "dateSent",
         ">=",
-        moment().subtract(3, "months").format(moment.HTML5_FMT.DATE)
-      )
+        moment().subtract(3, "months").format(moment.HTML5_FMT.DATE),
+      ),
     );
 
     return {
@@ -247,7 +251,7 @@ export default {
           }
 
           let previousYearPoints = parseInt(
-            availablePoints[currentYear - 1] || 0
+            availablePoints[currentYear - 1] || 0,
           );
           let currentYearPoints = parseInt(availablePoints[currentYear] || 0);
           let nextYearPoints = parseInt(availablePoints[currentYear + 1] || 0);
@@ -282,7 +286,7 @@ export default {
           // add 2 years to get past next year
           let remainingYears = Math.max(
             0,
-            c.points * (expirationYear - currentYear + 1 - 2) // add 1 for inclusive year (see above) and remove 2 as those years are  calculated explicitly (below)
+            c.points * (expirationYear - currentYear + 1 - 2), // add 1 for inclusive year (see above) and remove 2 as those years are  calculated explicitly (below)
           );
           // console.log(`remaining: ${remainingYears} total cost: ${c.totalCost} points: ${c.points}`);
           let lifetimePrice =
@@ -336,17 +340,17 @@ export default {
         .filter(
           (a) =>
             this.statusFilter.length != 0 &&
-            this.statusFilter.indexOf(a.status) !== -1
+            this.statusFilter.indexOf(a.status) !== -1,
         )
         .filter(
           (a) =>
             this.resortFilter.length != 0 &&
-            this.resortFilter.indexOf(a.resort) !== -1
+            this.resortFilter.indexOf(a.resort) !== -1,
         )
         .filter(
           (a) =>
             this.useYearFilter.length != 0 &&
-            this.useYearFilter.indexOf(a.useYear) !== -1
+            this.useYearFilter.indexOf(a.useYear) !== -1,
         );
     },
     passedContracts: function () {
@@ -380,7 +384,7 @@ export default {
     },
     lookupResortExpirationYear: function (resort) {
       return parseInt(
-        this.resortData.find((r) => r.value == resort)?.expirationYear || 0
+        this.resortData.find((r) => r.value == resort)?.expirationYear || 0,
       );
     },
   },

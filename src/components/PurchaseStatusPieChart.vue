@@ -28,22 +28,27 @@ export default {
   },
   computed: {
     isDarkMode() {
-      return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+      return (
+        window.matchMedia &&
+        window.matchMedia("(prefers-color-scheme: dark)").matches
+      );
     },
     textColor() {
-      return this.isDarkMode ? '#e0e0e0' : '#2c3e50';
+      return this.isDarkMode ? "#e0e0e0" : "#2c3e50";
     },
     option: function () {
       return {
-        backgroundColor: 'transparent',
+        backgroundColor: "transparent",
         textStyle: {
           color: this.textColor,
         },
         tooltip: {
           trigger: "item",
           formatter: "{b} : {c} ({d}%)",
-          backgroundColor: this.isDarkMode ? 'rgba(50, 50, 50, 0.9)' : 'rgba(255, 255, 255, 0.9)',
-          borderColor: this.isDarkMode ? '#4a4a4a' : '#ccc',
+          backgroundColor: this.isDarkMode
+            ? "rgba(50, 50, 50, 0.9)"
+            : "rgba(255, 255, 255, 0.9)",
+          borderColor: this.isDarkMode ? "#4a4a4a" : "#ccc",
           textStyle: {
             color: this.textColor,
           },
@@ -82,26 +87,26 @@ export default {
               length: 15,
               length2: 10,
               lineStyle: {
-                color: this.isDarkMode ? '#4a4a4a' : '#999',
+                color: this.isDarkMode ? "#4a4a4a" : "#999",
               },
             },
             data: [
               {
                 value: this.waiting,
                 name: "Waiting",
-                itemStyle: { color: this.getColorFromCSS('--color-waiting') },
+                itemStyle: { color: this.getColorFromCSS("--color-waiting") },
                 selected: false,
               },
               {
                 value: this.passed,
                 name: "Passed",
-                itemStyle: { color: this.getColorFromCSS('--color-passed') },
+                itemStyle: { color: this.getColorFromCSS("--color-passed") },
                 selected: true,
               },
               {
                 value: this.taken,
                 name: "Taken",
-                itemStyle: { color: this.getColorFromCSS('--color-taken') },
+                itemStyle: { color: this.getColorFromCSS("--color-taken") },
                 selected: true,
               },
             ],

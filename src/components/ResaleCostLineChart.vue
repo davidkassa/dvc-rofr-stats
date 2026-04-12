@@ -6,9 +6,19 @@
 import { use } from "echarts/core";
 import { CanvasRenderer } from "echarts/renderers";
 import { LineChart } from "echarts/charts";
-import { TooltipComponent, GridComponent, LegendComponent } from "echarts/components";
+import {
+  TooltipComponent,
+  GridComponent,
+  LegendComponent,
+} from "echarts/components";
 import VChart from "vue-echarts";
-use([CanvasRenderer, LineChart, TooltipComponent, GridComponent,LegendComponent]);
+use([
+  CanvasRenderer,
+  LineChart,
+  TooltipComponent,
+  GridComponent,
+  LegendComponent,
+]);
 
 import moment from "moment";
 import MA from "moving-average";
@@ -24,25 +34,30 @@ export default {
   },
   computed: {
     isDarkMode() {
-      return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+      return (
+        window.matchMedia &&
+        window.matchMedia("(prefers-color-scheme: dark)").matches
+      );
     },
     textColor() {
-      return this.isDarkMode ? '#e0e0e0' : '#2c3e50';
+      return this.isDarkMode ? "#e0e0e0" : "#2c3e50";
     },
     option: function () {
-      const passedColor = this.getColorFromCSS('--color-passed');
-      const waitingColor = this.getColorFromCSS('--color-waiting');
-      const takenColor = this.getColorFromCSS('--color-taken');
+      const passedColor = this.getColorFromCSS("--color-passed");
+      const waitingColor = this.getColorFromCSS("--color-waiting");
+      const takenColor = this.getColorFromCSS("--color-taken");
 
       return {
-        backgroundColor: 'transparent',
+        backgroundColor: "transparent",
         textStyle: {
           color: this.textColor,
         },
         tooltip: {
           trigger: "axis",
-          backgroundColor: this.isDarkMode ? 'rgba(50, 50, 50, 0.9)' : 'rgba(255, 255, 255, 0.9)',
-          borderColor: this.isDarkMode ? '#4a4a4a' : '#ccc',
+          backgroundColor: this.isDarkMode
+            ? "rgba(50, 50, 50, 0.9)"
+            : "rgba(255, 255, 255, 0.9)",
+          borderColor: this.isDarkMode ? "#4a4a4a" : "#ccc",
           textStyle: {
             color: this.textColor,
           },
@@ -61,7 +76,7 @@ export default {
           },
           axisLine: {
             lineStyle: {
-              color: this.isDarkMode ? '#4a4a4a' : '#e0e0e0',
+              color: this.isDarkMode ? "#4a4a4a" : "#e0e0e0",
             },
           },
           boundaryGap: false,
@@ -74,7 +89,7 @@ export default {
           },
           axisLine: {
             lineStyle: {
-              color: this.isDarkMode ? '#4a4a4a' : '#e0e0e0',
+              color: this.isDarkMode ? "#4a4a4a" : "#e0e0e0",
             },
           },
           splitLine: {
@@ -88,21 +103,30 @@ export default {
             name: "Passed",
             type: "line",
             lineStyle: { color: passedColor },
-            itemStyle: { color: passedColor, borderColor: this.darkenColor(passedColor) },
+            itemStyle: {
+              color: passedColor,
+              borderColor: this.darkenColor(passedColor),
+            },
             data: this.passedPricesPerPointByDate,
           },
           {
             name: "Waiting",
             type: "line",
             lineStyle: { color: waitingColor },
-            itemStyle: { color: waitingColor, borderColor: this.darkenColor(waitingColor) },
+            itemStyle: {
+              color: waitingColor,
+              borderColor: this.darkenColor(waitingColor),
+            },
             data: this.waitingPricesPerPointByDate,
           },
           {
             name: "Taken",
             type: "line",
             lineStyle: { color: takenColor },
-            itemStyle: { color: takenColor, borderColor: this.darkenColor(takenColor) },
+            itemStyle: {
+              color: takenColor,
+              borderColor: this.darkenColor(takenColor),
+            },
             data: this.takenPricesPerPointByDate,
           },
         ],
@@ -125,11 +149,13 @@ export default {
         .trim();
     },
     darkenColor(color) {
-      const hex = color.replace('#', '');
+      const hex = color.replace("#", "");
       const r = Math.max(0, parseInt(hex.substr(0, 2), 16) - 40);
       const g = Math.max(0, parseInt(hex.substr(2, 2), 16) - 40);
       const b = Math.max(0, parseInt(hex.substr(4, 2), 16) - 40);
-      return '#' + [r, g, b].map(x => x.toString(16).padStart(2, '0')).join('');
+      return (
+        "#" + [r, g, b].map((x) => x.toString(16).padStart(2, "0")).join("")
+      );
     },
     getMovingAverageOfPricesPerPointByDate(status) {
       let prices = this.getPricesPerPointByDate(status);

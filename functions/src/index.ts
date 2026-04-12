@@ -1,8 +1,8 @@
-import * as cheerio from "cheerio";
+import { load, CheerioAPI } from "cheerio";
 import { logger } from "firebase-functions/v2";
 import { onRequest } from "firebase-functions/v2/https";
 import { onSchedule, ScheduleOptions } from "firebase-functions/v2/scheduler";
-import * as moment from "moment";
+import moment from "moment";
 import { URL } from "url";
 
 import { Contract } from "./contract";
@@ -128,7 +128,7 @@ const getMetadata = async (): Promise<Meta[]> => {
   return meta; // snapshot.docs[0].data(); // only 1 record
 };
 
-const getRawHtml = async (url: string): Promise<cheerio.Root> => {
+const getRawHtml = async (url: string): Promise<CheerioAPI> => {
   try {
     const response = await fetch(url, {
       headers: {
@@ -147,7 +147,7 @@ const getRawHtml = async (url: string): Promise<cheerio.Root> => {
     }
 
     const html = await response.text();
-    return cheerio.load(html);
+    return load(html);
   } catch (error) {
     console.error(`Error fetching URL ${url}:`, error);
     throw error;
@@ -158,7 +158,7 @@ const parseEditDateFromHtml = (
   parentSelector: string,
   childPostDateSelector: string,
   childEditDateSelector: string,
-  $: cheerio.Root
+  $: CheerioAPI
 ): string | undefined => {
   // https://www.disboa......#post-59034110
   // id=post-59034110
@@ -191,7 +191,7 @@ const parseEditDateFromHtml = (
 const parseContractsFromHtml = (
   parentSelector: string,
   childSelector: string,
-  $: cheerio.Root,
+  $: CheerioAPI,
   maxDate: moment.Moment
 ): Contract[] => {
   // https://www.disboa......#post-59034110
@@ -201,7 +201,7 @@ const parseContractsFromHtml = (
 
   const html: string = $(parentSelector + " " + childSelector).html();
 
-  const lines = html.split("<br>").map((l) => cheerio.load(l).root().text());
+  const lines = html.split("<br>").map((l) => load(l).root().text());
   const contracts = lines
     .filter((l) => l.indexOf("---") >= 0)
     .map((l) => parseLine(l, maxDate))

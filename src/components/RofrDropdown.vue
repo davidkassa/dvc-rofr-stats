@@ -1,13 +1,26 @@
 <template>
   <div class="filter-container">
-    <o-dropdown aria-role="list" position="bottom-left" :mobile-modal="false" :inline="false" teleport>
+    <o-dropdown
+      aria-role="list"
+      position="bottom-left"
+      :mobile-modal="false"
+      :inline="false"
+      teleport
+    >
       <template #trigger>
         <o-button icon-left="filter" size="small">
-          Filter by Status, Resort, and UY ({{ totalSelected }}/{{ totalOptions }})
+          Filter by Status, Resort, and UY ({{ totalSelected }}/{{
+            totalOptions
+          }})
         </o-button>
       </template>
 
-      <o-dropdown-item aria-role="listitem" custom class="filter-dropdown" @click.stop>
+      <o-dropdown-item
+        aria-role="listitem"
+        custom
+        class="filter-dropdown"
+        @click.stop
+      >
         <div class="filter-tabs">
           <div class="tabs">
             <a
@@ -40,9 +53,16 @@
               </div>
             </div>
             <div class="filter-options">
-              <div v-for="option in statusOptions" :key="option.value" @click.stop>
+              <div
+                v-for="option in statusOptions"
+                :key="option.value"
+                @click.stop
+              >
                 <o-field>
-                  <o-checkbox v-model="statusValues" :native-value="option.value">
+                  <o-checkbox
+                    v-model="statusValues"
+                    :native-value="option.value"
+                  >
                     {{ option.label }}
                   </o-checkbox>
                 </o-field>
@@ -58,9 +78,16 @@
               </div>
             </div>
             <div class="filter-options">
-              <div v-for="option in resortOptions" :key="option.value" @click.stop>
+              <div
+                v-for="option in resortOptions"
+                :key="option.value"
+                @click.stop
+              >
                 <o-field>
-                  <o-checkbox v-model="resortValues" :native-value="option.value">
+                  <o-checkbox
+                    v-model="resortValues"
+                    :native-value="option.value"
+                  >
                     {{ option.label }}
                   </o-checkbox>
                 </o-field>
@@ -76,9 +103,16 @@
               </div>
             </div>
             <div class="filter-options">
-              <div v-for="option in useYearOptions" :key="option.value" @click.stop>
+              <div
+                v-for="option in useYearOptions"
+                :key="option.value"
+                @click.stop
+              >
                 <o-field>
-                  <o-checkbox v-model="useYearValues" :native-value="option.value">
+                  <o-checkbox
+                    v-model="useYearValues"
+                    :native-value="option.value"
+                  >
                     {{ option.label }}
                   </o-checkbox>
                 </o-field>
@@ -127,21 +161,29 @@ export default {
     ];
 
     return {
-      activeTab: 'status',
+      activeTab: "status",
       statusOptions,
       resortOptions,
       useYearOptions,
-      statusValues: statusOptions.map(o => o.value),
-      resortValues: resortOptions.map(o => o.value),
-      useYearValues: useYearOptions.map(o => o.value),
+      statusValues: statusOptions.map((o) => o.value),
+      resortValues: resortOptions.map((o) => o.value),
+      useYearValues: useYearOptions.map((o) => o.value),
     };
   },
   computed: {
     totalSelected() {
-      return this.statusValues.length + this.resortValues.length + this.useYearValues.length;
+      return (
+        this.statusValues.length +
+        this.resortValues.length +
+        this.useYearValues.length
+      );
     },
     totalOptions() {
-      return this.statusOptions.length + this.resortOptions.length + this.useYearOptions.length;
+      return (
+        this.statusOptions.length +
+        this.resortOptions.length +
+        this.useYearOptions.length
+      );
     },
   },
   watch: {
@@ -166,19 +208,19 @@ export default {
   },
   methods: {
     selectAllStatus() {
-      this.statusValues = this.statusOptions.map(o => o.value);
+      this.statusValues = this.statusOptions.map((o) => o.value);
     },
     deselectAllStatus() {
       this.statusValues = [];
     },
     selectAllResorts() {
-      this.resortValues = this.resortOptions.map(o => o.value);
+      this.resortValues = this.resortOptions.map((o) => o.value);
     },
     deselectAllResorts() {
       this.resortValues = [];
     },
     selectAllUseYears() {
-      this.useYearValues = this.useYearOptions.map(o => o.value);
+      this.useYearValues = this.useYearOptions.map((o) => o.value);
     },
     deselectAllUseYears() {
       this.useYearValues = [];

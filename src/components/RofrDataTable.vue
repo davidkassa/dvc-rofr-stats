@@ -53,23 +53,13 @@
       </template>
     </o-table-column>
 
-    <o-table-column
-      field="totalCost"
-      label="Total Cost"
-      numeric
-      sortable
-    >
+    <o-table-column field="totalCost" label="Total Cost" numeric sortable>
       <template v-slot="props">
         ${{ props.row.totalCost.toLocaleString("en") }}
       </template>
     </o-table-column>
 
-    <o-table-column
-      field="points"
-      label="Points"
-      numeric
-      sortable
-    >
+    <o-table-column field="points" label="Points" numeric sortable>
       <template v-slot="props">
         {{ props.row.points.toLocaleString("en") }}
       </template>
@@ -81,21 +71,13 @@
       </template>
     </o-table-column>
 
-    <o-table-column
-      field="useYear"
-      label="Use Year (UY)"
-      sortable
-    >
+    <o-table-column field="useYear" label="Use Year (UY)" sortable>
       <template v-slot="props">
         {{ props.row.useYear }}
       </template>
     </o-table-column>
 
-    <o-table-column
-      field="availablePoints"
-      label="Available Points"
-      sortable
-    >
+    <o-table-column field="availablePoints" label="Available Points" sortable>
       <template v-slot="props">
         {{ props.row.availablePoints }}
       </template>
@@ -107,21 +89,13 @@
       </template>
     </o-table-column>
 
-    <o-table-column
-      field="dateSent"
-      label="Date Sent"
-      sortable
-    >
+    <o-table-column field="dateSent" label="Date Sent" sortable>
       <template v-slot="props">
         {{ props.row.dateSent }}
       </template>
     </o-table-column>
 
-    <o-table-column
-      field="dateResolved"
-      label="Date Resolved"
-      sortable
-    >
+    <o-table-column field="dateResolved" label="Date Resolved" sortable>
       <template v-slot="props">
         {{ props.row.dateResolved }}
       </template>
