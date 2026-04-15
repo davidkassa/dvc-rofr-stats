@@ -7,37 +7,25 @@
         </template>
       </o-table-column>
 
-      <o-table-column
-        label="Selected Contract"
-        numeric
-      >
+      <o-table-column label="Selected Contract" numeric>
         <template v-slot="props">
           {{ props.row.selected }}
         </template>
       </o-table-column>
 
-      <o-table-column
-        label="All Contracts"
-        numeric
-      >
+      <o-table-column label="All Contracts" numeric>
         <template v-slot="props">
           {{ props.row.all }}
         </template>
       </o-table-column>
 
-      <o-table-column
-        label="Same Resort"
-        numeric
-      >
+      <o-table-column label="Same Resort" numeric>
         <template v-slot="props">
           {{ props.row.resort }}
         </template>
       </o-table-column>
 
-      <o-table-column
-        label="Same UY"
-        numeric
-      >
+      <o-table-column label="Same UY" numeric>
         <template v-slot="props">
           {{ props.row.uy }}
         </template>

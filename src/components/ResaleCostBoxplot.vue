@@ -1,5 +1,5 @@
 <template>
-  <v-chart class="chart" :option="option"/>
+  <v-chart class="chart" :option="option" />
 </template>
 
 <script>
@@ -8,7 +8,13 @@ import { CanvasRenderer } from "echarts/renderers";
 import { BoxplotChart, ScatterChart } from "echarts/charts";
 import { GridComponent, TooltipComponent } from "echarts/components";
 import VChart from "vue-echarts";
-use([CanvasRenderer, BoxplotChart, GridComponent,TooltipComponent, ScatterChart]);
+use([
+  CanvasRenderer,
+  BoxplotChart,
+  GridComponent,
+  TooltipComponent,
+  ScatterChart,
+]);
 
 // Implement prepareBoxplotData function
 function prepareBoxplotData(rawData) {
@@ -52,7 +58,7 @@ function prepareBoxplotData(rawData) {
     boxData.push([min, Q1, Q2, Q3, max]);
 
     // Collect outliers
-    sorted.forEach(value => {
+    sorted.forEach((value) => {
       if (value < lowerBound || value > upperBound) {
         outliers.push([dataIndex, value]);
       }
@@ -72,10 +78,13 @@ export default {
   },
   computed: {
     isDarkMode() {
-      return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+      return (
+        window.matchMedia &&
+        window.matchMedia("(prefers-color-scheme: dark)").matches
+      );
     },
     textColor() {
-      return this.isDarkMode ? '#e0e0e0' : '#2c3e50';
+      return this.isDarkMode ? "#e0e0e0" : "#2c3e50";
     },
     preparedData: function () {
       return prepareBoxplotData([
@@ -86,7 +95,7 @@ export default {
     },
     option: function () {
       return {
-        backgroundColor: 'transparent',
+        backgroundColor: "transparent",
         textStyle: {
           color: this.textColor,
         },
@@ -97,7 +106,7 @@ export default {
           },
           axisLine: {
             lineStyle: {
-              color: this.isDarkMode ? '#4a4a4a' : '#e0e0e0',
+              color: this.isDarkMode ? "#4a4a4a" : "#e0e0e0",
             },
           },
         },
@@ -109,12 +118,12 @@ export default {
           },
           axisLine: {
             lineStyle: {
-              color: this.isDarkMode ? '#4a4a4a' : '#e0e0e0',
+              color: this.isDarkMode ? "#4a4a4a" : "#e0e0e0",
             },
           },
           splitLine: {
             lineStyle: {
-              color: this.isDarkMode ? '#4a4a4a' : '#e0e0e0',
+              color: this.isDarkMode ? "#4a4a4a" : "#e0e0e0",
             },
           },
         },
@@ -123,8 +132,10 @@ export default {
           axisPointer: {
             type: "shadow",
           },
-          backgroundColor: this.isDarkMode ? 'rgba(50, 50, 50, 0.9)' : 'rgba(255, 255, 255, 0.9)',
-          borderColor: this.isDarkMode ? '#4a4a4a' : '#ccc',
+          backgroundColor: this.isDarkMode
+            ? "rgba(50, 50, 50, 0.9)"
+            : "rgba(255, 255, 255, 0.9)",
+          borderColor: this.isDarkMode ? "#4a4a4a" : "#ccc",
           textStyle: {
             color: this.textColor,
           },
@@ -134,7 +145,7 @@ export default {
             name: "boxplot",
             type: "boxplot",
             data: this.colorBoxData(
-              this.preparedData == null ? null : this.preparedData.boxData
+              this.preparedData == null ? null : this.preparedData.boxData,
             ),
             tooltip: {
               formatter: function (param) {
@@ -154,7 +165,7 @@ export default {
             name: "Outlier",
             type: "scatter",
             data: this.colorOutliers(
-              this.preparedData == null ? null : this.preparedData.outliers
+              this.preparedData == null ? null : this.preparedData.outliers,
             ),
           },
         ],
@@ -192,25 +203,27 @@ export default {
     },
     darkenColor(color) {
       // Simple darkening by reducing RGB values
-      const hex = color.replace('#', '');
+      const hex = color.replace("#", "");
       const r = Math.max(0, parseInt(hex.substr(0, 2), 16) - 40);
       const g = Math.max(0, parseInt(hex.substr(2, 2), 16) - 40);
       const b = Math.max(0, parseInt(hex.substr(4, 2), 16) - 40);
-      return '#' + [r, g, b].map(x => x.toString(16).padStart(2, '0')).join('');
+      return (
+        "#" + [r, g, b].map((x) => x.toString(16).padStart(2, "0")).join("")
+      );
     },
     colorData(status) {
       let color, borderColor;
       switch (status) {
         case 0:
-          color = this.getColorFromCSS('--color-passed');
+          color = this.getColorFromCSS("--color-passed");
           borderColor = this.darkenColor(color);
           break;
         case 1:
-          color = this.getColorFromCSS('--color-waiting');
+          color = this.getColorFromCSS("--color-waiting");
           borderColor = this.darkenColor(color);
           break;
         case 2:
-          color = this.getColorFromCSS('--color-taken');
+          color = this.getColorFromCSS("--color-taken");
           borderColor = this.darkenColor(color);
           break;
       }
