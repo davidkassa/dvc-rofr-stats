@@ -28,7 +28,7 @@
     "vue-gtag": "^3.7.0",
     "vue-json-csv": "^2.1.0",
     "vue-router": "^5.0.4",
-    "vuefire": "^3.2.2"
+    "vuefire": "^3.2.3"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^6.0.6",
