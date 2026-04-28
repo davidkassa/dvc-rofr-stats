@@ -27,7 +27,7 @@
     "vue-echarts": "^8.0.1",
     "vue-gtag": "^3.7.1",
     "vue-json-csv": "^2.1.0",
-    "vue-router": "^5.0.4",
+    "vue-router": "^5.0.6",
     "vuefire": "^3.2.3"
   },
   "devDependencies": {
