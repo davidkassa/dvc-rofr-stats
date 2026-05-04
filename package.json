@@ -36,7 +36,7 @@
     "@vue/test-utils": "^2.4.10",
     "autoprefixer": "^10.5.0",
     "cheerio": "^1.2.0",
-    "eslint": "^10.2.1",
+    "eslint": "^10.3.0",
     "eslint-plugin-prettier": "^5.5.5",
     "eslint-plugin-vue": "^10.9.0",
     "jsdom": "^29.1.1",
