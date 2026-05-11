@@ -31,7 +31,7 @@
     "eslint-plugin-jsdoc": "^62.9.0",
     "eslint-plugin-prefer-arrow": "^1.2.3",
     "eslint-plugin-unicorn": "^64.0.0",
-    "firebase-functions-test": "^3.4.1",
+    "firebase-functions-test": "^3.5.0",
     "globals": "^17.6.0",
     "typescript": "^6.0.3"
   },
