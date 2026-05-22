@@ -18,7 +18,7 @@
     "@oruga-ui/theme-bulma": "^0.9.0",
     "@vueform/multiselect": "^2.6.11",
     "bulma": "^1.0.4",
-    "echarts": "^6.0.0",
+    "echarts": "^6.1.0",
     "firebase": "^12.13.0",
     "moment": "^2.30.1",
     "moving-average": "^1.0.1",
@@ -31,19 +31,19 @@
     "vuefire": "^3.2.3"
   },
   "devDependencies": {
-    "@vitejs/plugin-vue": "^6.0.6",
+    "@vitejs/plugin-vue": "^6.0.7",
     "@vue/eslint-config-prettier": "^10.2.0",
     "@vue/test-utils": "^2.4.10",
     "autoprefixer": "^10.5.0",
     "cheerio": "^1.2.0",
-    "eslint": "^10.3.0",
+    "eslint": "^10.4.0",
     "eslint-plugin-prettier": "^5.5.5",
     "eslint-plugin-vue": "^10.9.1",
     "jsdom": "^29.1.1",
     "prettier": "^3.8.3",
-    "sass": "^1.99.0",
-    "vite": "^8.0.12",
-    "vitest": "^4.1.6"
+    "sass": "^1.100.0",
+    "vite": "^8.0.14",
+    "vitest": "^4.1.7"
   },
   "browserslist": [
     "> 1%",
