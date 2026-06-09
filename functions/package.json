@@ -30,7 +30,7 @@
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-jsdoc": "^63.0.2",
     "eslint-plugin-prefer-arrow": "^1.2.3",
-    "eslint-plugin-unicorn": "^65.0.0",
+    "eslint-plugin-unicorn": "^65.0.1",
     "firebase-functions-test": "^3.5.0",
     "globals": "^17.6.0",
     "typescript": "^6.0.3"
