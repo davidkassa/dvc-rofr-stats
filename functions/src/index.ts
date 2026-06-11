@@ -56,7 +56,13 @@ const processDisBoardsData = async (): Promise<void> => {
   try {
     const changeData: Array<{ meta: Meta; contracts: Contract[] }> = [];
     const meta = await getMetadata();
+    let failureCount = 0;
     for (const data of meta) {
+      // Skip threads that have been explicitly deactivated (e.g. finished
+      // past-quarter threads that no longer need to be scraped).
+      if (data.active === false) {
+        continue;
+      }
       try {
         const url = new URL(data.url);
         const hash = url.hash; // includes #
@@ -90,14 +96,23 @@ const processDisBoardsData = async (): Promise<void> => {
           changeData.push({ meta: data, contracts });
         }
       } catch (error) {
+        // Isolate per-thread failures: a single broken thread (HTTP error,
+        // changed/locked markup, missing selector) must not abort the whole
+        // job and stop every other thread from updating.
+        failureCount++;
         logger.error(`Error processing data for URL ${data.url}:`, error);
-        // Decide whether to continue with the next item or throw the error
-        throw error;
+        // Continue with the next thread rather than re-throwing.
+        continue;
       }
     }
     if (changeData.length > 0) {
       const result = await saveChangeDataToFirebase(changeData);
       logger.debug(`Save changes result: ${result}`);
+    }
+    if (failureCount > 0) {
+      logger.warn(
+        `processDisBoardsData finished with ${failureCount} of ${meta.length} thread(s) failing.`
+      );
     }
   } catch (err) {
     logger.error("Error in processDisBoardsData:", err);
@@ -199,7 +214,19 @@ const parseContractsFromHtml = (
   // div class=messageContent
   // " .bbWrapper"
 
-  const html: string = $(parentSelector + " " + childSelector).html();
+  const html: string | null = $(parentSelector + " " + childSelector).html();
+
+  // A null result means the selector matched no content -- typically because
+  // the thread's markup changed or the post was moved/removed. Throw a clear
+  // error so the caller can skip this thread instead of (a) crashing with an
+  // opaque "Cannot read properties of null" TypeError, or (b) treating it as a
+  // thread with zero contracts and deleting all previously-saved contracts.
+  if (html === null) {
+    throw new Error(
+      `No content found for selector "${parentSelector} ${childSelector}". ` +
+        "The thread markup may have changed or the post may no longer exist."
+    );
+  }
 
   const lines = html.split("<br>").map((l) => load(l).root().text());
   const contracts = lines
