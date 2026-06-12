@@ -143,15 +143,62 @@ const getMetadata = async (): Promise<Meta[]> => {
   return meta; // snapshot.docs[0].data(); // only 1 record
 };
 
+// Last known stable major version, used when the version API is unreachable.
+// An outdated UA (e.g. Chrome 91) gets flagged by bot protection and 403'd.
+const FALLBACK_CHROME_MAJOR = "149";
+
+let cachedChromeMajor: string | null = null;
+
+// Chrome's UA string is frozen apart from the major version (UA reduction),
+// so fetching the current stable major from Google's public version-history
+// API is enough to always present an up-to-date browser fingerprint.
+const getChromeMajorVersion = async (): Promise<string> => {
+  if (cachedChromeMajor) {
+    return cachedChromeMajor;
+  }
+  try {
+    const response = await fetch(
+      "https://versionhistory.googleapis.com/v1/chrome/platforms/win/channels/stable/versions?pageSize=1"
+    );
+    if (response.ok) {
+      const data = (await response.json()) as {
+        versions?: Array<{ version?: string }>;
+      };
+      const major = data?.versions?.[0]?.version?.split(".")[0];
+      if (major && /^\d+$/.test(major)) {
+        cachedChromeMajor = major;
+        return major;
+      }
+    }
+    logger.warn(
+      `Chrome version API returned unusable response (status ${response.status}), ` +
+        `falling back to Chrome ${FALLBACK_CHROME_MAJOR}`
+    );
+  } catch (error) {
+    logger.warn(
+      `Error fetching latest Chrome version, falling back to Chrome ${FALLBACK_CHROME_MAJOR}:`,
+      error
+    );
+  }
+  return FALLBACK_CHROME_MAJOR;
+};
+
 const getRawHtml = async (url: string): Promise<CheerioAPI> => {
   try {
+    const chromeMajor = await getChromeMajorVersion();
     const response = await fetch(url, {
       headers: {
-        "User-Agent":
-          "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
+        "User-Agent": `Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/${chromeMajor}.0.0.0 Safari/537.36`,
         Accept:
-          "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
-        "Accept-Language": "en-US,en;q=0.5",
+          "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8",
+        "Accept-Language": "en-US,en;q=0.9",
+        "Sec-CH-UA": `"Google Chrome";v="${chromeMajor}", "Chromium";v="${chromeMajor}", "Not/A)Brand";v="24"`,
+        "Sec-CH-UA-Mobile": "?0",
+        "Sec-CH-UA-Platform": '"Windows"',
+        "Sec-Fetch-Dest": "document",
+        "Sec-Fetch-Mode": "navigate",
+        "Sec-Fetch-Site": "none",
+        "Sec-Fetch-User": "?1",
         Connection: "keep-alive",
         "Upgrade-Insecure-Requests": "1",
       },
