@@ -1,6 +1,7 @@
 import { load, CheerioAPI } from "cheerio";
 import { logger } from "firebase-functions/v2";
 import { onRequest } from "firebase-functions/v2/https";
+import { defineSecret, defineString } from "firebase-functions/params";
 import { onSchedule, ScheduleOptions } from "firebase-functions/v2/scheduler";
 import moment from "moment";
 import { URL } from "url";
@@ -14,6 +15,13 @@ import { getFirestore } from "firebase-admin/firestore";
 initializeApp();
 const db = getFirestore();
 
+// Optional Cloudflare Worker fetch proxy. disboards' WAF blocks Google Cloud
+// IPs (the Function gets a 403), so requests are routed through a Worker on
+// Cloudflare's network. Leave SCRAPER_PROXY_URL empty to fetch disboards
+// directly (the original behaviour / local fallback).
+const scraperProxyUrl = defineString("SCRAPER_PROXY_URL", { default: "" });
+const scraperProxySecret = defineSecret("SCRAPER_PROXY_SECRET");
+
 const runtimeOpts = {
   timeoutSeconds: 300,
 };
@@ -21,24 +29,28 @@ const runtimeOpts = {
 // from running `firebase functions:shell --debug`
 // Ignoring trigger "hourly_job" because the service "pubsub.googleapis.com" is not yet supported.
 if (process.env.NODE_ENV === "TEMP_pubsub") {
-  exports.testFunction = onRequest(async (req, res) => {
-    try {
-      logger.info("Starting test function");
-      const result = await processDisBoardsData();
-      logger.info("Test function completed", { result });
-      res.status(200).json({ message: "Processing completed", result });
-    } catch (error) {
-      logger.error("Error in test function:", error);
-      res
-        .status(500)
-        .json({ message: "An error occurred", error: error.message });
+  exports.testFunction = onRequest(
+    { secrets: [scraperProxySecret] },
+    async (req, res) => {
+      try {
+        logger.info("Starting test function");
+        const result = await processDisBoardsData();
+        logger.info("Test function completed", { result });
+        res.status(200).json({ message: "Processing completed", result });
+      } catch (error) {
+        logger.error("Error in test function:", error);
+        res
+          .status(500)
+          .json({ message: "An error occurred", error: error.message });
+      }
     }
-  });
+  );
 }
 
 const scheduleOpts: ScheduleOptions = {
   ...runtimeOpts,
   schedule: "every 1 hours",
+  secrets: [scraperProxySecret],
 };
 
 // https://firebase.google.com/docs/functions/schedule-functions
@@ -185,24 +197,7 @@ const getChromeMajorVersion = async (): Promise<string> => {
 
 const getRawHtml = async (url: string): Promise<CheerioAPI> => {
   try {
-    const chromeMajor = await getChromeMajorVersion();
-    const response = await fetch(url, {
-      headers: {
-        "User-Agent": `Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/${chromeMajor}.0.0.0 Safari/537.36`,
-        Accept:
-          "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8",
-        "Accept-Language": "en-US,en;q=0.9",
-        "Sec-CH-UA": `"Google Chrome";v="${chromeMajor}", "Chromium";v="${chromeMajor}", "Not/A)Brand";v="24"`,
-        "Sec-CH-UA-Mobile": "?0",
-        "Sec-CH-UA-Platform": '"Windows"',
-        "Sec-Fetch-Dest": "document",
-        "Sec-Fetch-Mode": "navigate",
-        "Sec-Fetch-Site": "none",
-        "Sec-Fetch-User": "?1",
-        Connection: "keep-alive",
-        "Upgrade-Insecure-Requests": "1",
-      },
-    });
+    const response = await fetchPage(url);
 
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
@@ -214,6 +209,37 @@ const getRawHtml = async (url: string): Promise<CheerioAPI> => {
     console.error(`Error fetching URL ${url}:`, error);
     throw error;
   }
+};
+
+// Fetch the target page, routing through the Cloudflare Worker proxy when one
+// is configured (to dodge the GCP-IP block), otherwise hitting disboards
+// directly with a browser-like header set.
+const fetchPage = async (url: string): Promise<Response> => {
+  const proxyUrl = scraperProxyUrl.value();
+  if (proxyUrl) {
+    return fetch(`${proxyUrl}?url=${encodeURIComponent(url)}`, {
+      headers: { "X-Proxy-Secret": scraperProxySecret.value() },
+    });
+  }
+
+  const chromeMajor = await getChromeMajorVersion();
+  return fetch(url, {
+    headers: {
+      "User-Agent": `Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/${chromeMajor}.0.0.0 Safari/537.36`,
+      Accept:
+        "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8",
+      "Accept-Language": "en-US,en;q=0.9",
+      "Sec-CH-UA": `"Google Chrome";v="${chromeMajor}", "Chromium";v="${chromeMajor}", "Not/A)Brand";v="24"`,
+      "Sec-CH-UA-Mobile": "?0",
+      "Sec-CH-UA-Platform": '"Windows"',
+      "Sec-Fetch-Dest": "document",
+      "Sec-Fetch-Mode": "navigate",
+      "Sec-Fetch-Site": "none",
+      "Sec-Fetch-User": "?1",
+      Connection: "keep-alive",
+      "Upgrade-Insecure-Requests": "1",
+    },
+  });
 };
 
 const parseEditDateFromHtml = (
