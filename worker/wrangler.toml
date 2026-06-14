@@ -1,0 +1,7 @@
+name = "dvc-rofr-proxy"
+main = "src/index.js"
+compatibility_date = "2024-11-01"
+account_id = "9e7db9a6b5139945ba4edaa84abf27a9"
+
+# PROXY_SECRET is set as an encrypted secret, not here:
+#   wrangler secret put PROXY_SECRET

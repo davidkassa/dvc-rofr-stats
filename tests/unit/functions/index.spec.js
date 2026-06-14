@@ -152,6 +152,18 @@ describe("parseContractsFromHtml", () => {
     );
     expect(result.length).toBe(219);
   });
+  it("throws a clear error when the selector matches no content", () => {
+    var htmlData = fs.readFileSync("tests/unit/functions/raw.html", {
+      encoding: "utf8",
+    });
+    expect(() =>
+      functions.parseContractsFromHtml(
+        "article[data-content=post-does-not-exist]",
+        ".bbWrapper",
+        cheerio.load(htmlData)
+      )
+    ).toThrow(/No content found for selector/);
+  });
 });
 
 describe("parseLine", () => {

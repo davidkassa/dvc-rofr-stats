@@ -1,0 +1,13 @@
+{
+  "name": "dvc-rofr-proxy",
+  "private": true,
+  "description": "Cloudflare Worker that proxies disboards fetches for the ROFR scraper (works around the GCP IP block).",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "secret": "wrangler secret put PROXY_SECRET"
+  },
+  "devDependencies": {
+    "wrangler": "^4.0.0"
+  }
+}
