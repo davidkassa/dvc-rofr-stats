@@ -371,10 +371,9 @@ const saveChangeDataToFirebase = async (
   // wanna try to run and save all of these
   for (const d of data) {
     const contractResult = await saveContractsToFirebase(d);
-    let metaResult = false;
-    if (contractResult) {
-      metaResult = await saveMetaToFirebase(d.meta);
-    }
+    const metaResult = contractResult
+      ? await saveMetaToFirebase(d.meta)
+      : false;
     result = contractResult && metaResult && result;
   }
   return result;
