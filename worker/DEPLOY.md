@@ -4,6 +4,29 @@ This Cloudflare Worker works around disboards blocking Google Cloud IPs with a
 403. The Firebase Function (on GCP) calls this Worker, which fetches the page
 from Cloudflare's network and relays the HTML back.
 
+## The "stile" bot challenge (added 2026-08-11)
+
+disboards now also fronts the forum with a bot-mitigation layer. An unrecognised
+client is 307'd to `/.stile/challenge` and served a "Checking your browser"
+interstitial, which arrives as **HTTP 200** -- so `response.ok` is not a useful
+signal and the interstitial used to reach cheerio and surface as a misleading
+`No content found for selector ...` error.
+
+Two things changed:
+
+- `worker/src/index.js` completes the challenge by walking the site's own
+  no-JavaScript fallback (interstitial -> `/.stile/challenge/verify` ->
+  `?__stile_resume=` token), which issues a `__stile_clr` clearance cookie. The
+  cookie is cached in the isolate, so a warm Worker makes one upstream request
+  and a cold one makes four. The JS proof-of-work on the interstitial is *not*
+  executed -- the no-JS path is the supported route for non-JS clients.
+- `functions/src/index.ts` detects an interstitial and fails with
+  `Blocked by disboards bot mitigation: ...` instead of a bogus parse error.
+
+Note that changing egress does not help on its own: a residential IP running a
+non-JS client is challenged too (at `band=watch` rather than `band=suspect`).
+The challenge keys on the client, not just the address.
+
 The shared secret below gates the Worker so it can't be used as an open proxy.
 It must be set in **three** places with the **same value**:
 
@@ -47,3 +70,7 @@ Merge to `main` (prod) / push to the staging branch. After the next `hourly_job`
 run, confirm the warning line is gone:
 
     processDisBoardsData finished with N of M thread(s) failing.
+
+Note that "N of M" undercounts the blast radius: only threads with
+`active: true` in the `meta` collection are scraped at all, and that is usually
+a single current-quarter thread. `1 of 33 failing` means everything is failing.
