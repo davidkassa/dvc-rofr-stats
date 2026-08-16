@@ -25,7 +25,10 @@ export default defineConfig({
     alias: [
       {
         find: "@",
-        replacement: path.resolve(__dirname, "./src"),
+        // import.meta.dirname, not __dirname: the config is now loaded as real
+        // ESM, where the CommonJS globals don't exist. (Node >= 20.11; the
+        // engines field pins 22.)
+        replacement: path.resolve(import.meta.dirname, "./src"),
       },
       {
         find: /^~/,

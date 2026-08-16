@@ -195,6 +195,22 @@ const getChromeMajorVersion = async (): Promise<string> => {
   return FALLBACK_CHROME_MAJOR;
 };
 
+// disboards fronts the forum with a "stile" bot-mitigation layer that redirects
+// to /.stile/challenge and serves a JS proof-of-work interstitial. It comes back
+// as HTTP 200, so response.ok is useless here: without this check the
+// interstitial gets handed to cheerio and surfaces much later as a confusing
+// "No content found for selector ..." error that looks like a markup change.
+// Returns a short label describing the challenge, or null for a normal page.
+const detectBotChallenge = (html: string): string | null => {
+  if (html.includes("/.stile/challenge")) {
+    return "stile challenge";
+  }
+  if (/<title>\s*Checking your browser\s*<\/title>/i.test(html)) {
+    return "interstitial ('Checking your browser')";
+  }
+  return null;
+};
+
 const getRawHtml = async (url: string): Promise<CheerioAPI> => {
   try {
     const response = await fetchPage(url);
@@ -204,6 +220,15 @@ const getRawHtml = async (url: string): Promise<CheerioAPI> => {
     }
 
     const html = await response.text();
+
+    const challenge = detectBotChallenge(html);
+    if (challenge) {
+      throw new Error(
+        `Blocked by disboards bot mitigation: ${challenge}. ` +
+          "The request never reached the thread; this is not a markup change."
+      );
+    }
+
     return load(html);
   } catch (error) {
     console.error(`Error fetching URL ${url}:`, error);
@@ -371,10 +396,9 @@ const saveChangeDataToFirebase = async (
   // wanna try to run and save all of these
   for (const d of data) {
     const contractResult = await saveContractsToFirebase(d);
-    let metaResult = false;
-    if (contractResult) {
-      metaResult = await saveMetaToFirebase(d.meta);
-    }
+    const metaResult = contractResult
+      ? await saveMetaToFirebase(d.meta)
+      : false;
     result = contractResult && metaResult && result;
   }
   return result;
