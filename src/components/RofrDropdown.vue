@@ -5,7 +5,6 @@
       position="bottom-left"
       :mobile-modal="false"
       :inline="false"
-      teleport
     >
       <template #trigger>
         <o-button icon-left="filter" size="small">
@@ -243,7 +242,41 @@ export default {
   background: var(--bulma-scheme-main, white);
 }
 
-.filter-container :deep(.o-drop__menu) {
+// Oruga 0.14 renders the dropdown menu as `popover="manual"`, which puts it in
+// the top layer, and positions it with the CSS Anchor Positioning API: it sets
+// `position: fixed`, `data-position="bottom-left"` and `position-try-fallbacks`
+// on the menu. What it never sets is the anchor link itself -- neither
+// @oruga-ui/oruga-next 0.14.0 nor @oruga-ui/theme-bulma 0.10.0 contains a single
+// `anchor-name`, `position-anchor` or `position-area` declaration, so the menu
+// computes to `position-anchor: normal` with nothing to resolve against. A
+// top-layer box with `inset: 0` and auto margins then centres itself in the
+// viewport, which is the bug.
+//
+// Because it is in the top layer its containing block is the viewport, so
+// ordinary absolute positioning can't reach the button no matter where the menu
+// sits in the DOM -- anchor positioning is the only mechanism that works. We
+// supply the missing half here.
+//
+// Note the selector: 0.14 renders Bulma's `.dropdown-menu`, not `.o-drop__menu`.
+//
+// The `teleport` prop had to go for these rules to apply at all: it reparents
+// the menu to <body> without a scoped-style attribute, so `:deep()` from
+// `.filter-container` can no longer reach it -- which is also why the panel had
+// lost its background and shadow. Teleport was originally added to win a
+// stacking fight; being a top-layer popover now settles that on its own.
+.filter-container :deep(.dropdown-trigger) {
+  anchor-name: --rofr-filter-anchor;
+}
+
+.filter-container :deep(.dropdown-menu) {
+  position-anchor: --rofr-filter-anchor;
+  // Top edge to the button's bottom, left edge to the button's left --
+  // i.e. the `position="bottom-left"` the component already asks for.
+  top: anchor(bottom);
+  left: anchor(left);
+  right: auto;
+  bottom: auto;
+  margin: 0; // clear the auto margins that were centring it
   z-index: 9999;
   width: max-content !important;
   max-width: none !important;
