@@ -34,7 +34,7 @@
     "@vitejs/plugin-vue": "^6.0.8",
     "@vue/eslint-config-prettier": "^10.2.0",
     "@vue/test-utils": "^2.5.0",
-    "autoprefixer": "^10.5.4",
+    "autoprefixer": "^10.5.5",
     "cheerio": "^1.2.0",
     "eslint": "^10.10.0",
     "eslint-plugin-prettier": "^5.5.6",
