@@ -205,10 +205,9 @@ const detectBotChallenge = (html: string): string | null => {
   if (html.includes("/.stile/challenge")) {
     return "stile challenge";
   }
-  if (/<title>\s*Checking your browser\s*<\/title>/i.test(html)) {
-    return "interstitial ('Checking your browser')";
-  }
-  return null;
+  return /<title>\s*Checking your browser\s*<\/title>/i.test(html)
+    ? "interstitial ('Checking your browser')"
+    : null;
 };
 
 const getRawHtml = async (url: string): Promise<CheerioAPI> => {
