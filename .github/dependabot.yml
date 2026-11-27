@@ -3,14 +3,34 @@ updates:
 - package-ecosystem: npm
   directory: "/"
   schedule:
-    interval: daily
-    time: "11:00"
+    interval: weekly
+    day: saturday
+    time: "04:00"
+    timezone: America/Chicago
+  # Wait a week after a release before proposing it. Security updates skip this.
+  cooldown:
+    default-days: 7
   open-pull-requests-limit: 10
   target-branch: develop
 - package-ecosystem: npm
   directory: "/functions"
   schedule:
-    interval: daily
-    time: "11:00"
+    interval: weekly
+    day: saturday
+    time: "04:00"
+    timezone: America/Chicago
+  cooldown:
+    default-days: 7
+  open-pull-requests-limit: 10
+  target-branch: develop
+- package-ecosystem: npm
+  directory: "/worker"
+  schedule:
+    interval: weekly
+    day: saturday
+    time: "04:00"
+    timezone: America/Chicago
+  cooldown:
+    default-days: 7
   open-pull-requests-limit: 10
   target-branch: develop
